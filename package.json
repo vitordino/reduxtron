@@ -63,12 +63,14 @@
     }
   },
   "dependencies": {
+    "@nanostores/query": "^0.0.4",
     "@reduxjs/toolkit": "^1.9.2",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^5.3.0",
     "framer-motion": "^10.0.2",
     "nanoid": "^4.0.1",
+    "nanostores": "^0.7.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",
