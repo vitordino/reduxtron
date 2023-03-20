@@ -1,12 +1,12 @@
-import { contextBridge, ipcRenderer } from 'electron';
-import preloadReduxMiddleware from './preload-redux-middleware';
+import { contextBridge, ipcRenderer } from 'electron'
+import preloadReduxMiddleware from './preload-redux-middleware'
 
-export type Channels = never;
+export type Channels = never
 
-const { handlers } = preloadReduxMiddleware(ipcRenderer);
+const { handlers } = preloadReduxMiddleware(ipcRenderer)
 
-const electronHandler = { ...handlers };
+const electronHandler = { ...handlers }
 
-contextBridge.exposeInMainWorld('electron', electronHandler);
+contextBridge.exposeInMainWorld('electron', electronHandler)
 
-export type ElectronHandler = typeof electronHandler;
+export type ElectronHandler = typeof electronHandler

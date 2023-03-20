@@ -1,3 +1,3 @@
-const useDispatch = () => window.electron.dispatch;
+const useDispatch = () => window.electron.dispatch
 
-export default useDispatch;
+export default useDispatch
