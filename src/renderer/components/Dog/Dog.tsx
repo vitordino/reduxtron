@@ -46,7 +46,6 @@ const useAllBreeds = () => {
 };
 
 const Dog = () => {
-  const swr = useStore((x) => x.swr, compare);
   const allBreeds = useAllBreeds();
   const favorite = useStore((x) => x.dog?.favorite);
   const dispatch = useDispatch();
@@ -68,13 +67,6 @@ const Dog = () => {
       <div style={{ width: 128, height: 128 }}>
         {favorite && <FavoriteDog breed={favorite} />}
       </div>
-      <pre>
-        {JSON.stringify(
-          swr?.['https://dog.ceo/api/breed/collie/images/random'],
-          null,
-          2
-        )}
-      </pre>
     </div>
   );
 };
