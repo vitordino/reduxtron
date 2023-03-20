@@ -15,7 +15,7 @@ const useFavoriteDogImage = (breed: string) => {
 
   useEffect(() => {
     dispatch({ type: 'SWR:FETCH_URL', payload: [key] });
-  }, [breed]);
+  }, [dispatch, key]);
 
   return image?.data?.message as string | undefined;
 };
@@ -25,6 +25,7 @@ const FavoriteDog = ({ breed }: { breed: string }) => {
   if (!image) return null;
   return (
     <img
+      alt={breed}
       style={{ objectFit: 'cover', width: '100%', height: '100%' }}
       src={image}
     />
@@ -40,7 +41,7 @@ const useAllBreeds = () => {
       type: 'SWR:FETCH_URL',
       payload: [ALL_BREEDS_ENDPOINT, { revalidateOn: [] }],
     });
-  }, []);
+  }, [dispatch]);
 
   return Object.keys(allBreeds?.data?.message ?? {});
 };

@@ -3,32 +3,12 @@ import type { Reducer } from '@reduxjs/toolkit';
 
 const DEDUPING_INTERVAL = 2000;
 
-const shouldRevalidate = (item?: SWRItem): boolean => {
-  if (!item) return true;
-  if (item.state === 'loading') return false;
-  if (item.state === 'revalidating') return false;
-  const now = Date.now();
-
-  if (
-    item.revalidateOn.includes('stale') &&
-    item.timestamp + DEDUPING_INTERVAL < now
-  ) {
-    return true;
-  }
-
-  return false;
-};
-
 export type SWRState = 'idle' | 'loading' | 'revalidating' | 'error';
 
 export type RevalidateEvents = 'stale' | 'focus' | 'reconnect' | 'auth';
 
 export type SWRItemOptions = {
   revalidateOn: RevalidateEvents[];
-};
-
-const DEFAULT_SWR_ITEM_OPTIONS: SWRItemOptions = {
-  revalidateOn: ['stale', 'reconnect', 'focus'],
 };
 
 export type SWRItem = {
@@ -55,10 +35,28 @@ export type SWRAction =
       payload: [string] | [string, SWRItem['data']];
     };
 
-const swrReducer: Reducer<SWRStore, SWRAction> = (
-  state = {},
-  { type, payload }
-) => {
+const shouldRevalidate = (item?: SWRItem): boolean => {
+  if (!item) return true;
+  if (item.state === 'loading') return false;
+  if (item.state === 'revalidating') return false;
+  const now = Date.now();
+
+  if (
+    item.revalidateOn.includes('stale') &&
+    item.timestamp + DEDUPING_INTERVAL < now
+  ) {
+    return true;
+  }
+
+  return false;
+};
+
+const DEFAULT_SWR_ITEM_OPTIONS: SWRItemOptions = {
+  revalidateOn: ['stale', 'reconnect', 'focus'],
+};
+
+const swrReducer: Reducer<SWRStore, SWRAction> = (state, { type, payload }) => {
+  if (!state) return {};
   if (!type.startsWith('SWR:')) return state;
   const key = payload[0];
   const item = state[key];

@@ -1,5 +1,7 @@
+/** @type {import('eslint').Linter.Config} */
 module.exports = {
   extends: 'erb',
+  overrides: [{ files: 'src/main/**', rules: { 'no-console': 'off' } }],
   rules: {
     'no-unused-vars': 'off',
     // A temporary hack related to IDE not resolving correct package.json
@@ -7,7 +9,8 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': 'off',
     'react/jsx-props-no-spreading': 'off',
-    'consistent-return': 'off'
+    'consistent-return': 'off',
+    'operator-assignment': 'off',
     'react/function-component-definition': [
       'error',
       {
