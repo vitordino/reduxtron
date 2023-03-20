@@ -44,8 +44,9 @@ class SystemTray {
 
   public render = () => {
     console.log('tray render');
-    this.unsubscribe = store.subscribe(this.update);
     this.isListening = true;
+    this.unsubscribe = store.subscribe(this.update);
+    this.update();
   };
 
   public destroy = () => {
