@@ -28,7 +28,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npm run package
+          npm run check-format
           npm run lint
           npm exec tsc
+          npm run package
           npm test
