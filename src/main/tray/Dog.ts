@@ -1,10 +1,13 @@
 import { MenuItemConstructorOptions } from 'electron';
 import store, { State } from '../store';
 
+const ALL_BREEDS_ENDPOINT = 'https://dog.ceo/api/breeds/list/all';
+
 const TrayDog = (state: State): MenuItemConstructorOptions => {
-  const breeds = state.dog?.allBreeds || [];
-  const status = state.dog?.status;
-  const favorite = state.dog?.favorite?.name;
+  const breedsSWR = state?.swr?.[ALL_BREEDS_ENDPOINT];
+  const status = breedsSWR?.state || 'unknown';
+  const breeds = Object.keys(breedsSWR?.data?.message || {});
+  const favorite = state?.dog?.favorite;
   return {
     label: 'dog',
     type: 'submenu',

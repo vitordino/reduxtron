@@ -11,7 +11,6 @@
 import { app, ipcMain } from 'electron';
 import store from './store';
 import mainReduxMiddleware from './main-redux-middleware';
-import { loadAllBreeds } from './store/reducers/dog';
 
 const { unsubscribe } = mainReduxMiddleware(ipcMain, store);
 
@@ -33,9 +32,6 @@ app
     store.dispatch({ type: 'GET_STATE_FROM_PERSISTANCE_MIDDLEWARE' });
     store.dispatch({ type: 'ADD_VISIBLE', payload: 'main-window' });
     store.dispatch({ type: 'ADD_VISIBLE', payload: 'tray' });
-    if (!store.getState().dog?.allBreeds?.length) {
-      store.dispatch(loadAllBreeds());
-    }
 
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
