@@ -14,18 +14,9 @@ const useSWR = <Data = SWRItemData, Error = SWRItemData>(
 	key: Key,
 	options?: SWRItemOptions,
 ): SWRItem<Data, Error> | typeof initialState => {
-	const [stableKey, setStableKey] = useState('')
+	const stableKey = (typeof key === 'function' ? key() : key) || ''
 	const entry = useStore(x => x.swr?.[stableKey], compare) as SWRItem<Data, Error>
 	const dispatch = useDispatch()
-
-	useEffect(() => {
-		try {
-			const newKey = typeof key === 'function' ? key() : key
-			setStableKey(newKey || '')
-		} catch (e) {
-			setStableKey('')
-		}
-	}, [key, setStableKey])
 
 	useEffect(() => {
 		if (!stableKey) return
