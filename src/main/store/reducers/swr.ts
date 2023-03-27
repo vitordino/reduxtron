@@ -11,10 +11,12 @@ export type SWRItemOptions = {
 	revalidateOn: RevalidateEvents[]
 }
 
-export type SWRItem = {
+export type SWRItemData = Record<string, unknown> | string | null | undefined
+
+export type SWRItem<Data = SWRItemData, Error = SWRItemData> = {
 	state: SWRState
-	data: Record<string, unknown> | null | undefined
-	error: string | null
+	data: Data
+	error: Error
 	timestamp: number
 } & SWRItemOptions
 
@@ -73,9 +75,10 @@ const swrReducer: Reducer<SWRStore, SWRAction> = (state, { type, payload }) => {
 				}
 			}
 
-			if (item?.data && !shouldRevalidate(item)) return state
+			const withOptions = { ...item, ...options }
+			if (item?.data && !shouldRevalidate(withOptions)) return { ...state, [key]: withOptions }
 			const itemState = item.data ? 'revalidating' : 'loading'
-			return { ...state, [key]: { ...options, ...item, state: itemState } }
+			return { ...state, [key]: { ...item, ...options, state: itemState } }
 		}
 
 		case 'SWR:FETCH_URL@LOADING': {
