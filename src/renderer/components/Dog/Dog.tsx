@@ -1,22 +1,15 @@
-import { ChangeEvent, useEffect } from 'react'
+import { ChangeEvent } from 'react'
 import useStore from 'renderer/store'
 import useDispatch from 'renderer/hooks/useDispatch'
+import useSWR from 'renderer/hooks/useSWR'
 import RenderCounter from 'renderer/components/RenderCounter/RenderCounter'
 
 const ALL_BREEDS_ENDPOINT = 'https://dog.ceo/api/breeds/list/all'
 
-const compare = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
-
 const useFavoriteDogImage = (breed: string) => {
-	const key = `https://dog.ceo/api/breed/${breed}/images/random`
-	const image = useStore(x => x.swr?.[key], compare)
-	const dispatch = useDispatch()
-
-	useEffect(() => {
-		dispatch({ type: 'SWR:FETCH_URL', payload: [key] })
-	}, [dispatch, key])
-
-	return image?.data?.message as string | undefined
+	const key = () => !!breed && `https://dog.ceo/api/breed/${breed}/images/random`
+	const image = useSWR<{ message: string }>(key, { revalidateOn: [] })
+	return image?.data?.message
 }
 
 const FavoriteDog = ({ breed }: { breed: string }) => {
@@ -28,16 +21,9 @@ const FavoriteDog = ({ breed }: { breed: string }) => {
 }
 
 const useAllBreeds = () => {
-	const allBreeds = useStore(x => x.swr?.[ALL_BREEDS_ENDPOINT], compare)
-	const dispatch = useDispatch()
-
-	useEffect(() => {
-		dispatch({
-			type: 'SWR:FETCH_URL',
-			payload: [ALL_BREEDS_ENDPOINT, { revalidateOn: [] }],
-		})
-	}, [dispatch])
-
+	const allBreeds = useSWR<{ message: Record<string, unknown> }>(ALL_BREEDS_ENDPOINT, {
+		revalidateOn: [],
+	})
 	return Object.keys(allBreeds?.data?.message ?? {})
 }
 
