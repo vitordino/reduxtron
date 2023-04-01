@@ -5,14 +5,14 @@ const counterDecrement = (state: number) => state - 1
 const increaseBy = (state: number, payload: number = 0) => state + payload
 
 const counterActions = {
-	INCREMENT: counterIncrement,
-	DECREMENT: counterDecrement,
-	INCREASE_BY: increaseBy,
+	'COUNTER:INCREMENT': counterIncrement,
+	'COUNTER:DECREMENT': counterDecrement,
+	'COUNTER:INCREASE_BY': increaseBy,
 } as const
 
 export type CounterAction =
-	| { type: 'INCREMENT' | 'DECREMENT' }
-	| { type: 'INCREASE_BY'; payload: number }
+	| { type: 'COUNTER:INCREMENT' | 'COUNTER:DECREMENT' }
+	| { type: 'COUNTER:INCREASE_BY'; payload: number }
 
 const counterReducer: Reducer<number, CounterAction> = (state, action) => {
 	if (!action?.type) return state ?? 0

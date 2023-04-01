@@ -33,7 +33,7 @@ const saveData = async (data: Record<string, unknown>) => {
 const persistanceMiddleware: Middleware = store => next => async action => {
 	if (action.type === 'GET_STATE_FROM_PERSISTANCE_MIDDLEWARE') {
 		const payload = await getPreloadedState()
-		return next({ type: 'GLOBAL_SET', payload })
+		return next({ type: 'GLOBAL:SET', payload })
 	}
 	const result = next(action)
 	saveData(store.getState())

@@ -47,7 +47,7 @@ class MainWindow {
 		})
 
 		this.instance.on('closed', () => {
-			store.dispatch({ type: 'REMOVE_VISIBLE', payload: 'main-window' })
+			store.dispatch({ type: 'UI:REMOVE_VISIBLE', payload: 'main-window' })
 		})
 
 		const menuBuilder = new MenuBuilder(this.instance)

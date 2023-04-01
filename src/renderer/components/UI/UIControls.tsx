@@ -20,7 +20,7 @@ const UIControls = () => {
 							id={`ui-visible-${x}`}
 							type='checkbox'
 							checked={!!visible?.includes(x)}
-							onChange={() => dispatch({ type: 'TOGGLE_VISIBLE', payload: x })}
+							onChange={() => dispatch({ type: 'UI:TOGGLE_VISIBLE', payload: x })}
 						/>
 						<label htmlFor={`ui-visible-${x}`}>{x}</label>
 					</li>

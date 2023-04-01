@@ -23,17 +23,17 @@ const toggleToDo = (state: ToDo[], id: string) => {
 const setToDos = (state: ToDo[], newState: ToDo[]) => newState
 
 const toDoActions = {
-	CREATE_TO_DO: createToDo,
-	REMOVE_TO_DO: removeToDo,
-	TOGGLE_TO_DO: toggleToDo,
-	SET_TO_DOS: setToDos,
+	'TO_DO:CREATE': createToDo,
+	'TO_DO:REMOVE': removeToDo,
+	'TO_DO:TOGGLE': toggleToDo,
+	'TO_DO:SET': setToDos,
 } as const
 
 export type ToDosAction =
-	| { type: 'CREATE_TO_DO'; payload: string }
-	| { type: 'REMOVE_TO_DO'; payload: string }
-	| { type: 'TOGGLE_TO_DO'; payload: string }
-	| { type: 'SET_TO_DOS'; payload: ToDo[] }
+	| { type: 'TO_DO:CREATE'; payload: string }
+	| { type: 'TO_DO:REMOVE'; payload: string }
+	| { type: 'TO_DO:TOGGLE'; payload: string }
+	| { type: 'TO_DO:SET'; payload: ToDo[] }
 
 const toDosReducer: Reducer<ToDo[], ToDosAction> = (
 	state = [],

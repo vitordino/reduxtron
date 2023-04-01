@@ -8,7 +8,7 @@ const AddToDo = () => {
 
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault()
-		await dispatch({ type: 'CREATE_TO_DO', payload: title })
+		await dispatch({ type: 'TO_DO:CREATE', payload: title })
 		setTitle('')
 	}
 

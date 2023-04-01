@@ -18,15 +18,15 @@ const toggleVisible = (state: uiState, payload: string) => {
 }
 
 const uiActions = {
-	ADD_VISIBLE: addVisible,
-	REMOVE_VISIBLE: removeVisible,
-	TOGGLE_VISIBLE: toggleVisible,
+	'UI:ADD_VISIBLE': addVisible,
+	'UI:REMOVE_VISIBLE': removeVisible,
+	'UI:TOGGLE_VISIBLE': toggleVisible,
 } as const
 
 export type UIAction =
-	| { type: 'ADD_VISIBLE'; payload: string }
-	| { type: 'REMOVE_VISIBLE'; payload: string }
-	| { type: 'TOGGLE_VISIBLE'; payload: string }
+	| { type: 'UI:ADD_VISIBLE'; payload: string }
+	| { type: 'UI:REMOVE_VISIBLE'; payload: string }
+	| { type: 'UI:TOGGLE_VISIBLE'; payload: string }
 
 const uiReducer: Reducer<uiState, UIAction> = (
 	state = { visible: [] },

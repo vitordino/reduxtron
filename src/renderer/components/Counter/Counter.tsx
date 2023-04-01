@@ -8,11 +8,11 @@ const Counter = () => {
 	return (
 		<div>
 			<RenderCounter />
-			<button onClick={() => dispatch({ type: 'DECREMENT' })} type='button'>
+			<button onClick={() => dispatch({ type: 'COUNTER:DECREMENT' })} type='button'>
 				-
 			</button>
 			<code>{counter}</code>
-			<button onClick={() => dispatch({ type: 'INCREMENT' })} type='button'>
+			<button onClick={() => dispatch({ type: 'COUNTER:INCREMENT' })} type='button'>
 				+
 			</button>
 		</div>

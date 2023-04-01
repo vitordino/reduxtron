@@ -1,7 +1,7 @@
 import type { MenuItemConstructorOptions } from 'electron'
 import store, { State } from '../store'
 
-const toggleVisible = (payload: string) => store.dispatch({ type: 'TOGGLE_VISIBLE', payload })
+const toggleVisible = (payload: string) => store.dispatch({ type: 'UI:TOGGLE_VISIBLE', payload })
 
 const UI_CONTROLS = ['main-window', 'tray']
 
