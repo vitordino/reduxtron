@@ -3,7 +3,6 @@
 // this adds the subscribe and dispatch messages
 import { IpcMain } from 'electron'
 import type { Store } from 'redux'
-import uiSideEffects from './redux-ui-side-effects'
 
 type MainReduxMiddleware = {
 	<S extends Store>(ipcMain: IpcMain, store: S): { unsubscribe: () => void }
@@ -14,11 +13,7 @@ const mainReduxMiddleware: MainReduxMiddleware = (ipcMain, store) => {
 		store.dispatch(action),
 	)
 
-	const unsubscribe = store.subscribe(() => {
-		const state = store.getState()
-		uiSideEffects(state)
-		ipcMain.emit('subscribe', state)
-	})
+	const unsubscribe = store.subscribe(() => ipcMain.emit('subscribe', store.getState()))
 
 	return { unsubscribe }
 }

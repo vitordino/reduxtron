@@ -10,6 +10,7 @@ import swrReducer, { SWRAction } from '../../shared/reducers/swr'
 import persistanceMiddleware from './middlewares/persistance'
 import globalReducer from '../../shared/reducers/global'
 import swrMiddleware from './middlewares/swr'
+import uiMiddleware from './middlewares/ui'
 
 const reducer = globalReducer(
 	combineReducers({
@@ -26,7 +27,7 @@ export type State = ReturnType<typeof reducer>
 
 const store = configureStore<State, Action>({
 	reducer,
-	enhancers: [applyMiddleware(thunk, swrMiddleware, logger, persistanceMiddleware)],
+	enhancers: [applyMiddleware(thunk, swrMiddleware, uiMiddleware, logger, persistanceMiddleware)],
 })
 
 export type Store = typeof store
