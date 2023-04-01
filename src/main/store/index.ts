@@ -2,13 +2,13 @@ import { combineReducers, configureStore, applyMiddleware } from '@reduxjs/toolk
 import thunk from 'redux-thunk'
 
 import logger from './middlewares/logger'
-import counterReducer, { CounterAction } from './reducers/counter'
-import toDosReducer, { ToDosAction } from './reducers/toDos'
-import UIReducer, { UIAction } from './reducers/ui'
-import dogReducer, { DogAction } from './reducers/dog'
-import swrReducer, { SWRAction } from './reducers/swr'
+import counterReducer, { CounterAction } from '../../shared/reducers/counter'
+import toDosReducer, { ToDosAction } from '../../shared/reducers/toDos'
+import UIReducer, { UIAction } from '../../shared/reducers/ui'
+import dogReducer, { DogAction } from '../../shared/reducers/dog'
+import swrReducer, { SWRAction } from '../../shared/reducers/swr'
 import persistanceMiddleware from './middlewares/persistance'
-import globalReducer from './reducers/global'
+import globalReducer from '../../shared/reducers/global'
 import swrMiddleware from './middlewares/swr'
 
 const reducer = globalReducer(

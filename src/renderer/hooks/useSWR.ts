@@ -1,4 +1,4 @@
-import type { SWRItem, SWRItemData, SWRItemOptions } from 'main/store/reducers/swr'
+import type { SWRItem, SWRItemData, SWRItemOptions } from 'shared/reducers/swr'
 import { useEffect, useState } from 'react'
 import useStore from 'renderer/store'
 import useDispatch from './useDispatch'

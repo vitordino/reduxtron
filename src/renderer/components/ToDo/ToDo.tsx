@@ -1,4 +1,4 @@
-import type { ToDo as TodoType } from 'main/store/reducers/toDos'
+import type { ToDo as TodoType } from 'shared/reducers/toDos'
 import useDispatch from 'renderer/hooks/useDispatch'
 
 const ToDo = ({ id, title, completed }: TodoType) => {
