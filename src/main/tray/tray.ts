@@ -1,5 +1,5 @@
 import { Menu, Tray, nativeImage } from 'electron'
-import store from '../store'
+import type { State } from '../store'
 import TrayCounter from './Counter'
 import TrayToDo from './ToDo'
 import TrayUIControls from './UIControls'
@@ -12,13 +12,12 @@ const trayIcon = nativeImage.createFromPath('assets/tray.png').resize({
 class SystemTray {
 	constructor() {
 		this.instance = null
-		this.unsubscribe = null
 		this.isListening = false
 	}
 
 	private instance: Tray | null
 
-	private unsubscribe: (() => void) | null
+	private state?: State
 
 	private isListening: boolean
 
@@ -27,11 +26,11 @@ class SystemTray {
 		if (!this.isListening) return
 		console.log('tray update happening')
 		if (!this.instance) this.instance = new Tray(trayIcon)
-		const state = store.getState()
+		if (!this.state) return
 		const contextMenu = Menu.buildFromTemplate([
-			TrayCounter(state),
-			TrayToDo(state),
-			TrayUIControls(state),
+			TrayCounter(this.state),
+			TrayToDo(this.state),
+			TrayUIControls(this.state),
 		])
 
 		this.instance.setToolTip('This text comes from tray module.')
@@ -43,14 +42,18 @@ class SystemTray {
 	public render = () => {
 		console.log('tray render')
 		this.isListening = true
-		this.unsubscribe = store.subscribe(this.update)
+		this.update()
+	}
+
+	public setState = (state: State) => {
+		if (!this.isListening) return
+		this.state = state
 		this.update()
 	}
 
 	public destroy = () => {
 		console.log('tray destroy')
 		this.isListening = false
-		this.unsubscribe?.()
 		this.instance?.destroy()
 		this.instance = null
 	}
