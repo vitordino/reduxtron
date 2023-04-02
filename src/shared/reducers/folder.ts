@@ -11,7 +11,7 @@ export type FolderAction =
 	| { type: 'FOLDER:PICK@LOADING' }
 	| { type: 'FOLDER:PICK@LOADED'; payload: string }
 	| { type: 'FOLDER:PICK@ERROR'; payload: string }
-	| { type: 'FOLDER:PICK@CLEAR' }
+	| { type: 'FOLDER:CLEAR' }
 
 const initialState: FolderState = { state: 'idle', path: undefined, error: null }
 
@@ -21,7 +21,7 @@ const folderReducer: Reducer<FolderState, FolderAction> = (
 	action = { type: '' },
 ) => {
 	switch (action.type) {
-		case 'FOLDER:PICK@CLEAR':
+		case 'FOLDER:CLEAR':
 			return { state: 'idle', path: undefined, error: null }
 		case 'FOLDER:PICK':
 			return { state: 'loading', path: undefined, error: null }

@@ -12,6 +12,13 @@ const Folder = () => {
 			<button onClick={() => dispatch({ type: 'FOLDER:PICK' })} type='button' disabled={disabled}>
 				pick folder
 			</button>
+			<button
+				onClick={() => dispatch({ type: 'FOLDER:CLEAR' })}
+				type='button'
+				disabled={disabled || !folder?.path}
+			>
+				clear folder
+			</button>
 			<pre>{JSON.stringify(folder)}</pre>
 		</div>
 	)
