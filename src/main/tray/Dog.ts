@@ -1,10 +1,9 @@
 import { MenuItemConstructorOptions } from 'electron'
-import type { State } from '../../shared/reducers'
-import store from '../store'
+import type { Dispatch, State } from '../../shared/reducers'
 
 const ALL_BREEDS_ENDPOINT = 'https://dog.ceo/api/breeds/list/all'
 
-const TrayDog = (state: Partial<State>): MenuItemConstructorOptions => {
+const TrayDog = (state: Partial<State>, dispatch: Dispatch): MenuItemConstructorOptions => {
 	const breedsSWR = state?.swr?.[ALL_BREEDS_ENDPOINT]
 	const status = breedsSWR?.state || 'unknown'
 	const breeds = Object.keys(breedsSWR?.data?.message || {})
@@ -29,7 +28,7 @@ const TrayDog = (state: Partial<State>): MenuItemConstructorOptions => {
 							type: 'radio',
 							checked: label === favorite,
 							click: () =>
-								store.dispatch({
+								dispatch({
 									type: 'DOG:SELECT_FAVORITE_BREED',
 									payload: label,
 								}),

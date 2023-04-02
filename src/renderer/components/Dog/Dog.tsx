@@ -5,10 +5,11 @@ import useSWR from 'renderer/hooks/useSWR'
 import RenderCounter from 'renderer/components/RenderCounter/RenderCounter'
 
 const ALL_BREEDS_ENDPOINT = 'https://dog.ceo/api/breeds/list/all'
+const swrOptions = { revalidateOn: [] }
 
 const useFavoriteDogImage = (breed: string) => {
 	const key = () => !!breed && `https://dog.ceo/api/breed/${breed}/images/random`
-	const image = useSWR<{ message: string }>(key, { revalidateOn: [] })
+	const image = useSWR<{ message: string }>(key, swrOptions)
 	return image?.data?.message
 }
 
@@ -21,9 +22,7 @@ const FavoriteDog = ({ breed }: { breed: string }) => {
 }
 
 const useAllBreeds = () => {
-	const allBreeds = useSWR<{ message: Record<string, unknown> }>(ALL_BREEDS_ENDPOINT, {
-		revalidateOn: [],
-	})
+	const allBreeds = useSWR<{ message: Record<string, unknown> }>(ALL_BREEDS_ENDPOINT, swrOptions)
 	return Object.keys(allBreeds?.data?.message ?? {})
 }
 
