@@ -6,7 +6,7 @@ const toggleVisible = (dispatch: Dispatch, payload: string) => () =>
 
 const UI_CONTROLS = ['main-window', 'tray']
 
-const TrayUIControls = (state: State, dispatch: Dispatch): MenuItemConstructorOptions => ({
+const TrayUIControls = (state: Partial<State>, dispatch: Dispatch): MenuItemConstructorOptions => ({
 	label: 'ui',
 	type: 'submenu',
 	submenu: UI_CONTROLS.map(id => ({

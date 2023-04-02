@@ -4,7 +4,7 @@ import store from '../store'
 
 const ALL_BREEDS_ENDPOINT = 'https://dog.ceo/api/breeds/list/all'
 
-const TrayDog = (state: State): MenuItemConstructorOptions => {
+const TrayDog = (state: Partial<State>): MenuItemConstructorOptions => {
 	const breedsSWR = state?.swr?.[ALL_BREEDS_ENDPOINT]
 	const status = breedsSWR?.state || 'unknown'
 	const breeds = Object.keys(breedsSWR?.data?.message || {})
