@@ -1,9 +1,9 @@
 import path from 'path'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
+import type { Dispatch } from '../../shared/reducers'
 import MenuBuilder from './main-window-native-menu'
 import { resolveHtmlPath, getAssetPath } from '../utils'
 import mainDebugMiddleware from './main-window-debug-middleware'
-import store from '../store'
 
 const { isDebug, installExtensions } = mainDebugMiddleware()
 
@@ -17,6 +17,8 @@ class MainWindow {
 	}
 
 	private instance: BrowserWindow | null
+
+	private dispatch?: Dispatch
 
 	public create = async () => {
 		if (this.instance) return
@@ -47,7 +49,7 @@ class MainWindow {
 		})
 
 		this.instance.on('closed', () => {
-			store.dispatch({ type: 'UI:REMOVE_VISIBLE', payload: 'main-window' })
+			this?.dispatch?.({ type: 'UI:REMOVE_VISIBLE', payload: 'main-window' })
 		})
 
 		const menuBuilder = new MenuBuilder(this.instance)
@@ -63,6 +65,10 @@ class MainWindow {
 	public destroy = () => {
 		this.instance?.destroy()
 		this.instance = null
+	}
+
+	public setDispatch = (dispatch: Dispatch) => {
+		this.dispatch = dispatch
 	}
 
 	public get isVisible() {

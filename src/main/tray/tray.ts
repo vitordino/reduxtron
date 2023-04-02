@@ -1,5 +1,5 @@
 import { Menu, Tray, nativeImage } from 'electron'
-import type { State } from '../store'
+import type { Dispatch, State } from '../../shared/reducers'
 import TrayCounter from './Counter'
 import TrayToDo from './ToDo'
 import TrayUIControls from './UIControls'
@@ -19,6 +19,8 @@ class SystemTray {
 
 	private state?: State
 
+	private dispatch?: Dispatch
+
 	private isListening: boolean
 
 	private update = () => {
@@ -26,11 +28,11 @@ class SystemTray {
 		if (!this.isListening) return
 		console.log('tray update happening')
 		if (!this.instance) this.instance = new Tray(trayIcon)
-		if (!this.state) return
+		if (!this.state || !this.dispatch) return
 		const contextMenu = Menu.buildFromTemplate([
-			TrayCounter(this.state),
-			TrayToDo(this.state),
-			TrayUIControls(this.state),
+			TrayCounter(this.state, this.dispatch),
+			TrayToDo(this.state, this.dispatch),
+			TrayUIControls(this.state, this.dispatch),
 		])
 
 		this.instance.setToolTip('This text comes from tray module.')
@@ -46,8 +48,12 @@ class SystemTray {
 	}
 
 	public setState = (state: State) => {
-		if (!this.isListening) return
 		this.state = state
+		this.update()
+	}
+
+	public setDispatch = (dispatch: Dispatch) => {
+		this.dispatch = dispatch
 		this.update()
 	}
 

@@ -1,5 +1,5 @@
 import { IpcRenderer } from 'electron'
-import { State, Action } from './store'
+import { State, Action } from '../shared/reducers'
 
 type PreloadReduxMiddleware = (ipcRenderer: IpcRenderer) => {
 	handlers: {

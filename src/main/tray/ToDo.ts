@@ -1,16 +1,17 @@
-import { MenuItemConstructorOptions } from 'electron'
-import store, { State } from '../store'
+import type { MenuItemConstructorOptions } from 'electron'
+import type { Dispatch, State } from '../../shared/reducers'
 
-const toggleToDo = (id: string) => () => store.dispatch({ type: 'TO_DO:TOGGLE', payload: id })
+const toggleToDo = (dispatch: Dispatch, id: string) => () =>
+	dispatch({ type: 'TO_DO:TOGGLE', payload: id })
 
-const TrayToDo = (state: State): MenuItemConstructorOptions => ({
+const TrayToDo = (state: State, dispatch: Dispatch): MenuItemConstructorOptions => ({
 	label: 'to do',
 	type: 'submenu',
 	submenu: state.toDos.map(({ id, title, completed }) => ({
 		label: title,
 		type: 'checkbox',
 		checked: completed,
-		click: toggleToDo(id),
+		click: toggleToDo(dispatch, id),
 	})),
 })
 

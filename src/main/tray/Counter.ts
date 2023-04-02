@@ -1,17 +1,17 @@
 import type { MenuItemConstructorOptions } from 'electron'
-import store, { State } from '../store'
+import type { Dispatch, State } from '../../shared/reducers'
 
 // on click actions
-const decrement = () => store.dispatch({ type: 'COUNTER:DECREMENT' })
-const increment = () => store.dispatch({ type: 'COUNTER:INCREMENT' })
+const decrement = (dispatch: Dispatch) => () => dispatch({ type: 'COUNTER:DECREMENT' })
+const increment = (dispatch: Dispatch) => () => dispatch({ type: 'COUNTER:INCREMENT' })
 
-const TrayCounter = (state: State): MenuItemConstructorOptions => ({
+const TrayCounter = (state: State, dispatch: Dispatch): MenuItemConstructorOptions => ({
 	label: 'counter',
 	type: 'submenu',
 	submenu: [
-		{ label: 'decrement', type: 'normal', click: decrement },
+		{ label: 'decrement', type: 'normal', click: decrement(dispatch) },
 		{ label: state.counter.toString(), type: 'normal' },
-		{ label: 'increment', type: 'normal', click: increment },
+		{ label: 'increment', type: 'normal', click: increment(dispatch) },
 	],
 })
 

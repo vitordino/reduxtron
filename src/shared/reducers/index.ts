@@ -1,4 +1,4 @@
-import { combineReducers } from '@reduxjs/toolkit'
+import { combineReducers, Dispatch as BaseDispatch } from '@reduxjs/toolkit'
 
 import counterReducer, { CounterAction } from './counter'
 import toDosReducer, { ToDosAction } from './toDos'
@@ -17,5 +17,6 @@ const rootReducer = globalReducer(
 
 export type Action = CounterAction | ToDosAction | UIAction | SWRAction
 export type State = ReturnType<typeof rootReducer>
+export type Dispatch = BaseDispatch<Action>
 
 export default rootReducer

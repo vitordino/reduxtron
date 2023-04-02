@@ -1,4 +1,4 @@
-import { State } from './store'
+import { State } from '../shared/reducers'
 import mainWindow from './main-window/main-window'
 import tray from './tray/tray'
 
