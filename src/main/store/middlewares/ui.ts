@@ -41,8 +41,7 @@ const uiMiddleware: Middleware = store => next => async action => {
 	if (!isUIAction(action) || !shouldIntercept(action.payload)) return next(action)
 	// get state after action is dispatched
 	const result = next(action)
-	const key = action.payload as keyof typeof UI_SIDE_EFFECT_MAP
-	UI_SIDE_EFFECT_MAP[key](store.getState())
+	UI_SIDE_EFFECT_MAP[action.payload](store.getState())
 	return result
 }
 
