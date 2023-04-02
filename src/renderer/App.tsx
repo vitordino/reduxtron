@@ -3,6 +3,7 @@ import AddToDo from 'renderer/components/ToDo/AddToDo'
 import ToDoList from 'renderer/components/ToDo/ToDoList'
 import UIControls from 'renderer/components/UI/UIControls'
 import Dog from './components/Dog/Dog'
+import Folder from './components/Folder/Folder'
 
 const style = { fontFamily: 'sans-serif' }
 
@@ -15,6 +16,8 @@ const App = () => (
 		<ToDoList />
 		<h1>ui</h1>
 		<UIControls />
+		<h1>folder</h1>
+		<Folder />
 		<h1>dog</h1>
 		<Dog />
 	</main>
