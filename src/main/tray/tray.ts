@@ -41,8 +41,8 @@ class SystemTray {
 		this.instance.setContextMenu(contextMenu)
 	}
 
-	public render = () => {
-		console.log('tray render')
+	public create = () => {
+		console.log('tray create')
 		this.isListening = true
 		this.update()
 	}

@@ -5,19 +5,21 @@ import mainWindow from '../../main-window/main-window'
 import tray from '../../tray/tray'
 
 const mainWindowSideEffects = ({ ui }: Partial<State>) => {
+	if (!ui) return
 	const mainShouldBeVisible = ui?.visible.includes('main-window')
 	const isMainVisible = mainWindow.isVisible
-	console.log({ ui, mainShouldBeVisible, isMainVisible })
+	console.log('mainWindowSideEffects', { ui, mainShouldBeVisible, isMainVisible })
 	if (!mainShouldBeVisible && isMainVisible) return mainWindow.destroy()
 	if (mainShouldBeVisible && !isMainVisible) return mainWindow.create()
 }
 
 const traySideEffects = ({ ui }: Partial<State>) => {
+	if (!ui) return
 	const trayShouldBeVisible = ui?.visible.includes('tray')
 	const isTrayVisible = tray.isVisible
-	console.log({ ui, trayShouldBeVisible, isTrayVisible })
+	console.log('traySideEffects', { ui, trayShouldBeVisible, isTrayVisible })
 	if (!trayShouldBeVisible && isTrayVisible) return tray.destroy()
-	if (trayShouldBeVisible && !isTrayVisible) return tray.render()
+	if (trayShouldBeVisible && !isTrayVisible) return tray.create()
 }
 
 const UI_SIDE_EFFECT_MAP = {
@@ -30,14 +32,17 @@ const actionsToIntercept = ['UI:ADD_VISIBLE', 'UI:REMOVE_VISIBLE', 'UI:TOGGLE_VI
 const isUIAction = (action: AnyAction): action is UIAction =>
 	actionsToIntercept.includes(action.type)
 
+const shouldIntercept = (payload?: string): payload is keyof typeof UI_SIDE_EFFECT_MAP => {
+	if (!payload) return false
+	return payload in UI_SIDE_EFFECT_MAP
+}
+
 const uiMiddleware: Middleware = store => next => async action => {
-	if (!isUIAction(action)) return next(action)
+	if (!isUIAction(action) || !shouldIntercept(action.payload)) return next(action)
 	// get state after action is dispatched
 	const result = next(action)
-	if (action.payload in UI_SIDE_EFFECT_MAP) {
-		const key = action.payload as keyof typeof UI_SIDE_EFFECT_MAP
-		UI_SIDE_EFFECT_MAP[key](store.getState())
-	}
+	const key = action.payload as keyof typeof UI_SIDE_EFFECT_MAP
+	UI_SIDE_EFFECT_MAP[key](store.getState())
 	return result
 }
 
