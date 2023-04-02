@@ -4,7 +4,6 @@
 import { IpcMain } from 'electron'
 import type { Store } from 'redux'
 import mainWindow from './main-window/main-window'
-import uiSideEffects from './redux-ui-side-effects'
 import tray from './tray/tray'
 
 type MainReduxMiddleware = {
@@ -22,7 +21,6 @@ const mainReduxMiddleware: MainReduxMiddleware = (ipcMain, store) => {
 
 	const unsubscribe = store.subscribe(() => {
 		const state = store.getState()
-		uiSideEffects(state)
 		tray.setState(state)
 		ipcMain.emit('subscribe', state)
 	})

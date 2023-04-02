@@ -10,9 +10,10 @@ const { isDebug, installExtensions } = mainDebugMiddleware()
 class MainWindow {
 	constructor() {
 		this.instance = null
-		ipcMain.on('subscribe', async (state: unknown) =>
-			this.instance?.webContents?.send('subscribe', state),
-		)
+		ipcMain.on('subscribe', async (state: unknown) => {
+			if (this.instance?.isDestroyed()) return
+			this.instance?.webContents?.send('subscribe', state)
+		})
 		if (isDebug) installExtensions()
 	}
 
