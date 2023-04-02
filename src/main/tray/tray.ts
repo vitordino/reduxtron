@@ -1,7 +1,6 @@
 import { Menu, Tray, nativeImage } from 'electron'
 import store from '../store'
 import TrayCounter from './Counter'
-import TrayDog from './Dog'
 import TrayToDo from './ToDo'
 import TrayUIControls from './UIControls'
 
@@ -33,7 +32,6 @@ class SystemTray {
 			TrayCounter(state),
 			TrayToDo(state),
 			TrayUIControls(state),
-			TrayDog(state),
 		])
 
 		this.instance.setToolTip('This text comes from tray module.')
