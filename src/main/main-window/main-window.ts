@@ -3,9 +3,7 @@ import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import type { Dispatch } from 'shared/reducers'
 import { resolveHtmlPath, getAssetPath } from 'main/utils'
 import MenuBuilder from 'main/main-window/main-window-native-menu'
-import mainDebugMiddleware from 'main/main-window/main-window-debug-middleware'
-
-const { isDebug, installExtensions } = mainDebugMiddleware()
+import mainWindowDebug from 'main/main-window/main-window-debug'
 
 class MainWindow {
 	constructor() {
@@ -14,7 +12,6 @@ class MainWindow {
 			if (this.instance?.isDestroyed()) return
 			this.instance?.webContents?.send('subscribe', state)
 		})
-		if (isDebug) installExtensions()
 	}
 
 	private instance: BrowserWindow | null
@@ -61,6 +58,9 @@ class MainWindow {
 			shell.openExternal(url)
 			return { action: 'deny' }
 		})
+
+		// register dev-tools + source-maps
+		mainWindowDebug()
 	}
 
 	public destroy = () => {
