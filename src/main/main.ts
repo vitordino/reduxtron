@@ -28,22 +28,17 @@ app.on('window-all-closed', () => {
 
 app
 	.whenReady()
-	.then(() => {
-		store.dispatch({ type: 'GET_STATE_FROM_PERSISTANCE_MIDDLEWARE' })
-		store.dispatch({ type: 'UI:ADD_VISIBLE', payload: 'main-window' })
-		store.dispatch({ type: 'UI:ADD_VISIBLE', payload: 'tray' })
-
+	.then(async () => {
 		app.on('activate', () => {
 			// On macOS it's common to re-create a window in the app when the
 			// dock icon is clicked and there are no other windows open.
 			store.dispatch({ type: 'UI:ADD_VISIBLE', payload: 'main-window' })
 		})
 
-		app.on('quit', () => {
-			// reopen window + tray on next launch (post quit state changes)
-			unsubscribe()
-			store.dispatch({ type: 'UI:ADD_VISIBLE', payload: 'main-window' })
-			store.dispatch({ type: 'UI:ADD_VISIBLE', payload: 'tray' })
-		})
+		app.on('quit', unsubscribe)
+
+		await store.dispatch({ type: 'GET_STATE_FROM_PERSISTANCE_MIDDLEWARE' })
+		store.dispatch({ type: 'UI:ADD_VISIBLE', payload: 'main-window' })
+		store.dispatch({ type: 'UI:ADD_VISIBLE', payload: 'tray' })
 	})
 	.catch(console.log)
