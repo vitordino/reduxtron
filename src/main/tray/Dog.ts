@@ -1,5 +1,5 @@
 import { MenuItemConstructorOptions } from 'electron'
-import type { Dispatch, State } from '../../shared/reducers'
+import type { Dispatch, State } from 'shared/reducers'
 
 const ALL_BREEDS_ENDPOINT = 'https://dog.ceo/api/breeds/list/all'
 

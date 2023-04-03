@@ -1,7 +1,7 @@
+import { useEffect } from 'react'
 import type { SWRItem, SWRItemData, SWRItemOptions } from 'shared/reducers/swr'
-import { useEffect, useState } from 'react'
 import useStore from 'renderer/store'
-import useDispatch from './useDispatch'
+import useDispatch from 'renderer/hooks/useDispatch'
 
 const compare = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
 

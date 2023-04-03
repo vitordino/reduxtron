@@ -1,10 +1,10 @@
 import { Menu, Tray, nativeImage } from 'electron'
-import type { Dispatch, State } from '../../shared/reducers'
-import TrayCounter from './Counter'
-import TrayDog from './Dog'
-import TrayFolder from './Folder'
-import TrayToDo from './ToDo'
-import TrayUIControls from './UIControls'
+import type { Dispatch, State } from 'shared/reducers'
+import TrayCounter from 'main/tray/Counter'
+import TrayDog from 'main/tray/Dog'
+import TrayFolder from 'main/tray/Folder'
+import TrayToDo from 'main/tray/ToDo'
+import TrayUIControls from 'main/tray/UIControls'
 
 const trayIcon = nativeImage.createFromPath('assets/tray.png').resize({
 	width: 16,

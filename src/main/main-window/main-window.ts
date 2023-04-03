@@ -1,9 +1,9 @@
 import path from 'path'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
-import type { Dispatch } from '../../shared/reducers'
-import MenuBuilder from './main-window-native-menu'
-import { resolveHtmlPath, getAssetPath } from '../utils'
-import mainDebugMiddleware from './main-window-debug-middleware'
+import type { Dispatch } from 'shared/reducers'
+import { resolveHtmlPath, getAssetPath } from 'main/utils'
+import MenuBuilder from 'main/main-window/main-window-native-menu'
+import mainDebugMiddleware from 'main/main-window/main-window-debug-middleware'
 
 const { isDebug, installExtensions } = mainDebugMiddleware()
 

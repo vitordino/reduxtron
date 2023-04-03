@@ -1,8 +1,8 @@
 import type { AnyAction, Middleware } from '@reduxjs/toolkit'
-import type { State } from '../../../shared/reducers'
-import type { UIAction } from '../../../shared/reducers/ui'
-import mainWindow from '../../main-window/main-window'
-import tray from '../../tray/tray'
+import type { State } from 'shared/reducers'
+import type { UIAction } from 'shared/reducers/ui'
+import mainWindow from 'main/main-window/main-window'
+import tray from 'main/tray/tray'
 
 const mainWindowSideEffects = ({ ui }: Partial<State>) => {
 	if (!ui) return

@@ -3,8 +3,8 @@
 // this adds the subscribe and dispatch messages
 import { IpcMain } from 'electron'
 import type { Store } from 'redux'
-import mainWindow from './main-window/main-window'
-import tray from './tray/tray'
+import mainWindow from 'main/main-window/main-window'
+import tray from 'main/tray/tray'
 
 type MainReduxMiddleware = {
 	<S extends Store>(ipcMain: IpcMain, store: S): { unsubscribe: () => void }

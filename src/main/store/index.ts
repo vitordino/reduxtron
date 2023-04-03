@@ -1,12 +1,12 @@
 import { configureStore, applyMiddleware } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk'
 
-import reducer, { State, Action } from '../../shared/reducers'
-import folderMiddleware from './middlewares/folder'
-import logger from './middlewares/logger'
-import persistanceMiddleware from './middlewares/persistance'
-import swrMiddleware from './middlewares/swr'
-import uiMiddleware from './middlewares/ui'
+import reducer, { State, Action } from 'shared/reducers'
+import folderMiddleware from 'main/store/middlewares/folder'
+import logger from 'main/store/middlewares/logger'
+import persistanceMiddleware from 'main/store/middlewares/persistance'
+import swrMiddleware from 'main/store/middlewares/swr'
+import uiMiddleware from 'main/store/middlewares/ui'
 
 const store = configureStore<State, Action>({
 	reducer,

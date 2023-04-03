@@ -1,5 +1,5 @@
 import type { MenuItemConstructorOptions } from 'electron'
-import type { Dispatch, State } from '../../shared/reducers'
+import type { Dispatch, State } from 'shared/reducers'
 
 // on click actions
 const pick = (dispatch: Dispatch) => () => dispatch({ type: 'FOLDER:PICK' })

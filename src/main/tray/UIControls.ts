@@ -1,5 +1,5 @@
 import type { MenuItemConstructorOptions } from 'electron'
-import type { Dispatch, State } from '../../shared/reducers'
+import type { Dispatch, State } from 'shared/reducers'
 
 const toggleVisible = (dispatch: Dispatch, payload: string) => () =>
 	dispatch({ type: 'UI:TOGGLE_VISIBLE', payload })

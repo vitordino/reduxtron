@@ -3,7 +3,7 @@ import { Reorder } from 'framer-motion'
 import useStore from 'renderer/store'
 import useDispatch from 'renderer/hooks/useDispatch'
 import RenderCounter from 'renderer/components/RenderCounter/RenderCounter'
-import ToDo from './ToDo'
+import ToDo from 'renderer/components/ToDo/ToDo'
 
 const compare = (a: any, b: any) => JSON.stringify(a) === JSON.stringify(b)
 

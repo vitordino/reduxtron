@@ -1,5 +1,5 @@
 import { dialog } from 'electron/main'
-import { Middleware } from '../../../shared/reducers'
+import { Middleware } from 'shared/reducers'
 
 const folderMiddleware: Middleware = _store => next => async action => {
 	if (action.type !== 'FOLDER:PICK') return next(action)
