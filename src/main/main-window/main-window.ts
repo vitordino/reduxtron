@@ -26,7 +26,10 @@ class MainWindow {
 			width: 1024,
 			height: 728,
 			icon: getAssetPath('icon.png'),
+
 			webPreferences: {
+				sandbox: false,
+				nodeIntegration: true,
 				preload: app.isPackaged
 					? path.join(__dirname, '../preload.js')
 					: path.join(__dirname, '../../../.erb/dll/preload.js'),
@@ -60,7 +63,7 @@ class MainWindow {
 		})
 
 		// register dev-tools + source-maps
-		mainWindowDebug()
+		// mainWindowDebug()
 	}
 
 	public destroy = () => {
