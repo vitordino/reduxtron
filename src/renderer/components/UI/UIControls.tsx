@@ -1,8 +1,7 @@
+import compare from 'renderer/utils/compare'
 import useStore from 'renderer/store'
 import useDispatch from 'renderer/hooks/useDispatch'
 import RenderCounter from 'renderer/components/RenderCounter/RenderCounter'
-
-const compare = (a: any, b: any) => JSON.stringify(a) === JSON.stringify(b)
 
 const UI_CONTROLS = ['main-window', 'tray']
 

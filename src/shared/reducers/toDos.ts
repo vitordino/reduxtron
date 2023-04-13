@@ -20,6 +20,7 @@ const toggleToDo = (state: ToDo[], id: string) => {
 	]
 }
 
+// @ts-expect-error
 const setToDos = (state: ToDo[], newState: ToDo[]) => newState
 
 const toDoActions = {

@@ -1,9 +1,8 @@
 import { useEffect } from 'react'
+import compare from 'renderer/utils/compare'
 import type { SWRItem, SWRItemData, SWRItemOptions } from 'shared/reducers/swr'
 import useStore from 'renderer/store'
 import useDispatch from 'renderer/hooks/useDispatch'
-
-const compare = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
 
 export type Arguments = string | null | undefined | false
 export type Key = Arguments | (() => Arguments)

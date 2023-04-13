@@ -6,7 +6,7 @@ import TrayFolder from 'main/tray/Folder'
 import TrayToDo from 'main/tray/ToDo'
 import TrayUIControls from 'main/tray/UIControls'
 
-const trayIcon = nativeImage.createFromPath('assets/tray.png').resize({
+const trayIcon = nativeImage.createFromPath('resources/tray.png').resize({
 	width: 16,
 	height: 16,
 })

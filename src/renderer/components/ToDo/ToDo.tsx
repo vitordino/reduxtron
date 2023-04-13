@@ -3,8 +3,8 @@ import useDispatch from 'renderer/hooks/useDispatch'
 
 const ToDo = ({ id, title, completed }: TodoType) => {
 	const dispatch = useDispatch()
-	const toggle = () => dispatch({ type: 'TOGGLE_TO_DO', payload: id })
-	const remove = () => dispatch({ type: 'REMOVE_TO_DO', payload: id })
+	const toggle = () => dispatch({ type: 'TO_DO:TOGGLE', payload: id })
+	const remove = () => dispatch({ type: 'TO_DO:REMOVE', payload: id })
 	return (
 		<div>
 			<input id={id} type='checkbox' checked={completed} onChange={toggle} />

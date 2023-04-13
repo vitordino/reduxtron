@@ -1,14 +1,10 @@
-import {
-	combineReducers,
-	Dispatch as BaseDispatch,
-	Middleware as BaseMiddleware,
-} from '@reduxjs/toolkit'
+import { combineReducers, Dispatch as BaseDispatch, Reducer, Observable } from '@reduxjs/toolkit'
 
 import counterReducer, { CounterAction } from './counter'
 import toDosReducer, { ToDosAction } from './toDos'
 import UIReducer, { UIAction } from './ui'
 import swrReducer, { SWRAction } from './swr'
-import globalReducer from './global'
+import globalReducer, { GlobalAction } from './global'
 import dogReducer, { DogAction } from './dog'
 import folderReducer, { FolderAction } from './folder'
 
@@ -23,14 +19,30 @@ const rootReducer = globalReducer(
 	}),
 )
 
-export type Action = CounterAction | ToDosAction | UIAction | SWRAction | DogAction | FolderAction
+type ActionOrAnyAction =
+	| CounterAction
+	| ToDosAction
+	| UIAction
+	| SWRAction
+	| DogAction
+	| FolderAction
+	| GlobalAction
+
+export type Action = Exclude<ActionOrAnyAction, { type: '' }>
+
 export type State = ReturnType<typeof rootReducer>
 export type Dispatch = BaseDispatch<Action>
+export type Subscribe = (listener: () => void) => () => void
 
-type MiddlewareStore = {
+export type Store = {
 	getState: () => State
 	dispatch: Dispatch
+	subscribe: Subscribe
+	replaceReducer: (nextReducer: Reducer<State, Action>) => void
+	[Symbol.observable](): Observable<State>
 }
+
+type MiddlewareStore = Pick<Store, 'getState' | 'dispatch'>
 
 export type Middleware = (
 	store: MiddlewareStore,

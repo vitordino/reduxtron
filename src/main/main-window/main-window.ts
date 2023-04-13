@@ -1,7 +1,8 @@
-import path from 'path'
-import { app, BrowserWindow, ipcMain, shell } from 'electron'
+import { join } from 'path'
+import { is } from '@electron-toolkit/utils'
+import { BrowserWindow, ipcMain, shell } from 'electron'
+
 import type { Dispatch } from 'shared/reducers'
-import { resolveHtmlPath, getAssetPath } from 'main/utils'
 import MenuBuilder from 'main/main-window/main-window-native-menu'
 import mainWindowDebug from 'main/main-window/main-window-debug'
 
@@ -25,18 +26,22 @@ class MainWindow {
 			show: false,
 			width: 1024,
 			height: 728,
-			icon: getAssetPath('icon.png'),
+			icon: join(__dirname, 'resources', 'icon.png'),
 
 			webPreferences: {
-				sandbox: false,
-				nodeIntegration: true,
-				preload: app.isPackaged
-					? path.join(__dirname, '../preload.js')
-					: path.join(__dirname, '../../../.erb/dll/preload.js'),
+				sandbox: true,
+				nodeIntegration: false,
+				preload: join(__dirname, '../preload/index.js'),
 			},
 		})
 
-		this.instance.loadURL(resolveHtmlPath('index.html'))
+		// HMR for renderer base on electron-vite cli.
+		// Load the remote URL for development or the local html file for production.
+		if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+			this.instance.loadURL(process.env['ELECTRON_RENDERER_URL'])
+		} else {
+			this.instance.loadFile(join(__dirname, '../renderer/index.html'))
+		}
 
 		this.instance.on('ready-to-show', () => {
 			if (!this.instance) {
@@ -63,7 +68,7 @@ class MainWindow {
 		})
 
 		// register dev-tools + source-maps
-		// mainWindowDebug()
+		mainWindowDebug()
 	}
 
 	public destroy = () => {

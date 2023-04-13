@@ -1,9 +1,8 @@
-import { ElectronHandler } from 'main/preload'
+import type { PreloadReduxMiddlewareHandlers } from '../preload/preload-redux-middleware'
 
 declare global {
-	// eslint-disable-next-line no-unused-vars
 	interface Window {
-		electron: ElectronHandler
+		electron: PreloadReduxMiddlewareHandlers
 	}
 }
 

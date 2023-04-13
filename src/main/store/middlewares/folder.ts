@@ -1,4 +1,4 @@
-import { dialog } from 'electron/main'
+import { dialog } from 'electron'
 import { Middleware } from 'shared/reducers'
 
 const folderMiddleware: Middleware = _store => next => async action => {

@@ -10,8 +10,6 @@ const mainWindowDebug = async () => {
 	const isDebug = env === 'development' || process.env.DEBUG_PROD === 'true'
 	if (!isDebug) return
 
-	require('electron-debug')()
-
 	const installer = require('electron-devtools-assembler')
 	const forceDownload = !!process.env.UPGRADE_EXTENSIONS
 	const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS']

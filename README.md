@@ -13,7 +13,7 @@
 
 ```
 npm i # install dependencies
-npm start # start app
+npm run dev # start app on development mode
 ```
 
 ### related

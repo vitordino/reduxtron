@@ -36,7 +36,7 @@ const persistanceMiddleware: Middleware = store => next => async action => {
 		return next({ type: 'GLOBAL:SET', payload })
 	}
 	const result = next(action)
-	saveData(store.getState())
+	await saveData(store.getState())
 	return result
 }
 
