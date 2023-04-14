@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import compare from 'renderer/utils/compare'
 import type { SWRItem, SWRItemData, SWRItemOptions } from 'shared/reducers/swr'
-import useStore from 'renderer/store'
+import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
 
 export type Arguments = string | null | undefined | false

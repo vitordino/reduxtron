@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react'
-import useStore from 'renderer/store'
+import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
 import useSWR from 'renderer/hooks/useSWR'
 import RenderCounter from 'renderer/components/RenderCounter/RenderCounter'

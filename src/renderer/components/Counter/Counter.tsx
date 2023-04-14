@@ -1,4 +1,4 @@
-import useStore from 'renderer/store'
+import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
 import RenderCounter from 'renderer/components/RenderCounter/RenderCounter'
 
