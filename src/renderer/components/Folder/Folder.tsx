@@ -2,6 +2,7 @@ import compare from 'renderer/utils/compare'
 import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
 import RenderCounter from 'renderer/components/RenderCounter/RenderCounter'
+import { Button } from 'renderer/components/Button'
 
 const Folder = () => {
 	const folder = useStore(x => x.folder, compare)
@@ -10,16 +11,17 @@ const Folder = () => {
 	return (
 		<div>
 			<RenderCounter />
-			<button onClick={() => dispatch({ type: 'FOLDER:PICK' })} type='button' disabled={disabled}>
+			<Button onClick={() => dispatch({ type: 'FOLDER:PICK' })} type='button' disabled={disabled}>
 				pick folder
-			</button>
-			<button
+			</Button>
+			<Button
 				onClick={() => dispatch({ type: 'FOLDER:CLEAR' })}
 				type='button'
+				intent='ghost'
 				disabled={disabled || !folder?.path}
 			>
 				clear folder
-			</button>
+			</Button>
 			<pre>{JSON.stringify(folder)}</pre>
 		</div>
 	)

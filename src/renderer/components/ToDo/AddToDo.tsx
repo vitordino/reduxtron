@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react'
 
 import useDispatch from 'renderer/hooks/useDispatch'
+import { Button } from 'renderer/components/Button'
 
 const AddToDo = () => {
 	const [title, setTitle] = useState('')
@@ -14,8 +15,8 @@ const AddToDo = () => {
 
 	return (
 		<form onSubmit={onSubmit}>
-			<input value={title} onChange={e => setTitle(e.target.value)} />
-			<button type='submit'>add</button>
+			<input type='text' value={title} onChange={e => setTitle(e.target.value)} />
+			<Button type='submit'>add</Button>
 		</form>
 	)
 }
