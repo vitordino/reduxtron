@@ -5,10 +5,8 @@ import UIControls from 'renderer/components/UI/UIControls'
 import Dog from 'renderer/components/Dog/Dog'
 import Folder from 'renderer/components/Folder/Folder'
 
-const style = { fontFamily: 'sans-serif' }
-
 const App = () => (
-	<main style={style}>
+	<main>
 		<h1>counter</h1>
 		<Counter />
 		<h1>to do</h1>
