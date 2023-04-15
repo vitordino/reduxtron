@@ -1,7 +1,6 @@
 {
 	"extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
 	"include": [
-    "resources/**",
 		"src/shared/**/*",
 		"src/main/**/*",
 		"src/preload/**/*",

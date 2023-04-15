@@ -13,7 +13,7 @@ const { join } = require('path')
 module.exports = () => ({
 	appId: 'com.electron.app',
 	productName: 'react-ts',
-	// icon: join(__dirname, 'resources', 'icon.png'),
+	icon: join(__dirname, 'resources', 'icon.png'),
 
 	directories: {
 		buildResources: 'build',
