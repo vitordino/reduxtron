@@ -29,6 +29,7 @@
 		"class-variance-authority": "^0.5.2",
 		"clsx": "^1.2.1",
 		"framer-motion": "^10.11.6",
+		"react-icons": "^4.8.0",
 		"redux": "^4.2.1",
 		"uid": "^2.0.2",
 		"zustand": "^4.3.7"

@@ -1,10 +1,8 @@
-const colors = require('tailwindcss/colors')
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	// mode: "jit",
 	content: ['./src/renderer/**/*.{html,js,jsx,ts,tsx}'],
-	darkMode: 'media', // or 'media' or 'class'
+	darkMode: 'class', // or 'media' or 'class'
 	theme: {
 		screens: {
 			sm: '640px',
