@@ -20,14 +20,16 @@ class MainWindow {
 	private dispatch?: Dispatch
 
 	public create = async () => {
+		const icon = join(__dirname, '../../resources', 'icon.png')
+		console.log({ __dirname, icon })
 		if (this.instance) return
 
 		this.instance = new BrowserWindow({
 			show: false,
 			width: 1024,
 			height: 728,
-			icon: join(__dirname, 'resources', 'icon.png'),
-
+			titleBarOverlay: true,
+			icon,
 			webPreferences: {
 				sandbox: true,
 				nodeIntegration: false,
