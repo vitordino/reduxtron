@@ -28,6 +28,7 @@ class MainWindow {
 			show: false,
 			width: 1024,
 			height: 728,
+			titleBarStyle: 'hiddenInset',
 			titleBarOverlay: true,
 			vibrancy: 'sidebar',
 			icon,

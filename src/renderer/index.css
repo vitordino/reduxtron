@@ -5,6 +5,12 @@ body {
 	@apply text-xs font-medium text-gray-600;
 }
 
+.drag-region {
+	@apply fixed w-full h-9;
+	-webkit-user-select: none;
+	-webkit-app-region: drag;
+}
+
 @font-face {
 	font-family: 'Inter UI';
 	font-style: normal;

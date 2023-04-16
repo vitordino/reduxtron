@@ -3,6 +3,7 @@ import type { PreloadReduxMiddlewareHandlers } from '../preload/preload-redux-mi
 declare global {
 	interface Window {
 		electron: PreloadReduxMiddlewareHandlers
+		__PLATFORM__: 'darwin' | 'linux' | 'windows'
 	}
 }
 
