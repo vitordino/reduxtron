@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import type { IconType } from 'react-icons'
 import { RxPlus, RxPencil2, RxMix, RxFile } from 'react-icons/rx'
 
@@ -16,15 +16,19 @@ type SidebarLinkProps = {
 	text: ReactNode
 }
 
-const SidebarLink = ({ to, icon: Icon, text }: SidebarLinkProps) => (
-	<a
-		href={to}
-		className='group relative lg:w-full mt-0.5 py-2 px-2 h-7 flex items-center justify-center lg:justify-normal lg:rounded hover:bg-gray-100 cursor-pointer'
-	>
-		<Icon className='lg:w-3.5 h-3.5 lg:x4 text-sm text-gray-500 group-hover:text-gray-600' />
-		<span className='hidden lg:block ml-2'>{text}</span>
-	</a>
-)
+const SidebarLink = ({ to, icon: Icon, text }: SidebarLinkProps) => {
+	const location = useLocation().pathname
+	return (
+		<a
+			href={to}
+			data-current={location === to}
+			className='group relative lg:w-full mt-0.5 py-2 px-2 h-7 flex items-center justify-center lg:justify-normal lg:rounded hover:bg-gray-100 cursor-pointer data-[current=true]:bg-gray-100'
+		>
+			<Icon className='lg:w-3.5 h-3.5 lg:x4 text-sm text-gray-500 group-hover:text-gray-600' />
+			<span className='hidden lg:block ml-2'>{text}</span>
+		</a>
+	)
+}
 
 const isMac = window.__PLATFORM__ === 'darwin'
 const Sidebar = () => (
