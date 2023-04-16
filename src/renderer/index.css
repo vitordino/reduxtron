@@ -3,11 +3,11 @@
 @tailwind utilities;
 body {
 	@apply text-xs font-medium text-gray-600;
+	-webkit-user-select: none;
 }
 
 .drag-region {
 	@apply fixed w-full h-9;
-	-webkit-user-select: none;
 	-webkit-app-region: drag;
 }
 
