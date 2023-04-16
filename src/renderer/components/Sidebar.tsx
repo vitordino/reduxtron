@@ -28,17 +28,19 @@ const SidebarLink = ({ to, icon: Icon, text }: SidebarLinkProps) => (
 
 const Sidebar = () => {
 	return (
-		<div className='inset-0 relative bg-white flex flex-col flex-shrink-0 lg:w-56 font-sans text-sm text-gray-700 border-r border-gray-100 justify-items-start'>
-			<Link to='/' className='flex flex-col flex-grow-0 flex-shrink-0 p-3 lg:px-5 lg:py-3'>
-				<div className='flex items-center justify-between'>
-					<div className='flex items-center p-1 rounded'>
+		<div className='inset-0 relative flex flex-col flex-shrink-0 lg:w-56 font-sans text-sm text-gray-700 border-r border-gray-100 justify-items-start'>
+			<div className='flex flex-col flex-grow-0 flex-shrink-0 p-3 lg:px-4 lg:py-3'>
+				<Link to='/' className='group flex items-center justify-between rounded hover:bg-gray-100'>
+					<div className='flex items-center p-2'>
 						<div className='flex text-sm items-center justify-center rounded-sm w-6 h-6 p-0.5 text-white bg-indigo-600 lg:x2.5'>
 							<img src='/images/logo.svg' />
 						</div>
-						<div className='text-sm font-medium hidden lg:block ml-2'>redux-electron</div>
+						<div className='group-hover:text-gray-600 text-sm font-medium hidden lg:block ml-2'>
+							redux-electron
+						</div>
 					</div>
-				</div>
-			</Link>
+				</Link>
+			</div>
 
 			<div className='flex flex-col flex-shrink flex-grow overflow-y-auto mb-0.5 lg:px-4'>
 				{links.map(x => (

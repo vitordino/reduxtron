@@ -29,6 +29,7 @@ class MainWindow {
 			width: 1024,
 			height: 728,
 			titleBarOverlay: true,
+			vibrancy: 'sidebar',
 			icon,
 			webPreferences: {
 				sandbox: true,

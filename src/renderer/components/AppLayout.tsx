@@ -4,7 +4,9 @@ import Sidebar from 'renderer/components/Sidebar'
 const AppLayout = () => (
 	<>
 		<Sidebar />
-		<Outlet />
+		<main className='bg-white w-full'>
+			<Outlet />
+		</main>
 	</>
 )
 

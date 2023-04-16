@@ -1,9 +1,9 @@
 import { Routes } from 'renderer/components/Routes'
 
 const App = () => (
-	<main className='flex w-full h-screen'>
+	<div className='flex w-full h-screen'>
 		<Routes />
-	</main>
+	</div>
 )
 
 export default App
