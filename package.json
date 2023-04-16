@@ -30,6 +30,7 @@
 		"clsx": "^1.2.1",
 		"framer-motion": "^10.11.6",
 		"react-icons": "^4.8.0",
+		"react-router-dom": "^6.10.0",
 		"redux": "^4.2.1",
 		"uid": "^2.0.2",
 		"zustand": "^4.3.7"
