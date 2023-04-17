@@ -27,7 +27,12 @@ const ToDoList = () => {
 	return (
 		<div>
 			<RenderCounter />
-			<Reorder.Group axis='y' values={toDos} onReorder={setToDos}>
+			<Reorder.Group
+				className='group divide-y divide-slate-4'
+				axis='y'
+				values={toDos}
+				onReorder={setToDos}
+			>
 				{toDos.map(item => (
 					<Reorder.Item key={item.id} value={item}>
 						<ToDo {...item} />
