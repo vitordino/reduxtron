@@ -22,6 +22,7 @@
 	},
 	"dependencies": {
 		"@electron-toolkit/utils": "^1.0.2",
+		"@radix-ui/colors": "^0.1.8",
 		"@redux-devtools/remote": "^0.8.0",
 		"@reduxjs/toolkit": "^1.9.3",
 		"@tailwindcss/forms": "^0.5.3",
@@ -33,6 +34,7 @@
 		"react-router-dom": "^6.10.0",
 		"redux": "^4.2.1",
 		"uid": "^2.0.2",
+		"windy-radix-palette": "https://github.com/Gravy59/windy-radix-palette",
 		"zustand": "^4.3.7"
 	},
 	"devDependencies": {
