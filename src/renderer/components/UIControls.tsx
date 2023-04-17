@@ -1,7 +1,7 @@
 import compare from 'renderer/utils/compare'
 import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
-import RenderCounter from 'renderer/components/RenderCounter/RenderCounter'
+import RenderCounter from 'renderer/components/RenderCounter'
 
 const UI_CONTROLS = ['main-window', 'tray']
 

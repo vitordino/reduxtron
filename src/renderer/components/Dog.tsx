@@ -2,7 +2,7 @@ import { ChangeEvent } from 'react'
 import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
 import useSWR from 'renderer/hooks/useSWR'
-import RenderCounter from 'renderer/components/RenderCounter/RenderCounter'
+import RenderCounter from 'renderer/components/RenderCounter'
 
 const ALL_BREEDS_ENDPOINT = 'https://dog.ceo/api/breeds/list/all'
 const swrOptions = { revalidateOn: [] }

@@ -2,27 +2,16 @@
 module.exports = {
 	// mode: "jit",
 	content: ['./src/renderer/**/*.{html,js,jsx,ts,tsx}'],
-	darkMode: 'class', // or 'media' or 'class'
+	darkMode: 'media',
 	theme: {
 		screens: {
 			sm: '640px',
-			// => @media (min-width: 640px) { ... }
-
 			md: '768px',
-			// => @media (min-width: 768px) { ... }
-
 			lg: '1024px',
-			// => @media (min-width: 1024px) { ... }
-
 			xl: '1280px',
-			// => @media (min-width: 1280px) { ... }
-
-			'2xl': '1536px',
-			// => @media (min-width: 1536px) { ... }
 		},
-		// color: {
-		//   // gray: colors.trueGray,
-		// },
+		// radix colors handled by windy-radix-palette
+		colors: {},
 		fontFamily: {
 			sans: [
 				'Inter\\ UI',
@@ -85,5 +74,5 @@ module.exports = {
 			borderColor: ['checked'],
 		},
 	},
-	plugins: [require('@tailwindcss/line-clamp'), require('@tailwindcss/forms')],
+	plugins: [require('windy-radix-palette/packages/palette'), require('@tailwindcss/forms')],
 }

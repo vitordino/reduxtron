@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 body {
-	@apply text-xs font-medium text-gray-600;
+	@apply text-xs font-medium text-slate-12;
 	-webkit-user-select: none;
 }
 

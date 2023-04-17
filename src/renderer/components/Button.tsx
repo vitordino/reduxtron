@@ -20,8 +20,8 @@ type ButtonProps = ButtonBaseProps & (ButtonAsAnchorProps | ButtonAsButtonProps)
 const buttonClasses = cva('relative inline-flex items-center justify-center', {
 	variants: {
 		intent: {
-			primary: 'text-white bg-indigo-600 rounded hover:bg-indigo-700 focus:outline-none',
-			ghost: 'border-none rounded hover:bg-gray-200 focus:outline-none',
+			primary: 'text-indigo-11 bg-indigo-4 rounded hover:bg-indigo-5 active:bg-active-6',
+			ghost: 'text-slate-10 border-none rounded hover:bg-slate-4 hover:text-slate-11',
 		},
 		size: {
 			md: 'h-7 px-3',
