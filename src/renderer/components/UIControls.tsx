@@ -1,6 +1,7 @@
 import compare from 'renderer/utils/compare'
 import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
+import { Checkbox } from 'renderer/components/Checkbox'
 import RenderCounter from 'renderer/components/RenderCounter'
 
 const UI_CONTROLS = ['main-window', 'tray']
@@ -15,9 +16,8 @@ const UIControls = () => {
 			<ul>
 				{UI_CONTROLS.map(x => (
 					<li key={x}>
-						<input
+						<Checkbox
 							id={`ui-visible-${x}`}
-							type='checkbox'
 							checked={!!visible?.includes(x)}
 							onChange={() => dispatch({ type: 'UI:TOGGLE_VISIBLE', payload: x })}
 						/>
