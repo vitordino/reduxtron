@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider, RouterProviderProps } from 'react-router-dom'
 import AppLayout from 'renderer/components/AppLayout'
+import { Toolbar } from 'renderer/components/Toolbar'
 import Counter from 'renderer/components/Counter'
 import AddToDo from 'renderer/components/AddToDo'
 import ToDoList from 'renderer/components/ToDoList'
@@ -14,12 +15,18 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: '/counter',
-				element: <Counter />,
+				element: (
+					<>
+						<Toolbar>counter</Toolbar>
+						<Counter />
+					</>
+				),
 			},
 			{
 				path: '/to-do',
 				element: (
 					<>
+						<Toolbar>to do</Toolbar>
 						<AddToDo />
 						<ToDoList />
 					</>
@@ -27,15 +34,30 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/ui',
-				element: <UIControls />,
+				element: (
+					<>
+						<Toolbar>ui</Toolbar>
+						<UIControls />
+					</>
+				),
 			},
 			{
 				path: '/folder',
-				element: <Folder />,
+				element: (
+					<>
+						<Toolbar>folder</Toolbar>
+						<Folder />
+					</>
+				),
 			},
 			{
 				path: '/dog',
-				element: <Dog />,
+				element: (
+					<>
+						<Toolbar>dog</Toolbar>
+						<Dog />
+					</>
+				),
 			},
 		],
 	},

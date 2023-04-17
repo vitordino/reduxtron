@@ -30,12 +30,10 @@ const SidebarLink = ({ to, icon: Icon, text }: SidebarLinkProps) => {
 	)
 }
 
-const isMac = window.__PLATFORM__ === 'darwin'
-
 const Sidebar = () => (
 	<div className='inset-0 relative flex flex-col flex-shrink-0 lg:w-56 font-sans text-sm border-r border-slate-6 dark:border-slate-1 justify-items-start'>
-		{isMac && <div className='pt-6' />}
-		<div className='flex flex-col flex-grow-0 flex-shrink-0 py-3 px-5 lg:px-4 lg:py-3'>
+		<div className='drag-region sticky top-0 flex-shrink-0 w-full h-9' />
+		<div className='flex flex-col flex-grow-0 flex-shrink-0 py-1 px-5 lg:px-4'>
 			<Link to='/' className='group flex items-center justify-between rounded hover:bg-slate-2'>
 				<div className='flex items-center p-2'>
 					<div className='flex text-sm items-center justify-center rounded-sm w-6 h-6 p-0.5 text-white bg-indigo-10 lg:x2.5'>

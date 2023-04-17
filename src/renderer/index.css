@@ -10,7 +10,6 @@ body {
 }
 
 .drag-region {
-	@apply fixed w-full h-9;
 	app-region: drag;
 }
 
