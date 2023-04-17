@@ -2,13 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 body {
-	@apply text-xs font-medium text-slate-12;
-	-webkit-user-select: none;
+	@apply text-xs font-medium text-slate-12 select-none;
+}
+
+*:focus-visible {
+	@apply outline-none ring-2 ring-indigo-8;
 }
 
 .drag-region {
 	@apply fixed w-full h-9;
-	-webkit-app-region: drag;
+	app-region: drag;
 }
 
 @font-face {
@@ -45,18 +48,6 @@ body {
 	font-display: swap;
 	src: url('fonts/Inter-UI-ExtraBold.woff2') format('woff2'),
 		url('fonts/Inter-UI-ExtraBold.woff') format('woff');
-}
-
-.modal {
-	max-width: calc(100vw - 32px);
-	max-height: calc(100vh - 32px);
-}
-
-.editor ul {
-	list-style-type: circle;
-}
-.editor ol {
-	list-style-type: decimal;
 }
 
 #root,
