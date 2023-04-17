@@ -1,7 +1,7 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react'
 import type { VariantProps } from 'class-variance-authority'
 import { cva } from 'class-variance-authority'
-import clsx from 'clsx'
+import cn from 'clsx'
 
 type ButtonBaseProps = VariantProps<typeof buttonClasses> & {
 	children: React.ReactNode
@@ -20,12 +20,17 @@ type ButtonProps = ButtonBaseProps & (ButtonAsAnchorProps | ButtonAsButtonProps)
 const buttonClasses = cva('relative inline-flex items-center justify-center', {
 	variants: {
 		intent: {
-			primary: 'text-indigo-11 bg-indigo-4 rounded hover:bg-indigo-5 active:bg-active-6',
-			ghost: 'text-slate-10 border-none rounded hover:bg-slate-4 hover:text-slate-11',
+			primary: cn(
+				'text-indigo-11 bg-indigo-4 hover:bg-indigo-5 active:bg-indigo-6',
+				'disabled:text-slate-11 disabled:bg-slate-4 disabled:hover:bg-slate-4 disabled:active:bg-active-4 disabled:cursor-not-allowed',
+			),
+			ghost: 'text-slate-10 border-none hover:bg-slate-4 hover:text-slate-11',
 		},
 		size: {
-			md: 'h-7 px-3',
-			'square-md': 'h-7 w-7',
+			xs: 'rounded-sm h-7 px-3',
+			'square-xs': 'rounded-sm h-[18px] w-[18px]',
+			md: 'rounded h-7 px-3',
+			'square-md': 'rounded h-7 w-7',
 		},
 	},
 	defaultVariants: {
@@ -40,7 +45,7 @@ export const Highlight = ({
 }: {
 	children: React.ReactNode
 	className?: string
-}) => <span className={clsx('highlight', className)}>{children}</span>
+}) => <span className={cn('highlight', className)}>{children}</span>
 
 export const Button = ({ children, intent, size, className, ...props }: ButtonProps) => {
 	const classes = buttonClasses({ intent, size, className })
