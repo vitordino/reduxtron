@@ -4,7 +4,9 @@ import useDispatch from 'renderer/hooks/useDispatch'
 import { Checkbox } from 'renderer/components/Checkbox'
 import { Button } from 'renderer/components/Button'
 
-const ToDo = ({ id, title, completed }: TodoType) => {
+export type ToDoProps = TodoType
+
+const ToDo = ({ id, title, completed }: ToDoProps) => {
 	const dispatch = useDispatch()
 	const toggle = () => dispatch({ type: 'TO_DO:TOGGLE', payload: id })
 	const remove = () => dispatch({ type: 'TO_DO:REMOVE', payload: id })
