@@ -1,23 +1,23 @@
-import { Reorder, useMotionValue, MotionStyle } from 'framer-motion'
+import { Reorder, useMotionValue } from 'framer-motion'
 
 import compare from 'renderer/utils/compare'
 import useStore from 'renderer/hooks/useStore'
-import useActiveMotionValue from 'renderer/hooks/useActiveMotionStyle'
 import useDispatch from 'renderer/hooks/useDispatch'
+import useIsAnimating from 'renderer/hooks/useIsAnimating'
 import RenderCounter from 'renderer/components/RenderCounter'
 import ToDo, { ToDoProps } from 'renderer/components/ToDo'
 
-const INACTIVE_ITEM_BG = 'transparent'
-const ACTIVE_ITEM_BG = 'hsl(var(--slate4) / 1)'
-
 const ReorderTodoItem = ({ todo }: { todo: ToDoProps }) => {
 	const y = useMotionValue(0)
-	const background = useActiveMotionValue(y, INACTIVE_ITEM_BG, ACTIVE_ITEM_BG)
-	const zIndex = useActiveMotionValue(y, 0, 1)
-	const cursor = useActiveMotionValue(y, 'grab', 'grabbing')
-	const style: MotionStyle = { background, y, zIndex, position: 'relative', cursor }
+	const isDragging = useIsAnimating(y)
 	return (
-		<Reorder.Item id={todo.id} value={todo} style={style}>
+		<Reorder.Item
+			data-dragging={isDragging}
+			id={todo.id}
+			value={todo}
+			className='relative cursor-grab data-[dragging=true]:bg-slate-2 dark:data-[dragging=true]:bg-slate-1 data-[dragging=true]:cursor-grabbing'
+			style={{ y }}
+		>
 			<ToDo {...todo} />
 		</Reorder.Item>
 	)
