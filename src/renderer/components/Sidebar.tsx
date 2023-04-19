@@ -19,14 +19,14 @@ type SidebarLinkProps = {
 const SidebarLink = ({ to, icon: Icon, text }: SidebarLinkProps) => {
 	const location = useLocation().pathname
 	return (
-		<a
-			href={to}
+		<Link
+			to={to}
 			data-current={location === to}
 			className='group relative lg:w-full mt-0.5 py-2 px-2 h-7 flex items-center justify-center lg:justify-normal lg:rounded hover:bg-slate-6 cursor-pointer data-[current=true]:bg-slate-2'
 		>
 			<Icon className='icon-size text-sm text-slate-11 group-hover:text-slate-12' />
 			<span className='hidden lg:block ml-2 text-slate-12'>{text}</span>
-		</a>
+		</Link>
 	)
 }
 

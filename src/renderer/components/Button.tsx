@@ -1,4 +1,5 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react'
+import { Link, LinkProps } from 'react-router-dom'
 import type { VariantProps } from 'class-variance-authority'
 import { cva } from 'class-variance-authority'
 import cn from 'clsx'
@@ -11,11 +12,16 @@ interface ButtonAsAnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 	href: string
 }
 
-interface ButtonAsButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	href?: never
+interface ButtonAsLinkProps extends LinkProps {
+	to: string
 }
 
-type ButtonProps = ButtonBaseProps & (ButtonAsAnchorProps | ButtonAsButtonProps)
+interface ButtonAsButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+	href?: never
+	to?: never
+}
+
+type ButtonProps = ButtonBaseProps & (ButtonAsAnchorProps | ButtonAsButtonProps | ButtonAsLinkProps)
 
 const buttonClasses = cva('relative inline-flex items-center justify-center', {
 	variants: {
@@ -49,6 +55,14 @@ export const Highlight = ({
 
 export const Button = ({ children, intent, size, className, ...props }: ButtonProps) => {
 	const classes = buttonClasses({ intent, size, className })
+
+	if ('to' in props && props.to !== undefined) {
+		return (
+			<Link {...props} className={classes}>
+				{children}
+			</Link>
+		)
+	}
 
 	if ('href' in props && props.href !== undefined) {
 		return (
