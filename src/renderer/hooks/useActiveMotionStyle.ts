@@ -1,11 +1,11 @@
 import { MotionValue, useMotionValue } from 'framer-motion'
 import { useEffect } from 'react'
 
-const useActiveMotionValue = (
-	inputValue: MotionValue<number>,
-	inactiveValue: unknown,
-	activeValue: unknown,
-) => {
+type UseActiveMotionValue = {
+	<T>(inputValue: MotionValue<number>, inactiveValue: T, activeValue: T): MotionValue<T>
+}
+
+const useActiveMotionValue: UseActiveMotionValue = (inputValue, inactiveValue, activeValue) => {
 	const output = useMotionValue(inactiveValue)
 
 	useEffect(() => {
