@@ -26,7 +26,6 @@ const ToDoList = () => {
 
 	return (
 		<div>
-			<RenderCounter />
 			<Reorder.Group
 				className='group divide-y divide-slate-4'
 				axis='y'
@@ -39,6 +38,7 @@ const ToDoList = () => {
 					</Reorder.Item>
 				))}
 			</Reorder.Group>
+			<RenderCounter />
 		</div>
 	)
 }

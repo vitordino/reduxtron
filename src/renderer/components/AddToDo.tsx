@@ -16,10 +16,7 @@ const AddToDo = () => {
 	}
 
 	return (
-		<form
-			onSubmit={onSubmit}
-			className='py-4 px-4 m-4 bg-slate-2 dark:bg-slate-1 rounded-lg flex space-x-2'
-		>
+		<form onSubmit={onSubmit} className='p-4 border-b border-slate-4 bg-slate-2 flex space-x-2'>
 			<Input value={title} onChange={e => setTitle(e.target.value)} placeholder='new todo' />
 			<Button disabled={!title} type='submit'>
 				add
