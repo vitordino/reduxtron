@@ -42,9 +42,9 @@ const ToDoList = () => {
 	}
 
 	return (
-		<div>
+		<>
 			<Reorder.Group
-				className='group divide-y divide-slate-4'
+				className='group divide-y divide-slate-4 h-[fill-available] overflow-auto'
 				axis='y'
 				values={toDos}
 				onReorder={setToDos}
@@ -54,7 +54,7 @@ const ToDoList = () => {
 				))}
 			</Reorder.Group>
 			<RenderCounter />
-		</div>
+		</>
 	)
 }
 
