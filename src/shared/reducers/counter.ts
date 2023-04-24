@@ -1,4 +1,4 @@
-import { Reducer } from '@reduxjs/toolkit'
+import { Reducer } from 'redux'
 
 const counterIncrement = (state: number) => state + 1
 const counterDecrement = (state: number) => state - 1

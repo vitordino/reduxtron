@@ -1,10 +1,4 @@
-import {
-	combineReducers,
-	Dispatch as BaseDispatch,
-	Reducer,
-	Observable,
-	AnyAction,
-} from '@reduxjs/toolkit'
+import { combineReducers, Dispatch as BaseDispatch, Reducer, Observable, AnyAction } from 'redux'
 
 import counterReducer, { CounterAction } from './counter'
 import toDosReducer, { ToDosAction } from './toDos'

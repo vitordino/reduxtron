@@ -1,4 +1,4 @@
-import { Reducer } from '@reduxjs/toolkit'
+import { Reducer } from 'redux'
 import { uid } from 'uid'
 
 export type ToDo = { id: string; title: string; completed: boolean }

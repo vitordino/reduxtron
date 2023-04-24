@@ -1,5 +1,5 @@
 // inspiration: https://swr.vercel.app/docs/api
-import type { Reducer } from '@reduxjs/toolkit'
+import type { Reducer } from 'redux'
 
 const DEDUPING_INTERVAL = 2000
 

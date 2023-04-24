@@ -1,4 +1,4 @@
-import type { AnyAction } from '@reduxjs/toolkit'
+import type { AnyAction } from 'redux'
 import type { State, Middleware } from 'shared/reducers'
 import type { UIAction } from 'shared/reducers/ui'
 import mainWindow from 'main/main-window/main-window'

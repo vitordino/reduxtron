@@ -1,4 +1,4 @@
-import type { StoreEnhancer } from '@reduxjs/toolkit'
+import type { StoreEnhancer } from 'redux'
 import { devToolsEnhancer } from '@redux-devtools/remote'
 import { is } from '@electron-toolkit/utils'
 

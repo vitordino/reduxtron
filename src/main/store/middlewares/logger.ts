@@ -1,4 +1,4 @@
-import type { Middleware } from '@reduxjs/toolkit'
+import type { Middleware } from 'redux'
 
 const logger: Middleware = store => next => action => {
 	// eslint-disable-next-line no-console

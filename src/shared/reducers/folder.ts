@@ -1,4 +1,4 @@
-import { Reducer } from '@reduxjs/toolkit'
+import { Reducer } from 'redux'
 
 type FolderState = {
 	state: 'idle' | 'loading' | 'error' | 'loaded'

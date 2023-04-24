@@ -1,4 +1,4 @@
-import type { Middleware } from '@reduxjs/toolkit'
+import type { Middleware } from 'redux'
 import { app } from 'electron'
 import { writeFile, readFile, mkdir } from 'fs/promises'
 import { join } from 'path'

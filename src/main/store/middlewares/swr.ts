@@ -1,5 +1,5 @@
 import { readdir } from 'node:fs/promises'
-import type { Middleware as BaseMiddleware } from '@reduxjs/toolkit'
+import type { Middleware as BaseMiddleware } from 'redux'
 import type { Middleware, Action } from 'shared/reducers'
 import { KEY_PREFIX_MAP } from 'shared/reducers/swr'
 
