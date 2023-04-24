@@ -1,6 +1,13 @@
 import { useEffect } from 'react'
 import compare from 'renderer/utils/compare'
-import type { SWRItem, SWRItemData, SWRItemOptions } from 'shared/reducers/swr'
+import {
+	SWRItem,
+	SWRItemData,
+	SWRItemOptions,
+	SWRType,
+	KEY_PREFIX_MAP,
+	SWR_ACTION_TYPE_MAP,
+} from 'shared/reducers/swr'
 import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
 
@@ -10,20 +17,23 @@ export type Key = Arguments | (() => Arguments)
 const initialState = { state: 'initial', data: undefined, error: null } as const
 
 const useSWR = <Data = SWRItemData, Error = SWRItemData>(
+	type: SWRType,
 	key: Key,
 	options?: SWRItemOptions,
 ): SWRItem<Data, Error> | typeof initialState => {
+	const actionType = SWR_ACTION_TYPE_MAP[type]
 	const stableKey = (typeof key === 'function' ? key() : key) || ''
-	const entry = useStore(x => x.swr?.[stableKey], compare) as SWRItem<Data, Error>
+	const prefixedKey = KEY_PREFIX_MAP[actionType] + stableKey
+	const entry = useStore(x => x.swr?.[prefixedKey], compare) as SWRItem<Data, Error>
 	const dispatch = useDispatch()
 
 	useEffect(() => {
 		if (!stableKey) return
 		dispatch({
-			type: 'SWR:FETCH_URL',
-			payload: options ? [stableKey, options] : [stableKey],
+			type: actionType,
+			payload: options ? [prefixedKey, options] : [prefixedKey],
 		})
-	}, [stableKey, dispatch, options])
+	}, [actionType, stableKey, prefixedKey, dispatch, options])
 
 	return entry || initialState
 }

@@ -11,7 +11,7 @@ export type SWRItemOptions = {
 	revalidateOn: RevalidateEvents[]
 }
 
-export type SWRItemData = Record<string, unknown> | string | null | undefined
+export type SWRItemData = Record<string, unknown> | string | null | undefined | SWRItemData[]
 
 export type SWRItem<Data = SWRItemData, Error = SWRItemData> = {
 	state: SWRState
@@ -22,20 +22,28 @@ export type SWRItem<Data = SWRItemData, Error = SWRItemData> = {
 
 export type SWRStore = Record<string, SWRItem>
 
+export type SWRType = 'url' | 'fs'
+
+export const SWR_ACTION_TYPE_MAP = {
+	url: 'SWR:FETCH_URL',
+	fs: 'SWR:FETCH_FS',
+} as const
+
+type FetchBaseType = 'SWR:FETCH_URL' | 'SWR:FETCH_FS'
+type FetchLoadedType = `${FetchBaseType}@LOADED`
+type FetchErrorType = `${FetchBaseType}@ERROR`
+type FetchLoadingType = `${FetchBaseType}@LOADING`
+type FetchRevalidatingType = `${FetchBaseType}@REVALIDATING`
+type FetchMutateType = `${FetchBaseType}@MUTATE`
+
 export type SWRAction =
-	| {
-			type: 'SWR:FETCH_URL'
-			payload: [string] | [string, SWRItemOptions]
-	  }
-	| { type: 'SWR:FETCH_URL@LOADED'; payload: [string, SWRItem['data']] }
-	| { type: 'SWR:FETCH_URL@ERROR'; payload: [string, SWRItem['error']] }
+	| { type: FetchBaseType; payload: [string] | [string, SWRItemOptions] }
+	| { type: FetchLoadedType; payload: [string, SWRItem['data']] }
+	| { type: FetchErrorType; payload: [string, SWRItem['error']] }
 	// unused for now:
-	| { type: 'SWR:FETCH_URL@LOADING'; payload: [string] }
-	| { type: 'SWR:FETCH_URL@REVALIDATING'; payload: [string] }
-	| {
-			type: 'SWR:FETCH_URL@MUTATE'
-			payload: [string] | [string, SWRItem['data']]
-	  }
+	| { type: FetchLoadingType; payload: [string] }
+	| { type: FetchRevalidatingType; payload: [string] }
+	| { type: FetchMutateType; payload: [string] | [string, SWRItem['data']] }
 
 const shouldRevalidate = (item?: SWRItem): boolean => {
 	if (!item) return true
@@ -54,13 +62,19 @@ const DEFAULT_SWR_ITEM_OPTIONS: SWRItemOptions = {
 	revalidateOn: ['stale', 'reconnect', 'focus'],
 }
 
+export const KEY_PREFIX_MAP = {
+	'SWR:FETCH_URL': '',
+	'SWR:FETCH_FS': 'fs://',
+}
+
 const swrReducer: Reducer<SWRStore, SWRAction> = (state, { type, payload }) => {
 	if (!state) return {}
 	if (!type.startsWith('SWR:')) return state
 	const key = payload[0]
 	const item = state[key]
 	switch (type) {
-		case 'SWR:FETCH_URL': {
+		case 'SWR:FETCH_URL':
+		case 'SWR:FETCH_FS': {
 			const options = payload[1] || DEFAULT_SWR_ITEM_OPTIONS
 			if (!item) {
 				return {
@@ -81,7 +95,8 @@ const swrReducer: Reducer<SWRStore, SWRAction> = (state, { type, payload }) => {
 			return { ...state, [key]: { ...item, ...options, state: itemState } }
 		}
 
-		case 'SWR:FETCH_URL@LOADING': {
+		case 'SWR:FETCH_URL@LOADING':
+		case 'SWR:FETCH_FS@LOADING': {
 			return {
 				...state,
 				[key]: {
@@ -93,7 +108,8 @@ const swrReducer: Reducer<SWRStore, SWRAction> = (state, { type, payload }) => {
 			}
 		}
 
-		case 'SWR:FETCH_URL@REVALIDATING': {
+		case 'SWR:FETCH_URL@REVALIDATING':
+		case 'SWR:FETCH_FS@REVALIDATING': {
 			return {
 				...state,
 				[key]: {
@@ -103,7 +119,8 @@ const swrReducer: Reducer<SWRStore, SWRAction> = (state, { type, payload }) => {
 			}
 		}
 
-		case 'SWR:FETCH_URL@LOADED': {
+		case 'SWR:FETCH_URL@LOADED':
+		case 'SWR:FETCH_FS@LOADED': {
 			const data = payload[1]
 			return {
 				...state,
@@ -117,7 +134,8 @@ const swrReducer: Reducer<SWRStore, SWRAction> = (state, { type, payload }) => {
 			}
 		}
 
-		case 'SWR:FETCH_URL@ERROR': {
+		case 'SWR:FETCH_URL@ERROR':
+		case 'SWR:FETCH_FS@ERROR': {
 			const error = payload[1]
 			return {
 				...state,
@@ -131,7 +149,8 @@ const swrReducer: Reducer<SWRStore, SWRAction> = (state, { type, payload }) => {
 			}
 		}
 
-		case 'SWR:FETCH_URL@MUTATE': {
+		case 'SWR:FETCH_URL@MUTATE':
+		case 'SWR:FETCH_FS@MUTATE': {
 			const optimisticData = payload[1]
 			const existingData = state[key].data
 			return {

@@ -9,7 +9,7 @@ const swrOptions = { revalidateOn: [] }
 
 const useFavoriteDogImage = (breed: string) => {
 	const key = () => !!breed && `https://dog.ceo/api/breed/${breed}/images/random`
-	const image = useSWR<{ message: string }>(key, swrOptions)
+	const image = useSWR<{ message: string }>('url', key, swrOptions)
 	return image?.data?.message
 }
 
@@ -22,7 +22,11 @@ const FavoriteDog = ({ breed }: { breed: string }) => {
 }
 
 const useAllBreeds = () => {
-	const allBreeds = useSWR<{ message: Record<string, unknown> }>(ALL_BREEDS_ENDPOINT, swrOptions)
+	const allBreeds = useSWR<{ message: Record<string, unknown> }>(
+		'url',
+		ALL_BREEDS_ENDPOINT,
+		swrOptions,
+	)
 	return Object.keys(allBreeds?.data?.message ?? {})
 }
 
@@ -30,6 +34,7 @@ const Dog = () => {
 	const allBreeds = useAllBreeds()
 	const favorite = useStore(x => x.dog?.favorite)
 	const dispatch = useDispatch()
+	const x = useSWR('fs', '/Applications')
 
 	const handleChangeFavorite = (e: ChangeEvent<HTMLSelectElement>) =>
 		dispatch({ type: 'DOG:SELECT_FAVORITE_BREED', payload: e.target.value })
@@ -46,6 +51,7 @@ const Dog = () => {
 				))}
 			</select>
 			<div style={{ width: 128, height: 128 }}>{favorite && <FavoriteDog breed={favorite} />}</div>
+			<pre>{JSON.stringify({ x }, null, 2)}</pre>
 		</div>
 	)
 }
