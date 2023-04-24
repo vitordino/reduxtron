@@ -6,7 +6,7 @@ const ALL_BREEDS_ENDPOINT = 'https://dog.ceo/api/breeds/list/all'
 const TrayDog = (state: Partial<State>, dispatch: Dispatch): MenuItemConstructorOptions => {
 	const breedsSWR = state?.swr?.[ALL_BREEDS_ENDPOINT]
 	const status = breedsSWR?.state || 'unknown'
-	// @ts-expect-error
+	// @ts-expect-error response might be a different shape
 	const breeds = Object.keys(breedsSWR?.data?.message || {})
 	const favorite = state?.dog?.favorite
 	return {

@@ -17,7 +17,7 @@ const initialState: FolderState = { state: 'idle', path: undefined, error: null 
 
 const folderReducer: Reducer<FolderState, FolderAction> = (
 	current = initialState,
-	// @ts-expect-error
+	// @ts-expect-error empty action type
 	action = { type: '' },
 ) => {
 	switch (action.type) {

@@ -2,8 +2,6 @@ import { createBrowserRouter, RouterProvider, RouterProviderProps } from 'react-
 import AppLayout from 'renderer/components/AppLayout'
 import { Toolbar } from 'renderer/components/Toolbar'
 import Counter from 'renderer/components/Counter'
-import AddToDo from 'renderer/components/AddToDo'
-import ToDoList from 'renderer/components/ToDoList'
 import UIControls from 'renderer/components/UIControls'
 import Folder from 'renderer/components/Folder'
 import Dog from 'renderer/components/Dog'

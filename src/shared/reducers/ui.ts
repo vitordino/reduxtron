@@ -30,7 +30,7 @@ export type UIAction =
 
 const uiReducer: Reducer<uiState, UIAction> = (
 	state = { visible: [] },
-	// @ts-expect-error
+	// @ts-expect-error empty action type
 	action = { type: '' },
 ) => {
 	if (!action?.type) return state
