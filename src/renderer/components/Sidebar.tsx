@@ -1,13 +1,14 @@
 import { ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import type { IconType } from 'react-icons'
-import { RxPlus, RxPencil2, RxMix, RxFile } from 'react-icons/rx'
+import { RxPlus, RxPencil2, RxMix, RxFile, RxCamera } from 'react-icons/rx'
 
 const links = [
 	{ to: '/counter', text: 'counter', icon: RxPlus },
 	{ to: '/to-do', text: 'to do', icon: RxPencil2 },
 	{ to: '/ui', text: 'ui', icon: RxMix },
 	{ to: '/folder', text: 'folder', icon: RxFile },
+	{ to: '/dog', text: 'dog', icon: RxCamera },
 ]
 
 type SidebarLinkProps = {
