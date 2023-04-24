@@ -22,7 +22,7 @@ const SidebarLink = ({ to, icon: Icon, text }: SidebarLinkProps) => {
 		<Link
 			to={to}
 			data-current={location === to}
-			className='group relative lg:w-full mt-0.5 py-2 px-2 h-7 flex items-center justify-center lg:justify-normal lg:rounded hover:bg-slate-6 cursor-pointer data-[current=true]:bg-slate-2'
+			className='relative group relative lg:w-full mt-0.5 py-2 px-2 h-7 flex items-center justify-center lg:justify-normal lg:rounded hover:bg-slate-6 cursor-pointer data-[current=true]:bg-slate-2'
 		>
 			<Icon className='icon-size text-sm text-slate-11 group-hover:text-slate-12' />
 			<span className='hidden lg:block ml-2 text-slate-12'>{text}</span>
@@ -46,7 +46,7 @@ const Sidebar = () => (
 			</Link>
 		</div>
 
-		<div className='flex flex-col flex-shrink flex-grow overflow-y-auto mb-0.5 lg:px-4'>
+		<div className='flex flex-col flex-shrink flex-grow overflow-y-auto mb-0.5 lg:px-4 lg:py-2'>
 			{links.map(x => (
 				<SidebarLink key={x.to} {...x} />
 			))}

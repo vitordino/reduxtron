@@ -5,8 +5,17 @@ body {
 	@apply text-xs font-medium text-slate-12 select-none;
 }
 
+*:focus {
+	@apply outline-none;
+}
+
 *:focus-visible {
-	@apply outline-none ring-2 ring-indigo-8;
+	@apply outline-2 outline-offset-0 outline-indigo-7 ring-0 z-10;
+}
+
+.form-checkbox {
+	@apply focus-visible:outline-2 focus-visible:outline-indigo-7;
+	box-shadow: none !important;
 }
 
 .drag-region {

@@ -74,5 +74,8 @@ module.exports = {
 			borderColor: ['checked'],
 		},
 	},
-	plugins: [require('windy-radix-palette/packages/palette'), require('@tailwindcss/forms')],
+	plugins: [
+		require('windy-radix-palette/packages/palette'),
+		require('@tailwindcss/forms')({ strategy: 'class' }),
+	],
 }
