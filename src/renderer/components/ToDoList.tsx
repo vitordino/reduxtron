@@ -38,7 +38,7 @@ const ToDoList = () => {
 
 	if (!items?.length) {
 		return (
-			<div>
+			<div className='flex-1'>
 				<RenderCounter />
 				empty todo list
 			</div>

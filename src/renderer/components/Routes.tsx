@@ -7,6 +7,7 @@ import ToDoList from 'renderer/components/ToDoList'
 import UIControls from 'renderer/components/UIControls'
 import Folder from 'renderer/components/Folder'
 import Dog from 'renderer/components/Dog'
+import ToDoView from './ToDoView'
 
 const router = createBrowserRouter([
 	{
@@ -24,13 +25,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/to-do',
-				element: (
-					<>
-						<Toolbar>to do</Toolbar>
-						<AddToDo />
-						<ToDoList />
-					</>
-				),
+				element: <ToDoView />,
 			},
 			{
 				path: '/ui',

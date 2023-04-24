@@ -2,8 +2,8 @@ import { Reducer } from '@reduxjs/toolkit'
 import { uid } from 'uid'
 
 export type ToDo = { id: string; title: string; completed: boolean }
-
-export type ToDosState = { items: ToDo[] }
+export type VisibilityFilter = 'SHOW_ALL' | 'SHOW_ACTIVE' | 'SHOW_COMPLETED'
+export type ToDosState = { items: ToDo[]; visibilityFilter: VisibilityFilter }
 
 const createToDo = (state: ToDosState, title: string): ToDosState => ({
 	...state,
@@ -30,26 +30,32 @@ const toggleToDo = (state: ToDosState, id: string): ToDosState => {
 
 const setToDos = (state: ToDosState, items: ToDo[]): ToDosState => ({ ...state, items })
 
-const toDoActions = {
-	'TO_DO:CREATE': createToDo,
-	'TO_DO:REMOVE': removeToDo,
-	'TO_DO:TOGGLE': toggleToDo,
-	'TO_DO:SET': setToDos,
-} as const
+const changeVisibilityFilter = (
+	state: ToDosState,
+	visibilityFilter: VisibilityFilter,
+): ToDosState => ({ ...state, visibilityFilter })
 
 export type ToDosAction =
 	| { type: 'TO_DO:CREATE'; payload: string }
 	| { type: 'TO_DO:REMOVE'; payload: string }
 	| { type: 'TO_DO:TOGGLE'; payload: string }
 	| { type: 'TO_DO:SET'; payload: ToDo[] }
+	| { type: 'TO_DO:CHANGE_VISIBILITY_FILTER'; payload: VisibilityFilter }
+
+const toDoActions: Record<ToDosAction['type'], (state: ToDosState, payload) => ToDosState> = {
+	'TO_DO:CREATE': createToDo,
+	'TO_DO:REMOVE': removeToDo,
+	'TO_DO:TOGGLE': toggleToDo,
+	'TO_DO:SET': setToDos,
+	'TO_DO:CHANGE_VISIBILITY_FILTER': changeVisibilityFilter,
+}
 
 const toDosReducer: Reducer<ToDosState, ToDosAction> = (
-	state = { items: [] },
+	state = { items: [], visibilityFilter: 'SHOW_ALL' },
 	// @ts-expect-error empty action
 	action = { type: '' },
 ) => {
 	if (!action?.type || !(action.type in toDoActions)) return state
-	// @ts-expect-error apply action on map
 	return toDoActions[action.type](state, action.payload)
 }
 
