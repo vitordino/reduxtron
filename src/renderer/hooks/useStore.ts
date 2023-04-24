@@ -3,7 +3,7 @@ import type { State } from 'shared/reducers'
 
 const useStore = create<Partial<State>>(setState => {
 	window.electron.subscribe(setState)
-	// TODO: use a initial getState instead
+	// TODO: use an initial getState instead
 	// @ts-expect-error dispatch an invalid action so it gets the initial state
 	window.electron.dispatch({ type: '' })
 
