@@ -10,13 +10,17 @@ import ToDo, { ToDoProps } from 'renderer/components/ToDo'
 const ReorderTodoItem = ({ todo }: { todo: ToDoProps }) => {
 	const y = useMotionValue(0)
 	const isDragging = useIsAnimating(y)
+	const style = { y, '--tw-divide-opacity': isDragging ? 0 : 1 } as const
 	return (
 		<Reorder.Item
 			data-dragging={isDragging}
 			id={todo.id}
 			value={todo}
-			className='relative cursor-grab data-[dragging=true]:bg-slate-2 dark:data-[dragging=true]:bg-slate-1 data-[dragging=true]:cursor-grabbing'
-			style={{ y }}
+			className='relative cursor-grab data-[dragging=true]:ring-1 ring-slate-4 data-[dragging=true]:border-transparent data-[dragging=true]:bg-slate-2 dark:data-[dragging=true]:bg-slate-1 data-[dragging=true]:cursor-grabbing'
+			style={style}
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
 		>
 			<ToDo {...todo} />
 		</Reorder.Item>
@@ -44,10 +48,11 @@ const ToDoList = () => {
 	return (
 		<>
 			<Reorder.Group
-				className='group divide-y divide-slate-4 h-[fill-available] overflow-auto'
+				className='group divide-y divide-slate-4 overflow-y-scroll flex-1'
 				axis='y'
 				values={toDos}
 				onReorder={setToDos}
+				layoutScroll
 			>
 				{toDos.map(todo => (
 					<ReorderTodoItem key={todo.id} todo={todo} />
