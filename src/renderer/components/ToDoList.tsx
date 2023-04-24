@@ -28,15 +28,15 @@ const ReorderTodoItem = ({ todo }: { todo: ToDoProps }) => {
 }
 
 const ToDoList = () => {
-	const toDos = useStore(x => x.toDos, compare)
+	const items = useStore(x => x.toDos?.items, compare)
 	const dispatch = useDispatch()
 
-	const setToDos = (payload?: typeof toDos) => {
+	const setToDos = (payload?: typeof items) => {
 		if (!payload) return
 		dispatch({ type: 'TO_DO:SET', payload })
 	}
 
-	if (!toDos?.length) {
+	if (!items?.length) {
 		return (
 			<div>
 				<RenderCounter />
@@ -50,11 +50,11 @@ const ToDoList = () => {
 			<Reorder.Group
 				className='group divide-y divide-slate-4 overflow-y-scroll flex-1'
 				axis='y'
-				values={toDos}
+				values={items}
 				onReorder={setToDos}
 				layoutScroll
 			>
-				{toDos.map(todo => (
+				{items.map(todo => (
 					<ReorderTodoItem key={todo.id} todo={todo} />
 				))}
 			</Reorder.Group>

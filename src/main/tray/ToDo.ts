@@ -7,7 +7,7 @@ const toggleToDo = (dispatch: Dispatch, id: string) => () =>
 const TrayToDo = (state: Partial<State>, dispatch: Dispatch): MenuItemConstructorOptions => ({
 	label: 'to do',
 	type: 'submenu',
-	submenu: (state.toDos || [])?.map(({ id, title, completed }) => ({
+	submenu: (state.toDos?.items || [])?.map(({ id, title, completed }) => ({
 		label: title,
 		type: 'checkbox',
 		checked: completed,

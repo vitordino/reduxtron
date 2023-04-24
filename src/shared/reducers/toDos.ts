@@ -3,25 +3,32 @@ import { uid } from 'uid'
 
 export type ToDo = { id: string; title: string; completed: boolean }
 
-const createToDo = (state: ToDo[], title: string) => [
+export type ToDosState = { items: ToDo[] }
+
+const createToDo = (state: ToDosState, title: string): ToDosState => ({
 	...state,
-	{ id: uid(), completed: false, title },
-]
+	items: [...state.items, { id: uid(), completed: false, title }],
+})
 
-const removeToDo = (state: ToDo[], id: string) => state.filter(x => x.id !== id)
+const removeToDo = (state: ToDosState, id: string): ToDosState => ({
+	...state,
+	items: state.items.filter(x => x.id !== id),
+})
 
-const toggleToDo = (state: ToDo[], id: string) => {
-	const indexToChange = state.findIndex(x => x.id === id)
-	const selected = state[indexToChange]
-	return [
-		...state.slice(0, indexToChange),
-		{ ...selected, completed: !selected.completed },
-		...state.slice(indexToChange + 1),
-	]
+const toggleToDo = (state: ToDosState, id: string): ToDosState => {
+	const indexToChange = state.items.findIndex(x => x.id === id)
+	const selected = state.items[indexToChange]
+	return {
+		...state,
+		items: [
+			...state.items.slice(0, indexToChange),
+			{ ...selected, completed: !selected.completed },
+			...state.items.slice(indexToChange + 1),
+		],
+	}
 }
 
-// @ts-expect-error
-const setToDos = (state: ToDo[], newState: ToDo[]) => newState
+const setToDos = (state: ToDosState, items: ToDo[]): ToDosState => ({ ...state, items })
 
 const toDoActions = {
 	'TO_DO:CREATE': createToDo,
@@ -36,18 +43,14 @@ export type ToDosAction =
 	| { type: 'TO_DO:TOGGLE'; payload: string }
 	| { type: 'TO_DO:SET'; payload: ToDo[] }
 
-const toDosReducer: Reducer<ToDo[], ToDosAction> = (
-	state = [],
-	// @ts-expect-error
+const toDosReducer: Reducer<ToDosState, ToDosAction> = (
+	state = { items: [] },
+	// @ts-expect-error empty action
 	action = { type: '' },
 ) => {
-	if (!action?.type) return state
-	if (action.type in toDoActions) {
-		// @ts-expect-error
-		return toDoActions[action.type](state, action.payload)
-	}
-
-	return state
+	if (!action?.type || !(action.type in toDoActions)) return state
+	// @ts-expect-error apply action on map
+	return toDoActions[action.type](state, action.payload)
 }
 
 export default toDosReducer
