@@ -133,12 +133,13 @@ const swrReducer: Reducer<SWRStore, SWRAction> = (state, { type, payload }) => {
 
 		case 'SWR:FETCH_URL@MUTATE': {
 			const optimisticData = payload[1]
+			const existingData = state[key].data
 			return {
 				...state,
 				[key]: {
 					...item,
 					error: null,
-					data: optimisticData,
+					data: optimisticData ?? existingData,
 					state: 'revalidating',
 				},
 			}
