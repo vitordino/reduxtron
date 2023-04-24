@@ -23,6 +23,7 @@
 	"dependencies": {
 		"@electron-toolkit/utils": "^1.0.2",
 		"@radix-ui/colors": "^0.1.8",
+		"@radix-ui/react-toggle-group": "^1.0.3",
 		"@redux-devtools/remote": "^0.8.0",
 		"@reduxjs/toolkit": "^1.9.3",
 		"@tailwindcss/forms": "^0.5.3",
