@@ -5,7 +5,8 @@ import Counter from 'renderer/components/Counter'
 import UIControls from 'renderer/components/UIControls'
 import Folder from 'renderer/components/Folder'
 import Dog from 'renderer/components/Dog'
-import ToDoView from './ToDoView'
+import ToDoView from 'renderer/components/ToDoView'
+import Finder from 'renderer/components/Finder'
 
 const router = createBrowserRouter([
 	{
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
 						<Dog />
 					</>
 				),
+			},
+			{
+				path: '/finder',
+				element: <Finder />,
 			},
 		],
 	},

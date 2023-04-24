@@ -34,7 +34,6 @@ const Dog = () => {
 	const allBreeds = useAllBreeds()
 	const favorite = useStore(x => x.dog?.favorite)
 	const dispatch = useDispatch()
-	const x = useSWR('fs', '/Applications')
 
 	const handleChangeFavorite = (e: ChangeEvent<HTMLSelectElement>) =>
 		dispatch({ type: 'DOG:SELECT_FAVORITE_BREED', payload: e.target.value })
@@ -51,7 +50,6 @@ const Dog = () => {
 				))}
 			</select>
 			<div style={{ width: 128, height: 128 }}>{favorite && <FavoriteDog breed={favorite} />}</div>
-			<pre>{JSON.stringify({ x }, null, 2)}</pre>
 		</div>
 	)
 }

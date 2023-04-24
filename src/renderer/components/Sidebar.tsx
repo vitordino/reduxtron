@@ -9,6 +9,7 @@ const links = [
 	{ to: '/ui', text: 'ui', icon: RxMix },
 	{ to: '/folder', text: 'folder', icon: RxFile },
 	{ to: '/dog', text: 'dog', icon: RxCamera },
+	{ to: '/finder', text: 'finder', icon: RxFile },
 ]
 
 type SidebarLinkProps = {
