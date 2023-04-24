@@ -1,7 +1,7 @@
 import { Routes } from 'renderer/components/Routes'
 
 const App = () => (
-	<div className='flex w-full h-screen'>
+	<div className='flex'>
 		<Routes />
 	</div>
 )

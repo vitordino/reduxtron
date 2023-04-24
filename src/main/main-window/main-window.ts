@@ -33,6 +33,7 @@ class MainWindow {
 			vibrancy: 'sidebar',
 			icon,
 			webPreferences: {
+				scrollBounce: true,
 				sandbox: true,
 				nodeIntegration: false,
 				preload: join(__dirname, '../preload/index.js'),

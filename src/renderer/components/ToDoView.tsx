@@ -10,7 +10,8 @@ const ToDoView = () => (
 		<AddToDo />
 
 		<ToDoList />
-		<footer className='flex bg-slate-2 border-slate-4 border-t'>
+		<div className='h-9' />
+		<footer className='flex fixed w-full pr-20 lg:pr-56 bottom-0 h-9 bg-slate-2 border-slate-4 border-t z-10'>
 			<ToDoVisibilityToggle />
 			<div className='flex-1' />
 			<ToDoClearButton />

@@ -6,7 +6,7 @@ const Finder = () => {
 	return (
 		<>
 			<Toolbar>finder</Toolbar>
-			<div className='flex-1 overflow-auto'>
+			<div className='flex-1'>
 				<pre>{JSON.stringify(x, null, 2)}</pre>
 			</div>
 		</>

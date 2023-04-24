@@ -97,7 +97,7 @@ const ToDoList = () => {
 	return (
 		<>
 			<Reorder.Group
-				className='group divide-y divide-slate-4 overflow-y-scroll flex-1'
+				className='group divide-y divide-slate-4 overflow-y-scroll flex-1 overscroll-contain'
 				axis='y'
 				values={filteredItems}
 				onReorder={setToDos}

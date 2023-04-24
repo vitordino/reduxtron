@@ -33,7 +33,7 @@ const SidebarLink = ({ to, icon: Icon, text }: SidebarLinkProps) => {
 }
 
 const Sidebar = () => (
-	<div className='inset-0 relative flex flex-col flex-shrink-0 lg:w-56 font-sans text-sm border-r border-slate-6 dark:border-slate-1 justify-items-start'>
+	<div className='inset-0 fixed flex flex-col flex-shrink-0 w-20 lg:w-56 font-sans text-sm border-r border-slate-6 dark:border-slate-1 justify-items-start z-100'>
 		<div className='drag-region sticky top-0 flex-shrink-0 w-full h-9' />
 		<div className='flex flex-col flex-grow-0 flex-shrink-0 py-1 px-5 lg:px-4'>
 			<Link to='/' className='group flex items-center justify-between rounded hover:bg-slate-2'>
