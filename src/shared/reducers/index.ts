@@ -1,4 +1,10 @@
-import { combineReducers, Dispatch as BaseDispatch, Reducer, Observable } from '@reduxjs/toolkit'
+import {
+	combineReducers,
+	Dispatch as BaseDispatch,
+	Reducer,
+	Observable,
+	AnyAction,
+} from '@reduxjs/toolkit'
 
 import counterReducer, { CounterAction } from './counter'
 import toDosReducer, { ToDosAction } from './toDos'
@@ -44,8 +50,8 @@ export type Store = {
 
 type MiddlewareStore = Pick<Store, 'getState' | 'dispatch'>
 
-export type Middleware = (
+export type Middleware<A extends AnyAction = Action> = (
 	store: MiddlewareStore,
-) => (next: Dispatch) => (action: Action) => Promise<Action>
+) => (next: Dispatch) => (action: A) => Promise<Action>
 
 export default rootReducer
