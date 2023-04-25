@@ -22,6 +22,14 @@ body {
 	app-region: drag;
 }
 
+.no-drag-region {
+	app-region: no-drag;
+}
+
+select {
+	background: none;
+}
+
 @font-face {
 	font-family: 'Inter UI';
 	font-style: normal;
