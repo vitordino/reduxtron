@@ -36,6 +36,7 @@
 		"react-icons": "^4.8.0",
 		"react-router-dom": "^6.10.0",
 		"redux": "^4.2.1",
+		"redux-undo": "^1.0.1",
 		"uid": "^2.0.2",
 		"windy-radix-palette": "https://github.com/Gravy59/windy-radix-palette",
 		"zustand": "^4.3.7"
