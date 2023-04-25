@@ -6,10 +6,20 @@ import useDispatch from 'renderer/hooks/useDispatch'
 import { useFileSystemSWR } from 'renderer/hooks/useSWR'
 import { Toolbar, ToolbarButton } from 'renderer/components/Toolbar'
 
-import { RxChevronRight, RxChevronUp, RxCross2, RxFile, RxLaptop } from 'react-icons/rx'
+import {
+	RxChevronLeft,
+	RxChevronRight,
+	RxChevronUp,
+	RxCross2,
+	RxFile,
+	RxLaptop,
+} from 'react-icons/rx'
 
 const Finder = () => {
-	const { path, state: pathState } = useStore(x => x.folder, compare) || {}
+	const path = useStore(x => x?.folder?.present.path)
+	const pathState = useStore(x => x?.folder?.present.state)
+	const hasPast = useStore(x => !!x.folder?.past.length)
+	const hasFuture = useStore(x => !!x.folder?.future.length)
 	const { data } = useFileSystemSWR(path)
 	const dispatch = useDispatch()
 
@@ -38,6 +48,12 @@ const Finder = () => {
 	return (
 		<>
 			<Toolbar className='items-center px-0' orientation='horizontal'>
+				<ToolbarButton disabled={!hasPast} onClick={() => dispatch({ type: 'FOLDER:UNDO' })}>
+					<RxChevronLeft />
+				</ToolbarButton>
+				<ToolbarButton disabled={!hasFuture} onClick={() => dispatch({ type: 'FOLDER:REDO' })}>
+					<RxChevronRight />
+				</ToolbarButton>
 				<ToolbarButton
 					onClick={() => dispatch({ type: 'FOLDER:PICK' })}
 					disabled={pathState === 'loading'}
@@ -49,7 +65,7 @@ const Finder = () => {
 						<select
 							value={path}
 							onChange={handleSelectChange}
-							className='no-drag-region cursor-pointer h-full focus:outline-none hover:text-slate-12 focus:slate-12 hover:bg-slate-5 focus:bg-slate-5 ring-indigo-8 px-2 mx-0'
+							className='no-drag-region cursor-pointer h-full focus:outline-none hover:text-slate-12 focus:slate-12 hover:bg-slate-5 focus:bg-slate-5 ring-indigo-8 px-0 mx-0'
 						>
 							{Object.entries(permutations || {}).map(([key, value]) => (
 								<option key={value} value={value}>

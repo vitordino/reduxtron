@@ -9,7 +9,7 @@ const properties: OpenDialogOptions['properties'] = [
 
 const folderMiddleware: Middleware = store => next => async action => {
 	if (action.type !== 'FOLDER:PICK') return next(action)
-	const defaultPath = store.getState()?.folder?.path
+	const defaultPath = store.getState()?.folder?.present?.path
 	// get to initial loading state
 	next(action)
 	try {
