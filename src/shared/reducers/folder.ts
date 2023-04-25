@@ -11,9 +11,10 @@ export type FolderAction =
 	| { type: 'FOLDER:PICK@LOADING' }
 	| { type: 'FOLDER:PICK@LOADED'; payload: string }
 	| { type: 'FOLDER:PICK@ERROR'; payload: string }
+	| { type: 'FOLDER:SET'; payload: string }
 	| { type: 'FOLDER:CLEAR' }
 
-const initialState: FolderState = { state: 'idle', path: undefined, error: null }
+const initialState: FolderState = { state: 'idle', path: '/', error: null }
 
 const folderReducer: Reducer<FolderState, FolderAction> = (
 	current = initialState,
@@ -29,6 +30,8 @@ const folderReducer: Reducer<FolderState, FolderAction> = (
 			return { state: 'loaded', path: action.payload, error: null }
 		case 'FOLDER:PICK@ERROR':
 			return { state: 'error', path: undefined, error: action.payload }
+		case 'FOLDER:SET':
+			return { state: 'loaded', path: action.payload, error: null }
 		default:
 			return current
 	}

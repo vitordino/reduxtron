@@ -20,7 +20,7 @@ const useSWR = <Data = SWRItemData, Error = SWRItemData>(
 	type: SWRType,
 	key: Key,
 	options?: SWRItemOptions,
-): SWRItem<Data, Error> | typeof initialState => {
+): SWRItem<typeof type extends 'fs' ? FSData : Data, Error> | typeof initialState => {
 	const actionType = SWR_ACTION_TYPE_MAP[type]
 	const stableKey = (typeof key === 'function' ? key() : key) || ''
 	const prefixedKey = KEY_PREFIX_MAP[actionType] + stableKey
@@ -37,5 +37,11 @@ const useSWR = <Data = SWRItemData, Error = SWRItemData>(
 
 	return entry || initialState
 }
+
+export type FSEntry = { name: string; folder: boolean }
+type FSData = FSEntry[]
+
+export const useFileSystemSWR = (key: Key, options?: SWRItemOptions) =>
+	useSWR<FSData>('fs', key, options)
 
 export default useSWR

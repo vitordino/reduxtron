@@ -1,18 +1,21 @@
-import { dialog } from 'electron'
+import { dialog, OpenDialogOptions } from 'electron'
 import { Middleware } from 'shared/reducers'
 
-const folderMiddleware: Middleware = _store => next => async action => {
+const properties: OpenDialogOptions['properties'] = [
+	'openDirectory',
+	'createDirectory',
+	'promptToCreate',
+]
+
+const folderMiddleware: Middleware = store => next => async action => {
 	if (action.type !== 'FOLDER:PICK') return next(action)
 	// get to initial loading state
 	next(action)
+	const defaultPath = store.getState()?.folder?.path
 	try {
-		const res = await dialog.showOpenDialog({
-			properties: ['openDirectory', 'createDirectory', 'promptToCreate'],
-		})
-		if (res.canceled) {
-			return next({ type: 'FOLDER:PICK@ERROR', payload: 'canceled' })
-		}
-		const payload = res.filePaths[0]
+		const { canceled, filePaths } = await dialog.showOpenDialog({ defaultPath, properties })
+		if (canceled) return next({ type: 'FOLDER:PICK@ERROR', payload: 'canceled' })
+		const payload = filePaths[0]
 		return next({ type: 'FOLDER:PICK@LOADED', payload })
 	} catch (e) {
 		return next({

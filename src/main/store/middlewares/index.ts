@@ -12,7 +12,7 @@ const middleware: Middleware[] = [
 	swrMiddleware,
 	folderMiddleware,
 	logger,
-	persistanceMiddleware,
+	// persistanceMiddleware,
 	uiMiddleware,
 ]
 

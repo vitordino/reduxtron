@@ -3,7 +3,6 @@ import AppLayout from 'renderer/components/AppLayout'
 import { Toolbar } from 'renderer/components/Toolbar'
 import Counter from 'renderer/components/Counter'
 import UIControls from 'renderer/components/UIControls'
-import Folder from 'renderer/components/Folder'
 import Dog from 'renderer/components/Dog'
 import ToDoView from 'renderer/components/ToDoView'
 import Finder from 'renderer/components/Finder'
@@ -32,15 +31,6 @@ const router = createBrowserRouter([
 					<>
 						<Toolbar>ui</Toolbar>
 						<UIControls />
-					</>
-				),
-			},
-			{
-				path: '/folder',
-				element: (
-					<>
-						<Toolbar>folder</Toolbar>
-						<Folder />
 					</>
 				),
 			},

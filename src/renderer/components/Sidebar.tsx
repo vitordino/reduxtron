@@ -8,7 +8,6 @@ const links = [
 	{ to: '/counter', text: 'counter', icon: RxPlus },
 	{ to: '/to-do', text: 'to do', icon: RxPencil2 },
 	{ to: '/ui', text: 'ui', icon: RxMix },
-	{ to: '/folder', text: 'folder', icon: RxFile },
 	{ to: '/dog', text: 'dog', icon: RxCamera },
 	{ to: '/finder', text: 'finder', icon: RxFile },
 ]
