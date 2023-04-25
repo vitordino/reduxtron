@@ -72,18 +72,24 @@ const Finder = () => {
 				</ToolbarButton>
 			</Toolbar>
 
-			<pre>{JSON.stringify({ path, permutations }, null, 2)}</pre>
 			<NavigationMenu.Root>
-				<NavigationMenu.List>
-					{data?.map(({ name, folder }, index) => (
-						<NavigationMenu.Item key={name} autoFocus={!index}>
-							<NavigationMenu.NavigationMenuLink asChild>
-								<button onClick={onFileClick(folder, name)} className='flex'>
-									{folder ? <RxChevronRight /> : <RxFile />} {name}
-								</button>
-							</NavigationMenu.NavigationMenuLink>
-						</NavigationMenu.Item>
-					))}
+				<NavigationMenu.List className='group divide-y divide-slate-4'>
+					{data
+						?.sort((a, b) => +b.folder - +a.folder)
+						?.map(({ name, folder }, index) => (
+							<NavigationMenu.Item key={name}>
+								<NavigationMenu.NavigationMenuLink asChild>
+									<button
+										autoFocus={!index}
+										onClick={onFileClick(folder, name)}
+										className='flex items-center w-full px-3 py-2 space-x-3'
+									>
+										{folder ? <RxChevronRight /> : <RxFile />}
+										<div>{name}</div>
+									</button>
+								</NavigationMenu.NavigationMenuLink>
+							</NavigationMenu.Item>
+						))}
 				</NavigationMenu.List>
 			</NavigationMenu.Root>
 		</>
