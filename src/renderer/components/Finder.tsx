@@ -4,9 +4,9 @@ import compare from 'renderer/utils/compare'
 import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
 import { useFileSystemSWR } from 'renderer/hooks/useSWR'
-import { Toolbar } from 'renderer/components/Toolbar'
-import { Button } from 'renderer/components/Button'
-import { RxChevronRight, RxChevronUp, RxFile } from 'react-icons/rx'
+import { Toolbar, ToolbarButton } from 'renderer/components/Toolbar'
+
+import { RxChevronRight, RxChevronUp, RxCross2, RxFile, RxLaptop } from 'react-icons/rx'
 
 const Finder = () => {
 	const { path, state: pathState } = useStore(x => x.folder, compare) || {}
@@ -37,12 +37,18 @@ const Finder = () => {
 
 	return (
 		<>
-			<Toolbar>
+			<Toolbar className='items-center px-0 text-slate-11'>
+				<ToolbarButton
+					onClick={() => dispatch({ type: 'FOLDER:PICK' })}
+					disabled={pathState === 'loading'}
+				>
+					<RxLaptop />
+				</ToolbarButton>
 				{hasPermutations && (
 					<select
 						value={path}
 						onChange={handleSelectChange}
-						className='no-drag-region h-full focus:outline-none focus:bg-slate-5 ring-indigo-8 pl-3 pr-4 -ml-4'
+						className='no-drag-region cursor-pointer h-full focus:outline-none hover:text-slate-12 focus:slate-12 hover:bg-slate-5 focus:bg-slate-5 ring-indigo-8 px-2 mx-0'
 					>
 						{Object.entries(permutations || {}).map(([key, value]) => (
 							<option key={value} value={value}>
@@ -51,37 +57,21 @@ const Finder = () => {
 						))}
 					</select>
 				)}
-				{!hasPermutations && 'finder'}
+				{!hasPermutations && <div className='px-3 flex-shrink-0'>finder</div>}
+				<div className='flex-1' />
+				<ToolbarButton onClick={moveUp} disabled={pathState === 'loading' || !path}>
+					<RxChevronUp />
+				</ToolbarButton>
+				<ToolbarButton onClick={() => dispatch({ type: 'FOLDER:CLEAR' })} disabled={!path}>
+					<RxCross2 />
+				</ToolbarButton>
 			</Toolbar>
-			<Button
-				onClick={() => dispatch({ type: 'FOLDER:PICK' })}
-				type='button'
-				disabled={pathState === 'loading'}
-			>
-				pick folder
-			</Button>
-			<Button
-				onClick={() => dispatch({ type: 'FOLDER:CLEAR' })}
-				type='button'
-				intent='ghost'
-				disabled={pathState === 'loading' || !path}
-			>
-				clear folder
-			</Button>
-			<Button
-				onClick={moveUp}
-				type='button'
-				intent='ghost'
-				disabled={pathState === 'loading' || !path}
-			>
-				<RxChevronUp />
-			</Button>
 
 			<pre>{JSON.stringify({ path, permutations }, null, 2)}</pre>
 			<NavigationMenu.Root>
 				<NavigationMenu.List>
-					{data?.map(({ name, folder }) => (
-						<NavigationMenu.Item key={name}>
+					{data?.map(({ name, folder }, index) => (
+						<NavigationMenu.Item key={name} autoFocus={!index}>
 							<NavigationMenu.NavigationMenuLink asChild>
 								<button onClick={onFileClick(folder, name)} className='flex'>
 									{folder ? <RxChevronRight /> : <RxFile />} {name}
