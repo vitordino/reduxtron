@@ -37,7 +37,7 @@ const Finder = () => {
 
 	return (
 		<>
-			<Toolbar className='items-center px-0 text-slate-11'>
+			<Toolbar className='items-center px-0' orientation='horizontal'>
 				<ToolbarButton
 					onClick={() => dispatch({ type: 'FOLDER:PICK' })}
 					disabled={pathState === 'loading'}
@@ -45,24 +45,29 @@ const Finder = () => {
 					<RxLaptop />
 				</ToolbarButton>
 				{hasPermutations && (
-					<select
-						value={path}
-						onChange={handleSelectChange}
-						className='no-drag-region cursor-pointer h-full focus:outline-none hover:text-slate-12 focus:slate-12 hover:bg-slate-5 focus:bg-slate-5 ring-indigo-8 px-2 mx-0'
-					>
-						{Object.entries(permutations || {}).map(([key, value]) => (
-							<option key={value} value={value}>
-								{key}
-							</option>
-						))}
-					</select>
+					<ToolbarButton asChild>
+						<select
+							value={path}
+							onChange={handleSelectChange}
+							className='no-drag-region cursor-pointer h-full focus:outline-none hover:text-slate-12 focus:slate-12 hover:bg-slate-5 focus:bg-slate-5 ring-indigo-8 px-2 mx-0'
+						>
+							{Object.entries(permutations || {}).map(([key, value]) => (
+								<option key={value} value={value}>
+									{key}
+								</option>
+							))}
+						</select>
+					</ToolbarButton>
 				)}
 				{!hasPermutations && <div className='px-3 flex-shrink-0'>finder</div>}
 				<div className='flex-1' />
 				<ToolbarButton onClick={moveUp} disabled={pathState === 'loading' || !path}>
 					<RxChevronUp />
 				</ToolbarButton>
-				<ToolbarButton onClick={() => dispatch({ type: 'FOLDER:CLEAR' })} disabled={!path}>
+				<ToolbarButton
+					onClick={() => dispatch({ type: 'FOLDER:CLEAR' })}
+					disabled={pathState === 'loading' || !path}
+				>
 					<RxCross2 />
 				</ToolbarButton>
 			</Toolbar>
