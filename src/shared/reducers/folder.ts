@@ -1,3 +1,4 @@
+import { join } from 'path'
 import { Reducer } from 'redux'
 import _undoable from 'redux-undo'
 // @ts-expect-error wtf
@@ -12,6 +13,8 @@ type FolderState = {
 export type FolderAction =
 	| { type: 'FOLDER:UNDO' }
 	| { type: 'FOLDER:REDO' }
+	| { type: 'FOLDER:UP' }
+	| { type: 'FOLDER:DOWN'; payload: string }
 	| { type: 'FOLDER:PICK' }
 	| { type: 'FOLDER:PICK@LOADING' }
 	| { type: 'FOLDER:PICK@LOADED'; payload: string }
@@ -26,6 +29,8 @@ const trimSlashes = (s: string) =>
 		.split('/')
 		.filter(v => v !== '')
 		.join('/')}`
+
+const trimJoin = (...paths: string[]) => trimSlashes(join(...paths))
 
 const folderReducer: Reducer<FolderState, FolderAction> = (
 	current = initialState,
@@ -43,10 +48,21 @@ const folderReducer: Reducer<FolderState, FolderAction> = (
 			return { state: 'error', path: undefined, error: action.payload }
 		case 'FOLDER:SET':
 			return { state: 'loaded', path: trimSlashes(action.payload), error: null }
+		case 'FOLDER:UP':
+			return { state: 'loaded', path: trimJoin(current.path || '/', '..'), error: null }
+		case 'FOLDER:DOWN':
+			return { state: 'loaded', path: trimJoin(current.path || '/', action.payload), error: null }
 		default:
 			return current
 	}
 }
+
+const UNDOABLE_ACTION_TYPES: FolderAction['type'][] = [
+	'FOLDER:UP',
+	'FOLDER:DOWN',
+	'FOLDER:SET',
+	'FOLDER:PICK@LOADED',
+]
 
 const undoableFolderReducer = undoable(folderReducer, {
 	undoType: 'FOLDER:UNDO',
@@ -55,9 +71,9 @@ const undoableFolderReducer = undoable(folderReducer, {
 	jumpToPastType: 'FOLDER:JUMP_TO_PAST',
 	jumpToFutureType: 'FOLDER:JUMP_TO_FUTURE',
 	filter: ({ type }, state, prev) => {
-		const validActions = type === 'FOLDER:PICK@LOADED' || type === 'FOLDER:SET'
+		const isUndoableAction = UNDOABLE_ACTION_TYPES.includes(type)
 		const changed = state.path !== prev._latestUnfiltered?.path
-		return validActions && changed
+		return isUndoableAction && changed
 	},
 })
 

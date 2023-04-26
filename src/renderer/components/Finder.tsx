@@ -1,6 +1,5 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 
-import compare from 'renderer/utils/compare'
 import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
 import { useFileSystemSWR } from 'renderer/hooks/useSWR'
@@ -32,17 +31,11 @@ const Finder = () => {
 
 	const handleSelectChange = e => dispatch({ type: 'FOLDER:SET', payload: e.target.value })
 
-	const moveUp = () => {
-		if (!path) return
-		return dispatch({
-			type: 'FOLDER:SET',
-			payload: path.replace(/\/([^/]+)\/?$/, ''),
-		})
-	}
+	const moveUp = () => dispatch({ type: 'FOLDER:UP' })
 
 	const onFileClick = (folder: boolean, name: string) => () => {
 		if (!folder || !name) return
-		return dispatch({ type: 'FOLDER:SET', payload: `${path}/${name}` })
+		return dispatch({ type: 'FOLDER:DOWN', payload: name })
 	}
 
 	return (

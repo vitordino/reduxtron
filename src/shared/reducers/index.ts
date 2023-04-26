@@ -7,9 +7,6 @@ import swrReducer, { SWRAction } from './swr'
 import globalReducer, { GlobalAction } from './global'
 import dogReducer, { DogAction } from './dog'
 import folderReducer, { FolderAction } from './folder'
-import undoable from 'redux-undo'
-
-console.log({ undoable: undoable.default })
 
 const rootReducer = globalReducer(
 	combineReducers({
