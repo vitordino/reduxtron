@@ -51,7 +51,7 @@ const Finder = () => {
 
 	return (
 		<>
-			<Toolbar className='items-center px-0' orientation='horizontal'>
+			<Toolbar className='items-center pl-0 pr-0' orientation='horizontal'>
 				<ToolbarButton disabled={!hasPast} onClick={() => dispatch({ type: 'FOLDER:UNDO' })}>
 					<RxChevronLeft />
 				</ToolbarButton>

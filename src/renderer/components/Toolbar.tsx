@@ -19,7 +19,7 @@ export const ToolbarButton = ({
 	<Primitives.Button
 		type={type}
 		className={cn(
-			'no-drag-region cursor-pointer h-full focus:outline-none hover:text-slate-12 focus:text-slate-12 hover:bg-slate-3 focus:bg-slate-3 dark:hover:bg-slate-5 dark:focus:bg-slate-5 ring-indigo-8 px-4 disabled:text-slate-8 disabled:pointer-events-none',
+			'no-drag-region cursor-pointer h-full focus:outline-none hover:text-slate-12 focus:text-slate-12 hover:bg-slate-3 focus:bg-slate-3 dark:hover:bg-slate-5 dark:focus:bg-slate-5 ring-indigo-8 px-3 disabled:text-slate-8 disabled:pointer-events-none',
 			className,
 		)}
 		{...props}
