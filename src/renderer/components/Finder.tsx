@@ -1,10 +1,5 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-
-import useStore from 'renderer/hooks/useStore'
-import useDispatch from 'renderer/hooks/useDispatch'
-import { useFileSystemSWR } from 'renderer/hooks/useSWR'
-import { Toolbar, ToolbarButton } from 'renderer/components/Toolbar'
-
+import { useHotkeys } from 'react-hotkeys-hook'
 import {
 	RxChevronLeft,
 	RxChevronRight,
@@ -14,6 +9,11 @@ import {
 	RxLaptop,
 } from 'react-icons/rx'
 
+import useStore from 'renderer/hooks/useStore'
+import useDispatch from 'renderer/hooks/useDispatch'
+import { useFileSystemSWR } from 'renderer/hooks/useSWR'
+import { Toolbar, ToolbarButton } from 'renderer/components/Toolbar'
+
 const Finder = () => {
 	const path = useStore(x => x?.folder?.present.path)
 	const pathState = useStore(x => x?.folder?.present.state)
@@ -21,6 +21,17 @@ const Finder = () => {
 	const hasFuture = useStore(x => !!x.folder?.future.length)
 	const { data } = useFileSystemSWR(path)
 	const dispatch = useDispatch()
+	useHotkeys('meta+up', () => dispatch({ type: 'FOLDER:UP' }))
+	useHotkeys('meta+down', () => {
+		const focusedElement = document.activeElement
+		const isFocusVisible = focusedElement?.matches(':focus-visible')
+		const isFolder = focusedElement?.getAttribute('data-folder') == 'true'
+		const name = focusedElement?.getAttribute('data-name')
+		if (!isFocusVisible || !isFolder || !name) return
+		return dispatch({ type: 'FOLDER:DOWN', payload: name })
+	})
+
+	const moveUp = () => dispatch({ type: 'FOLDER:UP' })
 
 	const permutations = path?.split('/').reduce<Record<string, string>>((acc, curr, index, arr) => {
 		if (!curr) return { ...acc, '/': '/' }
@@ -30,8 +41,6 @@ const Finder = () => {
 	const hasPermutations = Object.keys(permutations || {}).length > 1
 
 	const handleSelectChange = e => dispatch({ type: 'FOLDER:SET', payload: e.target.value })
-
-	const moveUp = () => dispatch({ type: 'FOLDER:UP' })
 
 	const onFileClick = (folder: boolean, name: string) => () => {
 		if (!folder || !name) return
@@ -89,6 +98,8 @@ const Finder = () => {
 							<NavigationMenu.Item key={name}>
 								<NavigationMenu.NavigationMenuLink asChild>
 									<button
+										data-name={name}
+										data-folder={folder}
 										autoFocus={!index}
 										onClick={onFileClick(folder, name)}
 										className='flex items-center w-full px-3 py-2 space-x-3'
