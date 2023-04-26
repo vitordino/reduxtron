@@ -1,8 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@include '/fonts/inter.css';
+
+@font-face {
+	font-family: 'Inter';
+	font-weight: 100 900;
+	font-display: swap;
+	font-style: oblique 0deg 10deg;
+	src: url('fonts/inter.var.woff2') format('woff2');
+}
+
+* {
+	font-feature-settings: 'case' 1, 'tnum' 1, 'ss01' 1, 'ss02' 1, 'salt' 1;
+}
+
 body {
 	@apply text-xs font-medium text-slate-12 select-none;
+	-webkit-font-smoothing: antialiased;
+	text-size-adjust: none;
 }
 
 *:focus {
@@ -28,42 +44,6 @@ body {
 
 select {
 	background: none;
-}
-
-@font-face {
-	font-family: 'Inter UI';
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url('/fonts/Inter-UI-Regular.woff2') format('woff2'),
-		url('/fonts/Inter-UI-Regular.woff') format('woff');
-}
-
-@font-face {
-	font-family: 'Inter UI';
-	font-style: normal;
-	font-weight: 500;
-	font-display: swap;
-	src: url('fonts/Inter-UI-Medium.woff2') format('woff2'),
-		url('fonts/Inter-UI-Medium.woff') format('woff');
-}
-
-@font-face {
-	font-family: 'Inter UI';
-	font-style: normal;
-	font-weight: 600;
-	font-display: swap;
-	src: url('fonts/Inter-UI-SemiBold.woff2') format('woff2'),
-		url('fonts/Inter-UI-SemiBold.woff') format('woff');
-}
-
-@font-face {
-	font-family: 'Inter UI';
-	font-style: normal;
-	font-weight: 800;
-	font-display: swap;
-	src: url('fonts/Inter-UI-ExtraBold.woff2') format('woff2'),
-		url('fonts/Inter-UI-ExtraBold.woff') format('woff');
 }
 
 #root,

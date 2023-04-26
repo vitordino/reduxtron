@@ -14,7 +14,7 @@ module.exports = {
 		colors: {},
 		fontFamily: {
 			sans: [
-				'Inter\\ UI',
+				'Inter',
 				'SF\\ Pro\\ Display',
 				'-apple-system',
 				'BlinkMacSystemFont',

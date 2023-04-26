@@ -23,11 +23,15 @@ export const getPreloadedState = async () => {
 }
 
 const saveData = async (data: Record<string, unknown>) => {
-	await mkdir(folder, { recursive: true })
-	console.log(`[persistance middleware] saving data on ${path}`)
-	const stringified = JSON.stringify(data, null, 2)
-	await writeFile(path, stringified, options)
-	console.log(`[persistance middleware] data saved on ${path}`)
+	try {
+		await mkdir(folder, { recursive: true })
+		console.log(`[persistance middleware] saving data on ${path}`)
+		const stringified = JSON.stringify(data, null, 2)
+		await writeFile(path, stringified, options)
+		console.log(`[persistance middleware] data saved on ${path}`)
+	} catch (e) {
+		console.log(e)
+	}
 }
 
 const persistanceMiddleware: Middleware = store => next => async action => {
