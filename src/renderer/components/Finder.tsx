@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { useHotkeys } from 'react-hotkeys-hook'
 import {
@@ -17,6 +18,11 @@ import { useFileSystemSWR } from 'renderer/hooks/useSWR'
 import { Toolbar, ToolbarButton } from 'renderer/components/Toolbar'
 import EmptyState from './EmptyState'
 import { Button } from './Button'
+import Footer from './Footer'
+
+const FinderStatusItem = ({ children }: { children: ReactNode }) => (
+	<p className='text-slate-10 px-4 h-full flex items-center border-r border-slate-4'>{children}</p>
+)
 
 const Finder = () => {
 	const path = useStore(x => x?.folder?.present.path)
@@ -56,6 +62,10 @@ const Finder = () => {
 	}
 
 	const onPickFolder = () => dispatch({ type: 'FOLDER:PICK' })
+
+	const itemsCount = data?.length || 0
+	const folderCount = data?.reduce((acc, curr) => acc + (curr.folder ? 1 : 0), 0) || 0
+	const fileCount = itemsCount - folderCount
 
 	return (
 		<>
@@ -130,6 +140,11 @@ const Finder = () => {
 					</Button>
 				</EmptyState>
 			)}
+			<Footer>
+				<FinderStatusItem>items: {itemsCount}</FinderStatusItem>
+				<FinderStatusItem>folders: {folderCount}</FinderStatusItem>
+				<FinderStatusItem>files: {fileCount}</FinderStatusItem>
+			</Footer>
 		</>
 	)
 }
