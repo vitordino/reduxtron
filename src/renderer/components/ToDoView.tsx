@@ -3,19 +3,18 @@ import ToDoList from 'renderer/components/ToDoList'
 import { Toolbar } from 'renderer/components/Toolbar'
 import ToDoVisibilityToggle from 'renderer/components/ToDoVisibilityToggle'
 import ToDoClearButton from './ToDoClearButton'
+import Footer from './Footer'
 
 const ToDoView = () => (
 	<>
 		<Toolbar>to do</Toolbar>
 		<AddToDo />
-
 		<ToDoList />
-		<div className='h-9' />
-		<footer className='flex fixed w-[stretch] bottom-0 h-9 bg-slate-2 border-slate-4 border-t z-10'>
+		<Footer>
 			<ToDoVisibilityToggle />
 			<div className='flex-1' />
 			<ToDoClearButton />
-		</footer>
+		</Footer>
 	</>
 )
 
