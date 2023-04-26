@@ -21,6 +21,8 @@ const Finder = () => {
 	const hasFuture = useStore(x => !!x.folder?.future.length)
 	const { data } = useFileSystemSWR(path)
 	const dispatch = useDispatch()
+	useHotkeys('meta+[, backspace', () => dispatch({ type: 'FOLDER:UNDO' }))
+	useHotkeys('meta+]', () => dispatch({ type: 'FOLDER:REDO' }))
 	useHotkeys('meta+up', () => dispatch({ type: 'FOLDER:UP' }))
 	useHotkeys('meta+down', () => {
 		const focusedElement = document.activeElement
