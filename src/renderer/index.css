@@ -30,7 +30,7 @@ body {
 }
 
 .form-checkbox {
-	@apply focus-visible:outline-2 focus-visible:outline-indigo-7;
+	@apply focus-visible:outline-2 focus-visible:outline-indigo-7 checked:bg-indigo-12 focus:checked:bg-indigo-9;
 	box-shadow: none !important;
 }
 
