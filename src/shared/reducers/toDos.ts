@@ -3,12 +3,19 @@ import { uid } from 'uid'
 
 export type ToDo = { id: string; title: string; completed: boolean }
 export type VisibilityFilter = 'SHOW_ALL' | 'SHOW_ACTIVE' | 'SHOW_COMPLETED'
-export type ToDosState = { items: ToDo[]; visibilityFilter: VisibilityFilter }
+export type ToDosState = { draft: string; items: ToDo[]; visibilityFilter: VisibilityFilter }
 
 const createToDo = (state: ToDosState, title: string): ToDosState => ({
 	...state,
 	items: [...state.items, { id: uid(), completed: false, title }],
 })
+
+const commitDraft = (state: ToDosState, _: undefined): ToDosState => ({
+	...createToDo(state, state.draft),
+	draft: '',
+})
+
+const setDraft = (state: ToDosState, draft: string): ToDosState => ({ ...state, draft })
 
 const removeToDo = (state: ToDosState, id: string): ToDosState => ({
 	...state,
@@ -36,6 +43,8 @@ const changeVisibilityFilter = (
 ): ToDosState => ({ ...state, visibilityFilter })
 
 export type ToDosAction =
+	| { type: 'TO_DO:SET_DRAFT'; payload: string }
+	| { type: 'TO_DO:COMMIT_DRAFT'; payload?: undefined }
 	| { type: 'TO_DO:CREATE'; payload: string }
 	| { type: 'TO_DO:REMOVE'; payload: string }
 	| { type: 'TO_DO:TOGGLE'; payload: string }
@@ -43,6 +52,8 @@ export type ToDosAction =
 	| { type: 'TO_DO:CHANGE_VISIBILITY_FILTER'; payload: VisibilityFilter }
 
 const toDoActions: Record<ToDosAction['type'], (state: ToDosState, payload) => ToDosState> = {
+	'TO_DO:SET_DRAFT': setDraft,
+	'TO_DO:COMMIT_DRAFT': commitDraft,
 	'TO_DO:CREATE': createToDo,
 	'TO_DO:REMOVE': removeToDo,
 	'TO_DO:TOGGLE': toggleToDo,
@@ -51,7 +62,7 @@ const toDoActions: Record<ToDosAction['type'], (state: ToDosState, payload) => T
 }
 
 const toDosReducer: Reducer<ToDosState, ToDosAction> = (
-	state = { items: [], visibilityFilter: 'SHOW_ALL' },
+	state = { draft: '', items: [], visibilityFilter: 'SHOW_ALL' },
 	// @ts-expect-error empty action
 	action = { type: '' },
 ) => {
