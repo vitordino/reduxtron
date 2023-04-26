@@ -1,6 +1,4 @@
-import { ReactNode } from 'react'
 import { Reorder, useMotionValue } from 'framer-motion'
-import { RxComponentNone } from 'react-icons/rx'
 
 import { VisibilityFilter } from 'shared/reducers/toDos'
 import compare from 'renderer/utils/compare'
@@ -8,6 +6,7 @@ import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
 import useIsAnimating from 'renderer/hooks/useIsAnimating'
 import ToDo, { ToDoProps } from 'renderer/components/ToDo'
+import EmptyState from 'renderer/components/EmptyState'
 
 const ReorderTodoItem = ({ todo }: { todo: ToDoProps }) => {
 	const y = useMotionValue(0)
@@ -35,8 +34,6 @@ const getFilteredItems = (items?: ToDoProps[], visibilityFilter?: VisibilityFilt
 	return items
 }
 
-type ToDoListEmptyStateProps = { title?: ReactNode; description?: ReactNode }
-
 const TODO_EMPTY_STATE_TITLE_BY_VISIBILITY_FILTER: Record<VisibilityFilter, string> = {
 	SHOW_ALL: 'no to do items',
 	SHOW_ACTIVE: 'no active to dos items',
@@ -48,20 +45,6 @@ const TODO_EMPTY_STATE_DESCRIPTION_BY_VISIBILITY_FILTER: Record<VisibilityFilter
 	SHOW_ACTIVE: 'change to the "all" or "completed" filter bellow',
 	SHOW_COMPLETED: 'change to the "all" or "active" filter bellow',
 }
-
-const ToDoListEmptyState = ({ title, description }: ToDoListEmptyStateProps) => (
-	<div className='flex-1 flex flex-col'>
-		<div className='flex-1 flex-col flex items-center justify-center'>
-			<div className='flex items-center justify-center'>
-				<div className='w-48 h-48 rounded-full bg-slate-3 flex items-center justify-center'>
-					<RxComponentNone className='w-16 h-16 text-slate-7' />
-				</div>
-			</div>
-			<h2 className='mt-3 text-base text-slate-12'>{title}</h2>
-			<h2 className='mt-1 text-slate-9'>{description}</h2>
-		</div>
-	</div>
-)
 
 const ToDoList = () => {
 	const visibilityFilter = useStore(x => x.toDos?.visibilityFilter)
@@ -77,7 +60,7 @@ const ToDoList = () => {
 
 	if (!items?.length) {
 		return (
-			<ToDoListEmptyState
+			<EmptyState
 				title={TODO_EMPTY_STATE_TITLE_BY_VISIBILITY_FILTER['SHOW_ALL']}
 				description={TODO_EMPTY_STATE_DESCRIPTION_BY_VISIBILITY_FILTER['SHOW_ALL']}
 			/>
@@ -86,7 +69,7 @@ const ToDoList = () => {
 
 	if (!filteredItems?.length) {
 		return (
-			<ToDoListEmptyState
+			<EmptyState
 				title={TODO_EMPTY_STATE_TITLE_BY_VISIBILITY_FILTER[visibilityFilter || 'SHOW_ALL']}
 				description={
 					TODO_EMPTY_STATE_DESCRIPTION_BY_VISIBILITY_FILTER[visibilityFilter || 'SHOW_ALL']
