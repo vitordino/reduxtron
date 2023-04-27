@@ -10,7 +10,7 @@ const TraySettingsMenu = (
 	state: Partial<State>,
 	dispatch: Dispatch,
 ): MenuItemConstructorOptions => ({
-	label: 'ui',
+	label: 'settings',
 	type: 'submenu',
 	submenu: UI_CONTROLS.map(id => ({
 		label: id,

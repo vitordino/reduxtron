@@ -29,6 +29,9 @@ export const SWR_ACTION_TYPE_MAP = {
 	fs: 'SWR:FETCH_FS',
 } as const
 
+export type FSEntry = { name: string; folder: boolean }
+export type FSData = FSEntry[]
+
 type FetchBaseType = 'SWR:FETCH_URL' | 'SWR:FETCH_FS'
 type FetchLoadedType = `${FetchBaseType}@LOADED`
 type FetchErrorType = `${FetchBaseType}@ERROR`

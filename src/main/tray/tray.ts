@@ -1,7 +1,7 @@
 import { Menu, Tray, nativeImage } from 'electron'
 import type { Dispatch, State } from 'shared/reducers'
 import TrayDog from 'main/tray/Dog'
-import TrayFolder from 'main/tray/Folder'
+import TrayFolder from 'main/tray/Finder'
 import TrayToDo from 'main/tray/ToDo'
 import TraySettingsMenu from 'main/tray/TraySettingsMenu'
 
