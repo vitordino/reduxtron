@@ -33,9 +33,10 @@ class SystemTray {
 		if (!this.state || !this.dispatch) return
 		const contextMenu = Menu.buildFromTemplate([
 			TrayToDo(this.state, this.dispatch),
-			TraySettingsMenu(this.state, this.dispatch),
 			TrayDog(this.state, this.dispatch),
 			TrayFinder(this.state, this.dispatch),
+			{ type: 'separator' },
+			TraySettingsMenu(this.state, this.dispatch),
 		])
 
 		this.instance.setToolTip('This text comes from tray module.')
