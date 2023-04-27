@@ -1,7 +1,7 @@
 import { combineReducers, Dispatch as BaseDispatch, Reducer, Observable, AnyAction } from 'redux'
 
 import toDosReducer, { ToDosAction } from './toDos'
-import UIReducer, { UIAction } from './ui'
+import settingsReducer, { SettingsAction } from './settings'
 import swrReducer, { SWRAction } from './swr'
 import globalReducer, { GlobalAction } from './global'
 import dogReducer, { DogAction } from './dog'
@@ -10,7 +10,7 @@ import folderReducer, { FolderAction } from './folder'
 const rootReducer = globalReducer(
 	combineReducers({
 		toDos: toDosReducer,
-		ui: UIReducer,
+		settings: settingsReducer,
 		swr: swrReducer,
 		dog: dogReducer,
 		folder: folderReducer,
@@ -19,7 +19,7 @@ const rootReducer = globalReducer(
 
 type ActionOrAnyAction =
 	| ToDosAction
-	| UIAction
+	| SettingsAction
 	| SWRAction
 	| DogAction
 	| FolderAction

@@ -1,23 +1,23 @@
 import type { AnyAction } from 'redux'
 import type { State, Middleware } from 'shared/reducers'
-import type { UIAction } from 'shared/reducers/ui'
+import type { SettingsAction } from 'shared/reducers/settings'
 import mainWindow from 'main/main-window/main-window'
 import tray from 'main/tray/tray'
 
-const mainWindowSideEffects = ({ ui }: Partial<State>) => {
-	if (!ui) return
-	const mainShouldBeVisible = ui?.visible.includes('main-window')
+const mainWindowSideEffects = ({ settings }: Partial<State>) => {
+	if (!settings) return
+	const mainShouldBeVisible = settings?.visible.includes('main-window')
 	const isMainVisible = mainWindow.isVisible
-	console.log('mainWindowSideEffects', { ui, mainShouldBeVisible, isMainVisible })
+	console.log('mainWindowSideEffects', { ui: settings, mainShouldBeVisible, isMainVisible })
 	if (!mainShouldBeVisible && isMainVisible) return mainWindow.destroy()
 	if (mainShouldBeVisible && !isMainVisible) return mainWindow.create()
 }
 
-const traySideEffects = ({ ui }: Partial<State>) => {
-	if (!ui) return
-	const trayShouldBeVisible = ui?.visible.includes('tray')
+const traySideEffects = ({ settings }: Partial<State>) => {
+	if (!settings) return
+	const trayShouldBeVisible = settings?.visible.includes('tray')
 	const isTrayVisible = tray.isVisible
-	console.log('traySideEffects', { ui, trayShouldBeVisible, isTrayVisible })
+	console.log('traySideEffects', { ui: settings, trayShouldBeVisible, isTrayVisible })
 	if (!trayShouldBeVisible && isTrayVisible) return tray.destroy()
 	if (trayShouldBeVisible && !isTrayVisible) return tray.create()
 }
@@ -27,9 +27,13 @@ const UI_SIDE_EFFECT_MAP = {
 	tray: traySideEffects,
 }
 
-const actionsToIntercept = ['UI:ADD_VISIBLE', 'UI:REMOVE_VISIBLE', 'UI:TOGGLE_VISIBLE']
+const actionsToIntercept = [
+	'SETTINGS:ADD_VISIBLE',
+	'SETTINGS:REMOVE_VISIBLE',
+	'SETTINGS:TOGGLE_VISIBLE',
+]
 
-const isUIAction = (action: AnyAction): action is UIAction =>
+const isUIAction = (action: AnyAction): action is SettingsAction =>
 	actionsToIntercept.includes(action.type)
 
 const shouldIntercept = (payload?: string): payload is keyof typeof UI_SIDE_EFFECT_MAP => {

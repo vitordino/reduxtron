@@ -3,7 +3,7 @@ import type { Dispatch, State } from 'shared/reducers'
 import TrayDog from 'main/tray/Dog'
 import TrayFolder from 'main/tray/Folder'
 import TrayToDo from 'main/tray/ToDo'
-import TrayUIControls from 'main/tray/UIControls'
+import TraySettingsMenu from 'main/tray/TraySettingsMenu'
 
 const trayIcon = nativeImage.createFromPath('resources/tray.png').resize({
 	width: 16,
@@ -32,7 +32,7 @@ class SystemTray {
 		if (!this.state || !this.dispatch) return
 		const contextMenu = Menu.buildFromTemplate([
 			TrayToDo(this.state, this.dispatch),
-			TrayUIControls(this.state, this.dispatch),
+			TraySettingsMenu(this.state, this.dispatch),
 			TrayDog(this.state, this.dispatch),
 			TrayFolder(this.state, this.dispatch),
 		])
