@@ -68,6 +68,7 @@ class MainWindow {
 
 		// Open urls in the user's browser
 		this.instance.webContents.setWindowOpenHandler(({ url }) => {
+			if (!url.startsWith('http')) return { action: 'deny' }
 			shell.openExternal(url)
 			return { action: 'deny' }
 		})
