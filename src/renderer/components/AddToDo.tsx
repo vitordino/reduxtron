@@ -58,6 +58,7 @@ const AddToDo = () => {
 				value={draft}
 				onChange={onDraftChange}
 				placeholder='new todo'
+				autoFocus
 			/>
 			<Button id='add-to-do-button' onKeyDown={onButtonKeyDown} disabled={!draft} type='submit'>
 				add

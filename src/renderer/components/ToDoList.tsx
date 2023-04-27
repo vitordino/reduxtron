@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react'
+import type { ComponentProps, KeyboardEvent } from 'react'
 import { Reorder, useMotionValue } from 'framer-motion'
 
 import { VisibilityFilter } from 'shared/reducers/toDos'
@@ -8,7 +8,7 @@ import useDispatch from 'renderer/hooks/useDispatch'
 import useIsAnimating from 'renderer/hooks/useIsAnimating'
 import ToDo, { ToDoProps } from 'renderer/components/ToDo'
 import EmptyState from 'renderer/components/EmptyState'
-import { focusById } from 'renderer/utils/focusChildElement'
+import { focusById, focusFirstElement } from 'renderer/utils/focusChildElement'
 
 type ReorderTodoItemProps = { todo: ToDoProps } & Partial<ComponentProps<typeof Reorder.Item>>
 
@@ -49,6 +49,26 @@ const TODO_EMPTY_STATE_DESCRIPTION_BY_VISIBILITY_FILTER: Record<VisibilityFilter
 	SHOW_ALL: 'use the input above to create one',
 	SHOW_ACTIVE: 'change to the "all" or "completed" filter bellow',
 	SHOW_COMPLETED: 'change to the "all" or "active" filter bellow',
+}
+
+const onKeyDown = ({ key, currentTarget }: KeyboardEvent<HTMLElement>) => {
+	if (key === 'ArrowUp' && currentTarget.getAttribute('data-first') === 'true') {
+		return focusById('view')
+	}
+	if (key === 'ArrowUp') {
+		const prev = currentTarget.previousElementSibling as HTMLElement | null
+		if (prev) return focusFirstElement(prev)
+	}
+	if (key === 'ArrowDown' && currentTarget.getAttribute('data-last') === 'true') {
+		return focusById('footer')
+	}
+	if (key === 'ArrowDown') {
+		const next = currentTarget.nextElementSibling as HTMLElement | null
+		if (next) return focusFirstElement(next)
+	}
+	if (key === 'ArrowLeft') {
+		focusById('sidebar')
+	}
 }
 
 const ToDoList = () => {
@@ -96,12 +116,9 @@ const ToDoList = () => {
 					<ReorderTodoItem
 						key={todo.id}
 						todo={todo}
-						onKeyDown={({ key }) => {
-							if (!i && key === 'ArrowUp') return focusById('view')
-							if (key === 'ArrowUp') return focusById(filteredItems?.[i - 1]?.id)
-							if (key === 'ArrowDown' && i === filteredItems.length - 1) return focusById('footer')
-							if (key === 'ArrowDown') return focusById(filteredItems?.[i + 1]?.id)
-						}}
+						data-first={!i}
+						data-last={i === filteredItems.length - 1}
+						onKeyDown={onKeyDown}
 					/>
 				))}
 			</Reorder.Group>

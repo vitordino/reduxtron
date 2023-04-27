@@ -16,9 +16,10 @@ const SettingsView = () => {
 			<Toolbar>settings</Toolbar>
 			<RenderCounter />
 			<ul>
-				{UI_ITEMS.map(x => (
+				{UI_ITEMS.map((x, i) => (
 					<li key={x}>
 						<Checkbox
+							autoFocus={!i}
 							id={`ui-visible-${x}`}
 							checked={!!visible?.includes(x)}
 							onChange={() => dispatch({ type: 'SETTINGS:TOGGLE_VISIBLE', payload: x })}

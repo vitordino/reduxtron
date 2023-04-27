@@ -52,7 +52,7 @@ const Dog = () => {
 			<Toolbar>dog</Toolbar>
 			<div id='view'>
 				<RenderCounter />
-				<select {...keyboardHandler} value={favorite} onChange={handleChangeFavorite}>
+				<select {...keyboardHandler} value={favorite} onChange={handleChangeFavorite} autoFocus>
 					<option value=''>---</option>
 					{allBreeds?.map(x => (
 						<option key={x} value={x}>

@@ -38,6 +38,13 @@ const toolbarHandler = preventKeyboardNavigation('vertical', e => {
 	}
 })
 
+const listItemHandler = preventKeyboardNavigation('horizontal', ({ key, currentTarget }) => {
+	if (key === 'ArrowLeft') return focusById('sidebar')
+	if (key === 'ArrowUp' && currentTarget.getAttribute('data-first') === 'true') {
+		return focusById('toolbar')
+	}
+})
+
 const Finder = () => {
 	const path = useStore(x => x?.folder?.present.path)
 	const pathState = useStore(x => x?.folder?.present.state)
@@ -152,13 +159,11 @@ const Finder = () => {
 									<button
 										data-name={name}
 										data-folder={folder}
+										data-first={!index}
 										autoFocus={!index}
 										onClick={onFileClick(folder, name)}
 										className='flex items-center w-full px-3 py-2 space-x-3'
-										{...preventKeyboardNavigation('horizontal', ({ key }) => {
-											if (!index && key === 'ArrowUp') return focusById('toolbar')
-											if (key === 'ArrowLeft') return focusById('sidebar')
-										})}
+										{...listItemHandler}
 									>
 										{folder ? <RxChevronRight /> : <RxFile />}
 										<div>{name}</div>
