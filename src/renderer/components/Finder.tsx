@@ -21,14 +21,19 @@ import EmptyState from 'renderer/components/EmptyState'
 import { Button } from 'renderer/components/Button'
 import Footer from 'renderer/components/Footer'
 import { focusById } from 'renderer/utils/focusChildElement'
+import { FOCUSABLE_SELECTOR } from 'renderer/utils/getFocusable'
 
 const FinderStatusItem = ({ children }: { children: ReactNode }) => (
 	<p className='text-slate-10 px-4 h-full flex items-center border-r border-slate-4'>{children}</p>
 )
 
+const firstEnabledFocusableSelector = FOCUSABLE_SELECTOR.split(', ')
+	.map(x => x + '[data-first-enabled="true"]')
+	.join(', ')
+
 const toolbarHandler = preventKeyboardNavigation('vertical', e => {
 	if (e.key === 'ArrowDown') return focusById('view')
-	if (e.key === 'ArrowLeft' && e.currentTarget.matches(':first-child')) {
+	if (e.key === 'ArrowLeft' && e.currentTarget.matches(firstEnabledFocusableSelector)) {
 		return focusById('sidebar')
 	}
 })
@@ -82,12 +87,14 @@ const Finder = () => {
 				<ToolbarButton
 					{...toolbarHandler}
 					disabled={!hasPast}
+					data-first-enabled={hasPast}
 					onClick={() => dispatch({ type: 'FOLDER:UNDO' })}
 				>
 					<RxChevronLeft />
 				</ToolbarButton>
 				<ToolbarButton
 					{...toolbarHandler}
+					data-first-enabled={!hasPast}
 					disabled={!hasFuture}
 					onClick={() => dispatch({ type: 'FOLDER:REDO' })}
 				>
@@ -95,6 +102,7 @@ const Finder = () => {
 				</ToolbarButton>
 				<ToolbarButton
 					{...toolbarHandler}
+					data-first-enabled={!hasPast && !hasFuture}
 					onClick={onPickFolder}
 					disabled={pathState === 'loading'}
 				>
@@ -104,6 +112,7 @@ const Finder = () => {
 					<ToolbarButton asChild>
 						<select
 							value={path}
+							data-first-enabled={!hasPast && !hasFuture && pathState === 'loading'}
 							onChange={handleSelectChange}
 							className='no-drag-region cursor-pointer h-full focus:outline-none hover:text-slate-12 focus:slate-12 hover:bg-slate-5 focus:bg-slate-5 ring-indigo-8 px-0 mx-0'
 						>

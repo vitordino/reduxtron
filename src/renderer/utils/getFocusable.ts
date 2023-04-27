@@ -1,4 +1,4 @@
-const FOCUSABLE_SELECTOR = [
+export const FOCUSABLE_SELECTOR = [
 	'[contenteditable]',
 	'[tabindex="0"]:not([disabled])',
 	'a[href]',
