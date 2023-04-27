@@ -21,12 +21,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/dog',
-				element: (
-					<>
-						<Toolbar>dog</Toolbar>
-						<Dog />
-					</>
-				),
+				element: <Dog />,
 			},
 			{
 				path: '/finder',

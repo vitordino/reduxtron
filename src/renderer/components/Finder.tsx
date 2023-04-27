@@ -12,7 +12,7 @@ import {
 	RxValueNone,
 } from 'react-icons/rx'
 
-import { preventKeyboardNavigation } from 'renderer/utils/preventKeyboardNavigation'
+import { preventKeyboardNavigation } from 'renderer/utils/keyboardNavigation'
 import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
 import { useFileSystemSWR } from 'renderer/hooks/useSWR'
@@ -20,10 +20,18 @@ import { Toolbar, ToolbarButton } from 'renderer/components/Toolbar'
 import EmptyState from 'renderer/components/EmptyState'
 import { Button } from 'renderer/components/Button'
 import Footer from 'renderer/components/Footer'
+import { focusById } from 'renderer/utils/focusChildElement'
 
 const FinderStatusItem = ({ children }: { children: ReactNode }) => (
 	<p className='text-slate-10 px-4 h-full flex items-center border-r border-slate-4'>{children}</p>
 )
+
+const toolbarHandler = preventKeyboardNavigation('vertical', e => {
+	if (e.key === 'ArrowDown') return focusById('view')
+	if (e.key === 'ArrowLeft' && e.currentTarget.matches(':first-child')) {
+		return focusById('sidebar')
+	}
+})
 
 const Finder = () => {
 	const path = useStore(x => x?.folder?.present.path)
@@ -72,21 +80,21 @@ const Finder = () => {
 		<>
 			<Toolbar className='items-center pl-0 pr-0' orientation='horizontal'>
 				<ToolbarButton
-					{...preventKeyboardNavigation('vertical')}
+					{...toolbarHandler}
 					disabled={!hasPast}
 					onClick={() => dispatch({ type: 'FOLDER:UNDO' })}
 				>
 					<RxChevronLeft />
 				</ToolbarButton>
 				<ToolbarButton
-					{...preventKeyboardNavigation('vertical')}
+					{...toolbarHandler}
 					disabled={!hasFuture}
 					onClick={() => dispatch({ type: 'FOLDER:REDO' })}
 				>
 					<RxChevronRight />
 				</ToolbarButton>
 				<ToolbarButton
-					{...preventKeyboardNavigation('vertical')}
+					{...toolbarHandler}
 					onClick={onPickFolder}
 					disabled={pathState === 'loading'}
 				>
@@ -110,14 +118,14 @@ const Finder = () => {
 				{!depth && <div className='px-3 flex-shrink-0'>finder</div>}
 				<div className='flex-1' />
 				<ToolbarButton
-					{...preventKeyboardNavigation('vertical')}
+					{...toolbarHandler}
 					onClick={moveUp}
 					disabled={pathState === 'loading' || !path}
 				>
 					<RxChevronUp />
 				</ToolbarButton>
 				<ToolbarButton
-					{...preventKeyboardNavigation('vertical')}
+					{...toolbarHandler}
 					onClick={() => dispatch({ type: 'FOLDER:CLEAR' })}
 					disabled={pathState === 'loading' || !path}
 				>
@@ -125,22 +133,23 @@ const Finder = () => {
 				</ToolbarButton>
 			</Toolbar>
 
-			<NavigationMenu.Root>
+			<NavigationMenu.Root id='view'>
 				<NavigationMenu.List className='group divide-y divide-slate-4'>
 					{data
 						?.sort((a, b) => +b.folder - +a.folder)
 						?.map(({ name, folder }, index) => (
 							<NavigationMenu.Item key={name}>
-								<NavigationMenu.NavigationMenuLink
-									asChild
-									{...preventKeyboardNavigation('horizontal')}
-								>
+								<NavigationMenu.NavigationMenuLink asChild>
 									<button
 										data-name={name}
 										data-folder={folder}
 										autoFocus={!index}
 										onClick={onFileClick(folder, name)}
 										className='flex items-center w-full px-3 py-2 space-x-3'
+										{...preventKeyboardNavigation('horizontal', ({ key }) => {
+											if (!index && key === 'ArrowUp') return focusById('toolbar')
+											if (key === 'ArrowLeft') return focusById('sidebar')
+										})}
 									>
 										{folder ? <RxChevronRight /> : <RxFile />}
 										<div>{name}</div>

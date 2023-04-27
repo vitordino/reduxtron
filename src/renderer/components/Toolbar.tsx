@@ -1,8 +1,10 @@
 import * as Primitives from '@radix-ui/react-toolbar'
 import cn from 'clsx'
 
-export const Toolbar = ({ className, ...props }: Primitives.ToolbarProps) => (
+export const Toolbar = ({ className, id = 'toolbar', ...props }: Primitives.ToolbarProps) => (
 	<Primitives.Root
+		loop={false}
+		id={id}
 		{...props}
 		className={cn(
 			'drag-region text-slate-11 flex-shrink-0 fixed top-0 h-9 px-4 text-sm w-[stretch] bg-slate-1 dark:bg-slate-3 border-b border-slate-4 dark:border-slate-1 flex items-center z-100',

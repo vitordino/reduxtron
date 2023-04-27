@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react'
 import { Reorder, useMotionValue } from 'framer-motion'
 
 import { VisibilityFilter } from 'shared/reducers/toDos'
@@ -7,8 +8,11 @@ import useDispatch from 'renderer/hooks/useDispatch'
 import useIsAnimating from 'renderer/hooks/useIsAnimating'
 import ToDo, { ToDoProps } from 'renderer/components/ToDo'
 import EmptyState from 'renderer/components/EmptyState'
+import { focusById } from 'renderer/utils/focusChildElement'
 
-const ReorderTodoItem = ({ todo }: { todo: ToDoProps }) => {
+type ReorderTodoItemProps = { todo: ToDoProps } & Partial<ComponentProps<typeof Reorder.Item>>
+
+const ReorderTodoItem = ({ todo, ...props }: ReorderTodoItemProps) => {
 	const y = useMotionValue(0)
 	const isDragging = useIsAnimating(y)
 	const style = { y, '--tw-divide-opacity': isDragging ? 0 : 1 } as const
@@ -22,6 +26,7 @@ const ReorderTodoItem = ({ todo }: { todo: ToDoProps }) => {
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
+			{...props}
 		>
 			<ToDo {...todo} />
 		</Reorder.Item>
@@ -80,14 +85,24 @@ const ToDoList = () => {
 	return (
 		<>
 			<Reorder.Group
+				id='to-do-list'
 				className='group divide-y divide-slate-4 overflow-y-scroll flex-1 overscroll-contain'
 				axis='y'
 				values={filteredItems}
 				onReorder={setToDos}
 				layoutScroll
 			>
-				{filteredItems.map(todo => (
-					<ReorderTodoItem key={todo.id} todo={todo} />
+				{filteredItems.map((todo, i) => (
+					<ReorderTodoItem
+						key={todo.id}
+						todo={todo}
+						onKeyDown={({ key }) => {
+							if (!i && key === 'ArrowUp') return focusById('view')
+							if (key === 'ArrowUp') return focusById(filteredItems?.[i - 1]?.id)
+							if (key === 'ArrowDown' && i === filteredItems.length - 1) return focusById('footer')
+							if (key === 'ArrowDown') return focusById(filteredItems?.[i + 1]?.id)
+						}}
+					/>
 				))}
 			</Reorder.Group>
 		</>

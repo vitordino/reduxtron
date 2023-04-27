@@ -8,13 +8,15 @@ import Footer from './Footer'
 const ToDoView = () => (
 	<>
 		<Toolbar>to do</Toolbar>
-		<AddToDo />
-		<ToDoList />
-		<Footer>
-			<ToDoVisibilityToggle />
-			<div className='flex-1' />
-			<ToDoClearButton />
-		</Footer>
+		<div id='view' className='flex-1 flex flex-col'>
+			<AddToDo />
+			<ToDoList />
+			<Footer>
+				<ToDoVisibilityToggle />
+				<div className='flex-1' />
+				<ToDoClearButton />
+			</Footer>
+		</div>
 	</>
 )
 

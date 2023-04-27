@@ -1,8 +1,12 @@
 import { ChangeEvent } from 'react'
+
+import { focusById } from 'renderer/utils/focusChildElement'
+import { handleKeyboardNavigation } from 'renderer/utils/keyboardNavigation'
 import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
 import useSWR from 'renderer/hooks/useSWR'
 import RenderCounter from 'renderer/components/RenderCounter'
+import { Toolbar } from 'renderer/components/Toolbar'
 
 const ALL_BREEDS_ENDPOINT = 'https://dog.ceo/api/breeds/list/all'
 const swrOptions = { revalidateOn: [] }
@@ -30,6 +34,11 @@ const useAllBreeds = () => {
 	return Object.keys(allBreeds?.data?.message ?? {})
 }
 
+const keyboardHandler = handleKeyboardNavigation(
+	'horizontal',
+	e => e.key === 'ArrowLeft' && focusById('sidebar'),
+)
+
 const Dog = () => {
 	const allBreeds = useAllBreeds()
 	const favorite = useStore(x => x.dog?.favorite)
@@ -39,18 +48,23 @@ const Dog = () => {
 		dispatch({ type: 'DOG:SELECT_FAVORITE_BREED', payload: e.target.value })
 
 	return (
-		<div>
-			<RenderCounter />
-			<select value={favorite} onChange={handleChangeFavorite}>
-				<option value=''>---</option>
-				{allBreeds?.map(x => (
-					<option key={x} value={x}>
-						{x}
-					</option>
-				))}
-			</select>
-			<div style={{ width: 128, height: 128 }}>{favorite && <FavoriteDog breed={favorite} />}</div>
-		</div>
+		<>
+			<Toolbar>dog</Toolbar>
+			<div id='view'>
+				<RenderCounter />
+				<select {...keyboardHandler} value={favorite} onChange={handleChangeFavorite}>
+					<option value=''>---</option>
+					{allBreeds?.map(x => (
+						<option key={x} value={x}>
+							{x}
+						</option>
+					))}
+				</select>
+				<div style={{ width: 128, height: 128 }}>
+					{favorite && <FavoriteDog breed={favorite} />}
+				</div>
+			</div>
+		</>
 	)
 }
 
