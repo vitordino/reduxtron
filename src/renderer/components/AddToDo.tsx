@@ -1,11 +1,28 @@
-import { ChangeEvent, FormEvent, KeyboardEvent } from 'react'
+import { ChangeEvent, FormEvent, KeyboardEvent, useEffect } from 'react'
+import { RxInput, RxPlus } from 'react-icons/rx'
 
 import { focusById } from 'renderer/utils/focusChildElement'
 import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
+import { usePrompt } from 'renderer/hooks/usePrompt'
 import { Input } from 'renderer/components/Input'
 import { Button } from 'renderer/components/Button'
-import { getFocusable } from 'renderer/utils/getFocusable'
+import { FOCUSABLE_SELECTOR, getFocusable } from 'renderer/utils/getFocusable'
+
+const useTodoPromptAction = (key = 'to-do') => {
+	const defaultText = useStore(x => x.toDos?.draft)
+	const [state, prompt] = usePrompt(key)
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		if (!state?.value) return
+		dispatch({ type: 'TO_DO:CREATE', payload: state.value })
+		dispatch({ type: 'TO_DO:SET_DRAFT', payload: '' })
+		dispatch({ type: 'PROMPT:CLEAR', payload: [key] })
+	}, [state?.value])
+
+	return () => prompt({ title: 'create to do', description: 'fill with content', defaultText })
+}
 
 const onInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
 	// @ts-expect-error react didn’t typed selectionStart + end + value
@@ -13,7 +30,10 @@ const onInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
 		return focusById('sidebar')
 	// @ts-expect-error react didn’t typed selectionStart + end + value
 	if (e.key === 'ArrowRight' && e.target.selectionStart === e.target?.value?.length) {
-		return (e.currentTarget.nextElementSibling as HTMLElement | null)?.focus()
+		const next = e.currentTarget.nextElementSibling as HTMLElement | null
+		const nextIsFocusable = next?.matches(FOCUSABLE_SELECTOR)
+		if (next && nextIsFocusable) return next.focus()
+		return (e.currentTarget?.nextElementSibling?.nextElementSibling as HTMLElement | null)?.focus()
 	}
 	if (e.key === 'ArrowDown') {
 		const toDoListFocusable = getFocusable(document.getElementById('to-do-list'))
@@ -23,7 +43,15 @@ const onInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
 }
 const onButtonKeyDown = e => {
 	if (e.key === 'ArrowLeft') {
-		return (e.currentTarget.previousElementSibling as HTMLElement | null)?.focus()
+		const prev = e.currentTarget.previousElementSibling as HTMLElement | null
+		const prevIsFocusable = prev?.matches(FOCUSABLE_SELECTOR)
+		if (prev && prevIsFocusable) return prev.focus()
+		return (
+			e.currentTarget?.previousElementSibling?.previousElementSibling as HTMLElement | null
+		)?.focus()
+	}
+	if (e.key === 'ArrowRight') {
+		return (e.currentTarget.nextElementSibling as HTMLElement | null)?.focus()
 	}
 	if (e.key === 'ArrowDown') {
 		const toDoListFocusable = getFocusable(document.getElementById('to-do-list'))
@@ -35,6 +63,7 @@ const onButtonKeyDown = e => {
 const AddToDo = () => {
 	const draft = useStore(x => x.toDos?.draft) || ''
 	const dispatch = useDispatch()
+	const onTodoPrompt = useTodoPromptAction()
 
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault()
@@ -60,8 +89,23 @@ const AddToDo = () => {
 				placeholder='new todo'
 				autoFocus
 			/>
-			<Button id='add-to-do-button' onKeyDown={onButtonKeyDown} disabled={!draft} type='submit'>
-				add
+			<Button
+				size='square-md'
+				id='add-to-do-button'
+				onKeyDown={onButtonKeyDown}
+				disabled={!draft}
+				type='submit'
+			>
+				<RxPlus />
+			</Button>
+			<Button
+				size='square-md'
+				id='add-to-do-prompt'
+				onKeyDown={onButtonKeyDown}
+				onClick={onTodoPrompt}
+				type='button'
+			>
+				<RxInput />
 			</Button>
 		</form>
 	)
