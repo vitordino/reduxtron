@@ -5,6 +5,7 @@ import folderMiddleware from 'main/store/middlewares/folder'
 // import persistanceMiddleware from 'main/store/middlewares/persistance'
 import swrMiddleware from 'main/store/middlewares/swr'
 import uiMiddleware from 'main/store/middlewares/ui'
+import promptMiddleware from 'main/store/middlewares/prompt'
 import logger from './logger'
 
 const middleware: Middleware[] = [
@@ -14,6 +15,7 @@ const middleware: Middleware[] = [
 	logger,
 	// persistanceMiddleware,
 	uiMiddleware,
+	promptMiddleware,
 ]
 
 export default middleware

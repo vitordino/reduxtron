@@ -6,6 +6,7 @@ import swrReducer, { SWRAction } from './swr'
 import globalReducer, { GlobalAction } from './global'
 import dogReducer, { DogAction } from './dog'
 import folderReducer, { FolderAction } from './folder'
+import promptReducer, { PromptAction } from './prompt'
 
 const rootReducer = globalReducer(
 	combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = globalReducer(
 		swr: swrReducer,
 		dog: dogReducer,
 		folder: folderReducer,
+		prompt: promptReducer,
 	}),
 )
 
@@ -24,6 +26,7 @@ type ActionOrAnyAction =
 	| DogAction
 	| FolderAction
 	| GlobalAction
+	| PromptAction
 
 export type Action = Exclude<ActionOrAnyAction, { type: '' }>
 
