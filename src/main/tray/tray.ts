@@ -4,7 +4,7 @@ import TrayDog from 'main/tray/Dog'
 import TrayFolder from 'main/tray/Finder'
 import TrayToDo from 'main/tray/ToDo'
 import TraySettingsMenu from 'main/tray/TraySettingsMenu'
-import image from './tray.png'
+import image from 'main/tray/tray.png'
 
 const trayIcon = nativeImage.createFromDataURL(image).resize({
 	width: 18,
