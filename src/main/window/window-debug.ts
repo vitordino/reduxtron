@@ -1,5 +1,5 @@
 /* eslint global-require: off, no-console: off */
-export const mainWindowDebug = async () => {
+export const windowDebug = async () => {
 	const env = process.env.NODE_ENV
 
 	if (process.env.NODE_ENV === 'production') {

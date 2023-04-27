@@ -3,11 +3,17 @@ import { is } from '@electron-toolkit/utils'
 import { BrowserWindow, ipcMain, shell } from 'electron'
 
 import type { Dispatch } from 'shared/reducers'
-import { MenuBuilder } from 'main/main-window/main-window-native-menu'
-import { mainWindowDebug } from 'main/main-window/main-window-debug'
+import { MenuBuilder } from 'main/window/window-native-menu'
+import { windowDebug } from 'main/window/window-debug'
 
-class MainWindow {
-	constructor() {
+console.log({
+	ENV_ENV: process.env,
+})
+
+export class Window {
+	constructor(id: string, file: string) {
+		this.id = id
+		this.file = file
 		this.instance = null
 		ipcMain.on('subscribe', async (state: unknown) => {
 			if (this.instance?.isDestroyed()) return
@@ -15,6 +21,8 @@ class MainWindow {
 		})
 	}
 
+	public id: string
+	public file: string
 	private instance: BrowserWindow | null
 
 	private dispatch?: Dispatch
@@ -25,9 +33,12 @@ class MainWindow {
 		if (this.instance) return
 
 		this.instance = new BrowserWindow({
+			title: 'redux-electron',
 			show: false,
 			width: 1024,
 			height: 728,
+			fullscreen: false,
+			fullscreenable: false,
 			titleBarStyle: 'hiddenInset',
 			titleBarOverlay: true,
 			vibrancy: 'sidebar',
@@ -43,9 +54,9 @@ class MainWindow {
 		// HMR for renderer base on electron-vite cli.
 		// Load the remote URL for development or the local html file for production.
 		if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-			this.instance.loadURL(process.env['ELECTRON_RENDERER_URL'])
+			this.instance.loadURL(process.env['ELECTRON_RENDERER_URL'] + '/' + this.file)
 		} else {
-			this.instance.loadFile(join(__dirname, '../renderer/index.html'))
+			this.instance.loadFile(join(__dirname, '../renderer', this.file))
 		}
 
 		this.instance.on('ready-to-show', () => {
@@ -60,7 +71,7 @@ class MainWindow {
 		})
 
 		this.instance.on('closed', () => {
-			this?.dispatch?.({ type: 'SETTINGS:REMOVE_VISIBLE', payload: 'main-window' })
+			this?.dispatch?.({ type: 'SETTINGS:REMOVE_VISIBLE', payload: this.id })
 		})
 
 		const menuBuilder = new MenuBuilder(this.instance)
@@ -74,7 +85,7 @@ class MainWindow {
 		})
 
 		// register dev-tools + source-maps
-		mainWindowDebug()
+		windowDebug()
 	}
 
 	public destroy = () => {
@@ -91,4 +102,4 @@ class MainWindow {
 	}
 }
 
-export const mainWindow = new MainWindow()
+export const mainWindow = new Window('main-window', 'index.html')

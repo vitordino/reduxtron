@@ -3,7 +3,7 @@
 // this adds the subscribe and dispatch messages
 import { IpcMain } from 'electron'
 import type { Store } from 'redux'
-import { mainWindow } from 'main/main-window/main-window'
+import { mainWindow } from 'main/window/window'
 import { tray } from 'main/tray/tray'
 
 type MainReduxMiddleware = {

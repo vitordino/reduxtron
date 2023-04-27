@@ -1,7 +1,7 @@
 import type { AnyAction } from 'redux'
 import type { State, Middleware } from 'shared/reducers'
 import type { SettingsAction } from 'shared/reducers/settings'
-import { mainWindow } from 'main/main-window/main-window'
+import { mainWindow } from 'main/window/window'
 import { tray } from 'main/tray/tray'
 
 const mainWindowSideEffects = ({ settings }: Partial<State>) => {

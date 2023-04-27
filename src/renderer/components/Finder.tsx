@@ -162,7 +162,7 @@ export const Finder = () => {
 										data-first={!index}
 										autoFocus={!index}
 										onClick={onFileClick(folder, name)}
-										className='flex items-center w-full px-3 py-2 space-x-3'
+										className='flex items-center w-full px-3 py-2 space-x-3 data-[folder=false]:cursor-default'
 										{...listItemHandler}
 									>
 										{folder ? <RxChevronRight /> : <RxFile />}

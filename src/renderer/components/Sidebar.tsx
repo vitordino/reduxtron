@@ -75,11 +75,11 @@ export const Sidebar = () => (
 						<NavigationMenu.Link asChild>
 							<Link
 								to='/'
-								className='group flex items-center justify-between rounded hover:bg-slate-2'
+								className='group flex items-center justify-between rounded hover:bg-slate-6'
 								{...keyboardLogoHandler}
 							>
 								<div className='flex items-center p-2'>
-									<div className='flex text-sm items-center justify-center rounded-sm w-6 h-6 p-0.5 text-white bg-indigo-10 lg:x2.5'>
+									<div className='flex text-sm items-center justify-center rounded-sm w-6 h-6 p-0.5 text-white bg-indigo-9 group-hover:bg-indigo-10 lg:x2.5'>
 										<img src='images/logo.svg' />
 									</div>
 									<div className='group-hover:text-slate-12 text-sm font-medium hidden lg:block ml-2'>
