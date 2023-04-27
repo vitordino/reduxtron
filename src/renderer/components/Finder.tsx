@@ -12,13 +12,14 @@ import {
 	RxValueNone,
 } from 'react-icons/rx'
 
+import { preventKeyboardNavigation } from 'renderer/utils/preventKeyboardNavigation'
 import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
 import { useFileSystemSWR } from 'renderer/hooks/useSWR'
 import { Toolbar, ToolbarButton } from 'renderer/components/Toolbar'
-import EmptyState from './EmptyState'
-import { Button } from './Button'
-import Footer from './Footer'
+import EmptyState from 'renderer/components/EmptyState'
+import { Button } from 'renderer/components/Button'
+import Footer from 'renderer/components/Footer'
 
 const FinderStatusItem = ({ children }: { children: ReactNode }) => (
 	<p className='text-slate-10 px-4 h-full flex items-center border-r border-slate-4'>{children}</p>
@@ -70,13 +71,25 @@ const Finder = () => {
 	return (
 		<>
 			<Toolbar className='items-center pl-0 pr-0' orientation='horizontal'>
-				<ToolbarButton disabled={!hasPast} onClick={() => dispatch({ type: 'FOLDER:UNDO' })}>
+				<ToolbarButton
+					{...preventKeyboardNavigation('vertical')}
+					disabled={!hasPast}
+					onClick={() => dispatch({ type: 'FOLDER:UNDO' })}
+				>
 					<RxChevronLeft />
 				</ToolbarButton>
-				<ToolbarButton disabled={!hasFuture} onClick={() => dispatch({ type: 'FOLDER:REDO' })}>
+				<ToolbarButton
+					{...preventKeyboardNavigation('vertical')}
+					disabled={!hasFuture}
+					onClick={() => dispatch({ type: 'FOLDER:REDO' })}
+				>
 					<RxChevronRight />
 				</ToolbarButton>
-				<ToolbarButton onClick={onPickFolder} disabled={pathState === 'loading'}>
+				<ToolbarButton
+					{...preventKeyboardNavigation('vertical')}
+					onClick={onPickFolder}
+					disabled={pathState === 'loading'}
+				>
 					<RxLaptop />
 				</ToolbarButton>
 				{!!depth && (
@@ -96,10 +109,15 @@ const Finder = () => {
 				)}
 				{!depth && <div className='px-3 flex-shrink-0'>finder</div>}
 				<div className='flex-1' />
-				<ToolbarButton onClick={moveUp} disabled={pathState === 'loading' || !path}>
+				<ToolbarButton
+					{...preventKeyboardNavigation('vertical')}
+					onClick={moveUp}
+					disabled={pathState === 'loading' || !path}
+				>
 					<RxChevronUp />
 				</ToolbarButton>
 				<ToolbarButton
+					{...preventKeyboardNavigation('vertical')}
 					onClick={() => dispatch({ type: 'FOLDER:CLEAR' })}
 					disabled={pathState === 'loading' || !path}
 				>
@@ -113,7 +131,10 @@ const Finder = () => {
 						?.sort((a, b) => +b.folder - +a.folder)
 						?.map(({ name, folder }, index) => (
 							<NavigationMenu.Item key={name}>
-								<NavigationMenu.NavigationMenuLink asChild>
+								<NavigationMenu.NavigationMenuLink
+									asChild
+									{...preventKeyboardNavigation('horizontal')}
+								>
 									<button
 										data-name={name}
 										data-folder={folder}
