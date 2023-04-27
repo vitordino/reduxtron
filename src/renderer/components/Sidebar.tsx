@@ -4,12 +4,13 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import type { IconType } from 'react-icons'
 import { RxPencil2, RxGear, RxFile, RxCamera } from 'react-icons/rx'
 
-const links = [
+const topLinks = [
 	{ to: '/to-do', text: 'to do', icon: RxPencil2 },
-	{ to: '/settings', text: 'settings', icon: RxGear },
 	{ to: '/dog', text: 'dog', icon: RxCamera },
 	{ to: '/finder', text: 'finder', icon: RxFile },
 ]
+
+const bottomLinks = [{ to: '/settings', text: 'settings', icon: RxGear }]
 
 type SidebarLinkProps = {
 	to: string
@@ -20,7 +21,7 @@ type SidebarLinkProps = {
 const SidebarLink = ({ to, icon: Icon, text }: SidebarLinkProps) => {
 	const location = useLocation().pathname
 	return (
-		<NavigationMenu.Item>
+		<NavigationMenu.Item className='lg:px-4'>
 			<NavigationMenu.Link asChild>
 				<Link
 					to={to}
@@ -60,10 +61,16 @@ const Sidebar = () => (
 					</NavigationMenu.Item>
 				</div>
 
-				<div className='flex flex-col flex-shrink flex-grow overflow-y-auto mb-0.5 lg:px-4 lg:py-2'>
-					{links.map(x => (
+				<div className='flex flex-col flex-shrink flex-grow overflow-y-auto lg:pt-2'>
+					{topLinks.map(x => (
 						<SidebarLink key={x.to} {...x} />
 					))}
+					<div className='flex-1' />
+					<div className='sticky bottom-0 py-4 mt-4'>
+						{bottomLinks.map(x => (
+							<SidebarLink key={x.to} {...x} />
+						))}
+					</div>
 				</div>
 			</ul>
 		</NavigationMenu.List>
