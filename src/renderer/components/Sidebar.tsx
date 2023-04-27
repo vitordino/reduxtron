@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import type { IconType } from 'react-icons'
 import { RxPencil2, RxGear, RxFile, RxCamera } from 'react-icons/rx'
+import { preventKeyboardNavigation } from 'renderer/utils/preventKeyboardNavigation'
 
 const topLinks = [
 	{ to: '/to-do', text: 'to do', icon: RxPencil2 },
@@ -22,7 +23,7 @@ const SidebarLink = ({ to, icon: Icon, text }: SidebarLinkProps) => {
 	const location = useLocation().pathname
 	return (
 		<NavigationMenu.Item className='lg:px-4'>
-			<NavigationMenu.Link asChild>
+			<NavigationMenu.Link asChild {...preventKeyboardNavigation('horizontal')}>
 				<Link
 					to={to}
 					data-current={location === to}
@@ -47,6 +48,7 @@ const Sidebar = () => (
 							<Link
 								to='/'
 								className='group flex items-center justify-between rounded hover:bg-slate-2'
+								{...preventKeyboardNavigation('horizontal')}
 							>
 								<div className='flex items-center p-2'>
 									<div className='flex text-sm items-center justify-center rounded-sm w-6 h-6 p-0.5 text-white bg-indigo-10 lg:x2.5'>
