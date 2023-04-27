@@ -11,7 +11,7 @@ export default defineConfig({
 	},
 	renderer: {
 		plugins: [tsconfigPaths(), react()],
-		publicDir: 'static',
+		publicDir: '../../resources',
 		define: {
 			__PLATFORM__: JSON.stringify(process.platform),
 		},

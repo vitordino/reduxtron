@@ -1,12 +1,11 @@
-import { createBrowserRouter, RouterProvider, RouterProviderProps } from 'react-router-dom'
+import { createHashRouter, RouterProvider, RouterProviderProps } from 'react-router-dom'
 import AppLayout from 'renderer/components/AppLayout'
-import { Toolbar } from 'renderer/components/Toolbar'
 import SettingsView from 'renderer/components/SettingsView'
 import Dog from 'renderer/components/Dog'
 import ToDoView from 'renderer/components/ToDoView'
 import Finder from 'renderer/components/Finder'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
 	{
 		path: '/',
 		element: <AppLayout />,

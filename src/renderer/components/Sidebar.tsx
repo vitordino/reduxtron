@@ -80,7 +80,7 @@ const Sidebar = () => (
 							>
 								<div className='flex items-center p-2'>
 									<div className='flex text-sm items-center justify-center rounded-sm w-6 h-6 p-0.5 text-white bg-indigo-10 lg:x2.5'>
-										<img src='/images/logo.svg' />
+										<img src='images/logo.svg' />
 									</div>
 									<div className='group-hover:text-slate-12 text-sm font-medium hidden lg:block ml-2'>
 										redux-electron

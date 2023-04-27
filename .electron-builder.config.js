@@ -13,7 +13,9 @@ const { join } = require('path')
 module.exports = () => ({
 	appId: 'com.electron.app',
 	productName: 'react-ts',
-	icon: join(__dirname, 'resources', 'icon.png'),
+	asar: false,
+	// asarUnpack: ['resources/**'],
+	icon: join(__dirname, 'resources', 'images', 'icon.png'),
 
 	directories: {
 		buildResources: 'build',
@@ -26,7 +28,6 @@ module.exports = () => ({
 		'!{.env,.env.*,.npmrc,pnpm-lock.yaml}',
 		'!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}',
 	],
-	asarUnpack: ['resources/**'],
 	afterSign: 'build/notarize.js',
 	win: {
 		executableName: 'react-ts',
@@ -38,7 +39,7 @@ module.exports = () => ({
 		createDesktopShortcut: 'always',
 	},
 	mac: {
-		icon: join(__dirname, 'build', 'icon.icns'),
+		icon: join(__dirname, 'build', 'images', 'icon.icns'),
 
 		entitlementsInherit: 'build/entitlements.mac.plist',
 		extendInfo: [

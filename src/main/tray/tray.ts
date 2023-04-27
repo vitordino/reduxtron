@@ -4,10 +4,11 @@ import TrayDog from 'main/tray/Dog'
 import TrayFolder from 'main/tray/Finder'
 import TrayToDo from 'main/tray/ToDo'
 import TraySettingsMenu from 'main/tray/TraySettingsMenu'
+import image from './tray.png'
 
-const trayIcon = nativeImage.createFromPath('resources/tray.png').resize({
-	width: 16,
-	height: 16,
+const trayIcon = nativeImage.createFromDataURL(image).resize({
+	width: 18,
+	height: 18,
 })
 
 class SystemTray {

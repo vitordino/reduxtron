@@ -20,7 +20,7 @@ class MainWindow {
 	private dispatch?: Dispatch
 
 	public create = async () => {
-		const icon = join(__dirname, '../../resources', 'icon.png')
+		const icon = join(__dirname, '../../resources', 'images', 'icon.png')
 		console.log({ __dirname, icon })
 		if (this.instance) return
 
