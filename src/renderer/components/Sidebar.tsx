@@ -2,10 +2,9 @@ import { ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import type { IconType } from 'react-icons'
-import { RxPlus, RxPencil2, RxMix, RxFile, RxCamera } from 'react-icons/rx'
+import { RxPencil2, RxMix, RxFile, RxCamera } from 'react-icons/rx'
 
 const links = [
-	{ to: '/counter', text: 'counter', icon: RxPlus },
 	{ to: '/to-do', text: 'to do', icon: RxPencil2 },
 	{ to: '/ui', text: 'ui', icon: RxMix },
 	{ to: '/dog', text: 'dog', icon: RxCamera },

@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider, RouterProviderProps } from 'react-router-dom'
 import AppLayout from 'renderer/components/AppLayout'
 import { Toolbar } from 'renderer/components/Toolbar'
-import Counter from 'renderer/components/Counter'
 import UIControls from 'renderer/components/UIControls'
 import Dog from 'renderer/components/Dog'
 import ToDoView from 'renderer/components/ToDoView'
@@ -12,15 +11,6 @@ const router = createBrowserRouter([
 		path: '/',
 		element: <AppLayout />,
 		children: [
-			{
-				path: '/counter',
-				element: (
-					<>
-						<Toolbar>counter</Toolbar>
-						<Counter />
-					</>
-				),
-			},
 			{
 				path: '/to-do',
 				element: <ToDoView />,

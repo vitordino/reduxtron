@@ -1,6 +1,5 @@
 import { Menu, Tray, nativeImage } from 'electron'
 import type { Dispatch, State } from 'shared/reducers'
-import TrayCounter from 'main/tray/Counter'
 import TrayDog from 'main/tray/Dog'
 import TrayFolder from 'main/tray/Folder'
 import TrayToDo from 'main/tray/ToDo'
@@ -32,7 +31,6 @@ class SystemTray {
 		if (!this.instance) this.instance = new Tray(trayIcon)
 		if (!this.state || !this.dispatch) return
 		const contextMenu = Menu.buildFromTemplate([
-			TrayCounter(this.state, this.dispatch),
 			TrayToDo(this.state, this.dispatch),
 			TrayUIControls(this.state, this.dispatch),
 			TrayDog(this.state, this.dispatch),

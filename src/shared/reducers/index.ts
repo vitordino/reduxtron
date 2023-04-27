@@ -1,6 +1,5 @@
 import { combineReducers, Dispatch as BaseDispatch, Reducer, Observable, AnyAction } from 'redux'
 
-import counterReducer, { CounterAction } from './counter'
 import toDosReducer, { ToDosAction } from './toDos'
 import UIReducer, { UIAction } from './ui'
 import swrReducer, { SWRAction } from './swr'
@@ -10,7 +9,6 @@ import folderReducer, { FolderAction } from './folder'
 
 const rootReducer = globalReducer(
 	combineReducers({
-		counter: counterReducer,
 		toDos: toDosReducer,
 		ui: UIReducer,
 		swr: swrReducer,
@@ -20,7 +18,6 @@ const rootReducer = globalReducer(
 )
 
 type ActionOrAnyAction =
-	| CounterAction
 	| ToDosAction
 	| UIAction
 	| SWRAction
