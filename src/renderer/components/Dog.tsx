@@ -5,7 +5,6 @@ import { handleKeyboardNavigation } from 'renderer/utils/keyboardNavigation'
 import useStore from 'renderer/hooks/useStore'
 import useDispatch from 'renderer/hooks/useDispatch'
 import useSWR from 'renderer/hooks/useSWR'
-import RenderCounter from 'renderer/components/RenderCounter'
 import { Toolbar } from 'renderer/components/Toolbar'
 
 const ALL_BREEDS_ENDPOINT = 'https://dog.ceo/api/breeds/list/all'
@@ -51,7 +50,6 @@ const Dog = () => {
 		<>
 			<Toolbar>dog</Toolbar>
 			<div id='view'>
-				<RenderCounter />
 				<select {...keyboardHandler} value={favorite} onChange={handleChangeFavorite} autoFocus>
 					<option value=''>---</option>
 					{allBreeds?.map(x => (
