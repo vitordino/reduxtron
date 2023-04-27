@@ -33,6 +33,7 @@
 		"class-variance-authority": "^0.5.2",
 		"clsx": "^1.2.1",
 		"framer-motion": "^10.11.6",
+		"native-prompt": "^2.1.4",
 		"react-hotkeys-hook": "^4.4.0",
 		"react-icons": "^4.8.0",
 		"react-router-dom": "^6.10.0",
