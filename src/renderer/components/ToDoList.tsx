@@ -51,23 +51,29 @@ const TODO_EMPTY_STATE_DESCRIPTION_BY_VISIBILITY_FILTER: Record<VisibilityFilter
 	SHOW_COMPLETED: 'change to the "all" or "active" filter bellow',
 }
 
-const onKeyDown = ({ key, currentTarget }: KeyboardEvent<HTMLElement>) => {
-	if (key === 'ArrowUp' && currentTarget.getAttribute('data-first') === 'true') {
+const onKeyDown = ({ key, currentTarget: c }: KeyboardEvent<HTMLElement>) => {
+	const prev = c.previousElementSibling as HTMLElement | null
+	const next = c.nextElementSibling as HTMLElement | null
+	if (key === 'ArrowUp' && c.getAttribute('data-first') === 'true') {
 		return focusById('view')
 	}
 	if (key === 'ArrowUp') {
-		const prev = currentTarget.previousElementSibling as HTMLElement | null
 		if (prev) return focusFirstElement(prev)
 	}
-	if (key === 'ArrowDown' && currentTarget.getAttribute('data-last') === 'true') {
+	if (key === 'ArrowDown' && c.getAttribute('data-last') === 'true') {
 		return focusById('footer')
 	}
 	if (key === 'ArrowDown') {
-		const next = currentTarget.nextElementSibling as HTMLElement | null
 		if (next) return focusFirstElement(next)
 	}
 	if (key === 'ArrowLeft') {
 		focusById('sidebar')
+	}
+	if (key === 'Delete' || key === 'Backspace') {
+		const payload = c.getAttribute('data-id')
+		if (!payload) return
+		focusFirstElement(prev || next)
+		window.electron.dispatch({ type: 'TO_DO:REMOVE', payload })
 	}
 }
 
@@ -117,6 +123,7 @@ const ToDoList = () => {
 						key={todo.id}
 						todo={todo}
 						data-first={!i}
+						data-id={todo.id}
 						data-last={i === filteredItems.length - 1}
 						onKeyDown={onKeyDown}
 					/>
