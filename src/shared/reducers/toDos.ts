@@ -61,7 +61,7 @@ const toDoActions: Record<ToDosAction['type'], (state: ToDosState, payload) => T
 	'TO_DO:CHANGE_VISIBILITY_FILTER': changeVisibilityFilter,
 }
 
-const toDosReducer: Reducer<ToDosState, ToDosAction> = (
+export const toDosReducer: Reducer<ToDosState, ToDosAction> = (
 	state = { draft: '', items: [], visibilityFilter: 'SHOW_ALL' },
 	// @ts-expect-error empty action
 	action = { type: '' },
@@ -69,5 +69,3 @@ const toDosReducer: Reducer<ToDosState, ToDosAction> = (
 	if (!action?.type || !(action.type in toDoActions)) return state
 	return toDoActions[action.type](state, action.payload)
 }
-
-export default toDosReducer

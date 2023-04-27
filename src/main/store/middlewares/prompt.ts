@@ -1,7 +1,7 @@
 import { Middleware } from 'shared/reducers'
 import nativePrompt from 'native-prompt'
 
-const promptMiddleware: Middleware = _store => next => async action => {
+export const promptMiddleware: Middleware = _store => next => async action => {
 	if (action.type !== 'PROMPT:OPEN') return next(action)
 	// get to initial loading state
 	next(action)
@@ -17,5 +17,3 @@ const promptMiddleware: Middleware = _store => next => async action => {
 		})
 	}
 }
-
-export default promptMiddleware

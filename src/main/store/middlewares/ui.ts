@@ -1,8 +1,8 @@
 import type { AnyAction } from 'redux'
 import type { State, Middleware } from 'shared/reducers'
 import type { SettingsAction } from 'shared/reducers/settings'
-import mainWindow from 'main/main-window/main-window'
-import tray from 'main/tray/tray'
+import { mainWindow } from 'main/main-window/main-window'
+import { tray } from 'main/tray/tray'
 
 const mainWindowSideEffects = ({ settings }: Partial<State>) => {
 	if (!settings) return
@@ -41,12 +41,10 @@ const shouldIntercept = (payload?: string): payload is keyof typeof UI_SIDE_EFFE
 	return payload in UI_SIDE_EFFECT_MAP
 }
 
-const uiMiddleware: Middleware = store => next => async action => {
+export const uiMiddleware: Middleware = store => next => async action => {
 	if (!isUIAction(action) || !shouldIntercept(action.payload)) return next(action)
 	// get state after action is dispatched
 	const result = next(action)
 	UI_SIDE_EFFECT_MAP[action.payload](store.getState())
 	return result
 }
-
-export default uiMiddleware

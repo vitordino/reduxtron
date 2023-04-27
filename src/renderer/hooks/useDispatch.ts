@@ -1,3 +1,1 @@
-const useDispatch = () => window.electron.dispatch
-
-export default useDispatch
+export const useDispatch = () => window.electron.dispatch

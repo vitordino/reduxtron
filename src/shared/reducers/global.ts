@@ -26,9 +26,7 @@ export type GetStateFromPersistanceMiddlewareAction = {
 const isGlobalSetAction = (action: AnyAction): action is GlobalSetAction =>
 	action.type === 'GLOBAL:SET'
 
-const globalReducer: GlobalReducer = reducer => (state, action) => {
+export const globalReducer: GlobalReducer = reducer => (state, action) => {
 	if (isGlobalSetAction(action)) return action.payload
 	return reducer(state, action)
 }
-
-export default globalReducer

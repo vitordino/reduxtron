@@ -1,5 +1,5 @@
 import { KeyboardEvent } from 'react'
-import useDispatch from 'renderer/hooks/useDispatch'
+import { useDispatch } from 'renderer/hooks/useDispatch'
 import { getLastFocusable } from 'renderer/utils/getFocusable'
 
 const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
@@ -13,7 +13,7 @@ const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
 	}
 }
 
-const ToDoClearButton = () => {
+export const ToDoClearButton = () => {
 	const dispatch = useDispatch()
 	const clear = () => dispatch({ type: 'TO_DO:SET', payload: [] })
 
@@ -27,5 +27,3 @@ const ToDoClearButton = () => {
 		</button>
 	)
 }
-
-export default ToDoClearButton

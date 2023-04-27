@@ -70,10 +70,8 @@ const FETCHER_ACTION_MAP: Record<(typeof actionsToIntercept)[number], BaseMiddle
 	'SWR:FETCH_FS@MUTATE': fsFetcher,
 }
 
-const swrMiddleware: Middleware = store => next => async action => {
+export const swrMiddleware: Middleware = store => next => async action => {
 	const fetcher = FETCHER_ACTION_MAP[action.type]
 	if (!fetcher) return next(action)
 	return fetcher(store)(next)(action)
 }
-
-export default swrMiddleware

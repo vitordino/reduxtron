@@ -1,5 +1,5 @@
 /* eslint global-require: off, no-console: off */
-const mainWindowDebug = async () => {
+export const mainWindowDebug = async () => {
 	const env = process.env.NODE_ENV
 
 	if (process.env.NODE_ENV === 'production') {
@@ -21,5 +21,3 @@ const mainWindowDebug = async () => {
 		)
 		.catch(console.log)
 }
-
-export default mainWindowDebug

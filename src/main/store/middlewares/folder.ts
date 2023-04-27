@@ -7,7 +7,7 @@ const properties: OpenDialogOptions['properties'] = [
 	'promptToCreate',
 ]
 
-const folderMiddleware: Middleware = store => next => async action => {
+export const folderMiddleware: Middleware = store => next => async action => {
 	if (action.type !== 'FOLDER:PICK') return next(action)
 	const defaultPath = store.getState()?.folder?.present?.path
 	// get to initial loading state
@@ -23,5 +23,3 @@ const folderMiddleware: Middleware = store => next => async action => {
 		})
 	}
 }
-
-export default folderMiddleware

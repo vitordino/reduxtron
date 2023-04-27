@@ -32,7 +32,7 @@ const trimSlashes = (s: string) =>
 
 const trimJoin = (...paths: string[]) => trimSlashes(join(...paths))
 
-const folderReducer: Reducer<FolderState, FolderAction> = (
+const baseFolderReducer: Reducer<FolderState, FolderAction> = (
 	current = initialState,
 	// @ts-expect-error empty action type
 	action = { type: '' },
@@ -64,7 +64,7 @@ const UNDOABLE_ACTION_TYPES: FolderAction['type'][] = [
 	'FOLDER:PICK@LOADED',
 ]
 
-const undoableFolderReducer = undoable(folderReducer, {
+export const folderReducer = undoable(baseFolderReducer, {
 	undoType: 'FOLDER:UNDO',
 	redoType: 'FOLDER:REDO',
 	jumpType: 'FOLDER:JUMP',
@@ -76,5 +76,3 @@ const undoableFolderReducer = undoable(folderReducer, {
 		return isUndoableAction && changed
 	},
 })
-
-export default undoableFolderReducer

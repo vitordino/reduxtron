@@ -3,10 +3,10 @@ import type { Dispatch, State } from 'shared/reducers'
 
 const ALL_BREEDS_ENDPOINT = 'https://dog.ceo/api/breeds/list/all'
 
-const TrayDog = (state: Partial<State>, dispatch: Dispatch): MenuItemConstructorOptions => {
+export const TrayDog = (state: Partial<State>, dispatch: Dispatch): MenuItemConstructorOptions => {
 	const breedsSWR = state?.swr?.[ALL_BREEDS_ENDPOINT]
 	const status = breedsSWR?.state || 'unknown'
-	// @ts-expect-error response might be a different shape
+	// @ts-expect-error unknown data
 	const breeds = Object.keys(breedsSWR?.data?.message || {})
 	const favorite = state?.dog?.favorite
 	if (!breedsSWR) dispatch({ type: 'SWR:FETCH_URL', payload: [ALL_BREEDS_ENDPOINT] })
@@ -42,5 +42,3 @@ const TrayDog = (state: Partial<State>, dispatch: Dispatch): MenuItemConstructor
 		],
 	}
 }
-
-export default TrayDog

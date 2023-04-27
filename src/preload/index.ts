@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import preloadReduxMiddleware from './preload-redux-middleware'
+import { preloadReduxMiddleware } from './preload-redux-middleware'
 
 export type Channels = never
 

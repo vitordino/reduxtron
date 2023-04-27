@@ -9,8 +9,8 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import { app, ipcMain } from 'electron'
-import store from 'main/store'
-import mainReduxMiddleware from 'main/main-redux-middleware'
+import { store } from 'main/store'
+import { mainReduxMiddleware } from 'main/main-redux-middleware'
 
 const { unsubscribe } = mainReduxMiddleware(ipcMain, store)
 

@@ -28,7 +28,7 @@ export type SettingsAction =
 	| { type: 'SETTINGS:REMOVE_VISIBLE'; payload: string }
 	| { type: 'SETTINGS:TOGGLE_VISIBLE'; payload: string }
 
-const settingsReducer: Reducer<settingsState, SettingsAction> = (
+export const settingsReducer: Reducer<settingsState, SettingsAction> = (
 	state = { visible: [] },
 	// @ts-expect-error empty action type
 	action = { type: '' },
@@ -37,5 +37,3 @@ const settingsReducer: Reducer<settingsState, SettingsAction> = (
 	if (!(action.type in settingsActions)) return state
 	return settingsActions[action.type](state, action.payload)
 }
-
-export default settingsReducer

@@ -1,9 +1,9 @@
 import { Menu, Tray, nativeImage } from 'electron'
 import type { Dispatch, State } from 'shared/reducers'
-import TrayDog from 'main/tray/Dog'
-import TrayFolder from 'main/tray/Finder'
-import TrayToDo from 'main/tray/ToDo'
-import TraySettingsMenu from 'main/tray/TraySettingsMenu'
+import { TrayDog } from 'main/tray/Dog'
+import { TrayFinder } from 'main/tray/Finder'
+import { TrayToDo } from 'main/tray/ToDo'
+import { TraySettingsMenu } from 'main/tray/TraySettingsMenu'
 import image from 'main/tray/tray.png'
 
 const trayIcon = nativeImage.createFromDataURL(image).resize({
@@ -35,7 +35,7 @@ class SystemTray {
 			TrayToDo(this.state, this.dispatch),
 			TraySettingsMenu(this.state, this.dispatch),
 			TrayDog(this.state, this.dispatch),
-			TrayFolder(this.state, this.dispatch),
+			TrayFinder(this.state, this.dispatch),
 		])
 
 		this.instance.setToolTip('This text comes from tray module.')
@@ -72,4 +72,4 @@ class SystemTray {
 	}
 }
 
-export default new SystemTray()
+export const tray = new SystemTray()

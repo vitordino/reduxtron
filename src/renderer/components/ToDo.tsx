@@ -1,12 +1,12 @@
 import type { ToDo as TodoType } from 'shared/reducers/toDos'
 import { RxCross2 } from 'react-icons/rx'
-import useDispatch from 'renderer/hooks/useDispatch'
+import { useDispatch } from 'renderer/hooks/useDispatch'
 import { Checkbox } from 'renderer/components/Checkbox'
 import { Button } from 'renderer/components/Button'
 
 export type ToDoProps = TodoType
 
-const ToDo = ({ id, title, completed }: ToDoProps) => {
+export const ToDo = ({ id, title, completed }: ToDoProps) => {
 	const dispatch = useDispatch()
 	const toggle = () => dispatch({ type: 'TO_DO:TOGGLE', payload: id })
 	const remove = () => dispatch({ type: 'TO_DO:REMOVE', payload: id })
@@ -20,5 +20,3 @@ const ToDo = ({ id, title, completed }: ToDoProps) => {
 		</div>
 	)
 }
-
-export default ToDo

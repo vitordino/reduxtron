@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import type { State } from 'shared/reducers'
 
-const useStore = create<Partial<State>>(setState => {
+export const useStore = create<Partial<State>>(setState => {
 	window.electron.subscribe(setState)
 	// TODO: use an initial getState instead
 	// @ts-expect-error dispatch an invalid action so it gets the initial state
@@ -11,5 +11,3 @@ const useStore = create<Partial<State>>(setState => {
 	// we don’t need any actions because all the state updates also comes from main
 	return {}
 })
-
-export default useStore

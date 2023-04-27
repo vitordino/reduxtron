@@ -1,6 +1,6 @@
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
-import useStore from 'renderer/hooks/useStore'
-import useDispatch from 'renderer/hooks/useDispatch'
+import { useStore } from 'renderer/hooks/useStore'
+import { useDispatch } from 'renderer/hooks/useDispatch'
 import { VisibilityFilter } from 'shared/reducers/toDos'
 import { preventKeyboardNavigation } from 'renderer/utils/keyboardNavigation'
 import { getFocusable, getLastFocusable } from 'renderer/utils/getFocusable'
@@ -24,7 +24,7 @@ const k = preventKeyboardNavigation('vertical', e => {
 	}
 })
 
-const ToDoVisibilityToggle = () => {
+export const ToDoVisibilityToggle = () => {
 	const value = useStore(x => x.toDos?.visibilityFilter)
 	const dispatch = useDispatch()
 	const setValue = (payload: VisibilityFilter) => {
@@ -46,5 +46,3 @@ const ToDoVisibilityToggle = () => {
 		</ToggleGroup.Root>
 	)
 }
-
-export default ToDoVisibilityToggle

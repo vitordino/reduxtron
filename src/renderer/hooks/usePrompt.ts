@@ -1,6 +1,6 @@
 import { PromptEntry, PromptAction } from 'shared/reducers/prompt'
-import useStore from 'renderer/hooks/useStore'
-import useDispatch from 'renderer/hooks/useDispatch'
+import { useStore } from 'renderer/hooks/useStore'
+import { useDispatch } from 'renderer/hooks/useDispatch'
 
 type PromptParameters = Extract<PromptAction, { type: 'PROMPT:OPEN' }>['payload'][1]
 

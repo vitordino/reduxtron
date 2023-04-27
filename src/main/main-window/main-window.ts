@@ -3,8 +3,8 @@ import { is } from '@electron-toolkit/utils'
 import { BrowserWindow, ipcMain, shell } from 'electron'
 
 import type { Dispatch } from 'shared/reducers'
-import MenuBuilder from 'main/main-window/main-window-native-menu'
-import mainWindowDebug from 'main/main-window/main-window-debug'
+import { MenuBuilder } from 'main/main-window/main-window-native-menu'
+import { mainWindowDebug } from 'main/main-window/main-window-debug'
 
 class MainWindow {
 	constructor() {
@@ -91,4 +91,4 @@ class MainWindow {
 	}
 }
 
-export default new MainWindow()
+export const mainWindow = new MainWindow()

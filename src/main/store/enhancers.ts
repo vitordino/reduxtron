@@ -10,6 +10,4 @@ const devTools = devToolsEnhancer({
 	hostname: 'localhost',
 })
 
-const enhancers: [StoreEnhancer] = [devTools]
-
-export default enhancers
+export const enhancers: [StoreEnhancer] = [devTools]

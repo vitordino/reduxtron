@@ -6,7 +6,7 @@ const toggleVisible = (dispatch: Dispatch, payload: string) => () =>
 
 const UI_CONTROLS = ['main-window', 'tray']
 
-const TraySettingsMenu = (
+export const TraySettingsMenu = (
 	state: Partial<State>,
 	dispatch: Dispatch,
 ): MenuItemConstructorOptions => ({
@@ -19,5 +19,3 @@ const TraySettingsMenu = (
 		click: toggleVisible(dispatch, id),
 	})),
 })
-
-export default TraySettingsMenu

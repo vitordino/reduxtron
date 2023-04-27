@@ -8,7 +8,7 @@ type EmptyStateProps = {
 	icon?: (props: Record<string, unknown>) => JSX.Element
 }
 
-const EmptyState = ({ icon, title, description, children }: EmptyStateProps) => {
+export const EmptyState = ({ icon, title, description, children }: EmptyStateProps) => {
 	const Icon = icon || RxComponentNone
 	return (
 		<div className='flex-1 flex flex-col'>
@@ -25,5 +25,3 @@ const EmptyState = ({ icon, title, description, children }: EmptyStateProps) => 
 		</div>
 	)
 }
-
-export default EmptyState

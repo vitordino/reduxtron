@@ -22,7 +22,7 @@ export type PromptAction =
 	| { type: 'PROMPT:CLEAR'; payload: [string] }
 	| { type: ''; payload: [string] }
 
-const promptReducer: Reducer<PromptState, PromptAction> = (
+export const promptReducer: Reducer<PromptState, PromptAction> = (
 	state = {},
 	action = { type: '', payload: [''] },
 ) => {
@@ -42,5 +42,3 @@ const promptReducer: Reducer<PromptState, PromptAction> = (
 			return state
 	}
 }
-
-export default promptReducer

@@ -13,7 +13,10 @@ const clear = (dispatch: Dispatch) => () => dispatch({ type: 'FOLDER:CLEAR' })
 
 const fsPrefix = KEY_PREFIX_MAP['SWR:FETCH_FS']
 
-const TrayFinder = (state: Partial<State>, dispatch: Dispatch): MenuItemConstructorOptions => {
+export const TrayFinder = (
+	state: Partial<State>,
+	dispatch: Dispatch,
+): MenuItemConstructorOptions => {
 	const swrKey = fsPrefix + state?.folder?.present.path
 	const swrEntry = state.swr?.[swrKey] as SWRItem<FSData> | undefined
 	const items = swrEntry?.data || []
@@ -69,5 +72,3 @@ const TrayFinder = (state: Partial<State>, dispatch: Dispatch): MenuItemConstruc
 		],
 	}
 }
-
-export default TrayFinder

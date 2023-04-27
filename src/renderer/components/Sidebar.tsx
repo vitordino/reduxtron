@@ -65,7 +65,7 @@ const SidebarLink = ({ to, icon: Icon, text, position }: SidebarLinkProps) => {
 	)
 }
 
-const Sidebar = () => (
+export const Sidebar = () => (
 	<NavigationMenu.Root id='sidebar'>
 		<NavigationMenu.List asChild>
 			<ul className='list-none inset-0 fixed flex flex-col flex-shrink-0 w-20 lg:w-56 font-sans text-sm border-r border-slate-6 dark:border-slate-1 justify-items-start z-100'>
@@ -106,5 +106,3 @@ const Sidebar = () => (
 		</NavigationMenu.List>
 	</NavigationMenu.Root>
 )
-
-export default Sidebar

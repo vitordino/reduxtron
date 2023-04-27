@@ -13,13 +13,13 @@ import {
 } from 'react-icons/rx'
 
 import { preventKeyboardNavigation } from 'renderer/utils/keyboardNavigation'
-import useStore from 'renderer/hooks/useStore'
-import useDispatch from 'renderer/hooks/useDispatch'
+import { useStore } from 'renderer/hooks/useStore'
+import { useDispatch } from 'renderer/hooks/useDispatch'
 import { useFileSystemSWR } from 'renderer/hooks/useSWR'
 import { Toolbar, ToolbarButton } from 'renderer/components/Toolbar'
-import EmptyState from 'renderer/components/EmptyState'
+import { EmptyState } from 'renderer/components/EmptyState'
 import { Button } from 'renderer/components/Button'
-import Footer from 'renderer/components/Footer'
+import { Footer } from 'renderer/components/Footer'
 import { focusById } from 'renderer/utils/focusChildElement'
 import { FOCUSABLE_SELECTOR } from 'renderer/utils/getFocusable'
 
@@ -45,8 +45,8 @@ const listItemHandler = preventKeyboardNavigation('horizontal', ({ key, currentT
 	}
 })
 
-const Finder = () => {
-	const path = useStore(x => x?.folder?.present.path)
+export const Finder = () => {
+	const path = useStore(x => x?.folder?.present?.path)
 	const pathState = useStore(x => x?.folder?.present.state)
 	const hasPast = useStore(x => !!x.folder?.past.length)
 	const hasFuture = useStore(x => !!x.folder?.future.length)
@@ -192,5 +192,3 @@ const Finder = () => {
 		</>
 	)
 }
-
-export default Finder

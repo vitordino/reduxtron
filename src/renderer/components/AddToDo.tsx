@@ -2,8 +2,8 @@ import { ChangeEvent, FormEvent, KeyboardEvent, useEffect } from 'react'
 import { RxInput, RxPlus } from 'react-icons/rx'
 
 import { focusById } from 'renderer/utils/focusChildElement'
-import useStore from 'renderer/hooks/useStore'
-import useDispatch from 'renderer/hooks/useDispatch'
+import { useStore } from 'renderer/hooks/useStore'
+import { useDispatch } from 'renderer/hooks/useDispatch'
 import { usePrompt } from 'renderer/hooks/usePrompt'
 import { Input } from 'renderer/components/Input'
 import { Button } from 'renderer/components/Button'
@@ -60,7 +60,7 @@ const onButtonKeyDown = e => {
 	}
 }
 
-const AddToDo = () => {
+export const AddToDo = () => {
 	const draft = useStore(x => x.toDos?.draft) || ''
 	const dispatch = useDispatch()
 	const onTodoPrompt = useTodoPromptAction()
@@ -110,5 +110,3 @@ const AddToDo = () => {
 		</form>
 	)
 }
-
-export default AddToDo

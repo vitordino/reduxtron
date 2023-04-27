@@ -2,9 +2,9 @@ import { ChangeEvent } from 'react'
 
 import { focusById } from 'renderer/utils/focusChildElement'
 import { handleKeyboardNavigation } from 'renderer/utils/keyboardNavigation'
-import useStore from 'renderer/hooks/useStore'
-import useDispatch from 'renderer/hooks/useDispatch'
-import useSWR from 'renderer/hooks/useSWR'
+import { useStore } from 'renderer/hooks/useStore'
+import { useDispatch } from 'renderer/hooks/useDispatch'
+import { useSWR } from 'renderer/hooks/useSWR'
 import { Toolbar } from 'renderer/components/Toolbar'
 
 const ALL_BREEDS_ENDPOINT = 'https://dog.ceo/api/breeds/list/all'
@@ -38,7 +38,7 @@ const keyboardHandler = handleKeyboardNavigation(
 	e => e.key === 'ArrowLeft' && focusById('sidebar'),
 )
 
-const Dog = () => {
+export const Dog = () => {
 	const allBreeds = useAllBreeds()
 	const favorite = useStore(x => x.dog?.favorite)
 	const dispatch = useDispatch()
@@ -65,5 +65,3 @@ const Dog = () => {
 		</>
 	)
 }
-
-export default Dog

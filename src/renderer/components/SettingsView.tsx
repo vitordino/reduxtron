@@ -1,12 +1,12 @@
-import compare from 'renderer/utils/compare'
-import useStore from 'renderer/hooks/useStore'
-import useDispatch from 'renderer/hooks/useDispatch'
+import { compare } from 'renderer/utils/compare'
+import { useStore } from 'renderer/hooks/useStore'
+import { useDispatch } from 'renderer/hooks/useDispatch'
 import { Toolbar } from 'renderer/components/Toolbar'
 import { Checkbox } from 'renderer/components/Checkbox'
 
 const UI_ITEMS = ['main-window', 'tray']
 
-const SettingsView = () => {
+export const SettingsView = () => {
 	const visible = useStore(x => x.settings?.visible, compare)
 	const dispatch = useDispatch()
 
@@ -29,5 +29,3 @@ const SettingsView = () => {
 		</>
 	)
 }
-
-export default SettingsView

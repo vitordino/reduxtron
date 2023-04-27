@@ -23,7 +23,7 @@ const addToDo = (state: Partial<State>, dispatch: Dispatch) => async () => {
 	dispatch({ type: 'TO_DO:SET_DRAFT', payload: '' })
 }
 
-const TrayToDo = (state: Partial<State>, dispatch: Dispatch): MenuItemConstructorOptions => {
+export const TrayToDo = (state: Partial<State>, dispatch: Dispatch): MenuItemConstructorOptions => {
 	const items = state?.toDos?.items || []
 
 	return {
@@ -36,5 +36,3 @@ const TrayToDo = (state: Partial<State>, dispatch: Dispatch): MenuItemConstructo
 		],
 	}
 }
-
-export default TrayToDo

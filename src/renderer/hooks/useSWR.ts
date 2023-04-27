@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import compare from 'renderer/utils/compare'
+import { compare } from 'renderer/utils/compare'
 import {
 	SWRItem,
 	SWRItemData,
@@ -8,15 +8,15 @@ import {
 	KEY_PREFIX_MAP,
 	SWR_ACTION_TYPE_MAP,
 } from 'shared/reducers/swr'
-import useStore from 'renderer/hooks/useStore'
-import useDispatch from 'renderer/hooks/useDispatch'
+import { useStore } from 'renderer/hooks/useStore'
+import { useDispatch } from 'renderer/hooks/useDispatch'
 
 export type Arguments = string | null | undefined | false
 export type Key = Arguments | (() => Arguments)
 
 const initialState = { state: 'initial', data: undefined, error: null } as const
 
-const useSWR = <Data = SWRItemData, Error = SWRItemData>(
+export const useSWR = <Data = SWRItemData, Error = SWRItemData>(
 	type: SWRType,
 	key: Key,
 	options?: SWRItemOptions,
@@ -43,5 +43,3 @@ type FSData = FSEntry[]
 
 export const useFileSystemSWR = (key: Key, options?: SWRItemOptions) =>
 	useSWR<FSData>('fs', key, options)
-
-export default useSWR

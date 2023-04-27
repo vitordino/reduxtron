@@ -3,7 +3,7 @@ import cn from 'clsx'
 
 type FooterProps = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
 
-const Footer = ({ className, children, id = 'footer', ...props }: FooterProps) => (
+export const Footer = ({ className, children, id = 'footer', ...props }: FooterProps) => (
 	<>
 		<div className='h-9' />
 		<footer
@@ -18,5 +18,3 @@ const Footer = ({ className, children, id = 'footer', ...props }: FooterProps) =
 		</footer>
 	</>
 )
-
-export default Footer

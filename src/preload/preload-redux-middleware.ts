@@ -10,7 +10,7 @@ export type PreloadReduxMiddleware = (ipcRenderer: IpcRenderer) => {
 	handlers: PreloadReduxMiddlewareHandlers
 }
 
-const preloadReduxMiddleware: PreloadReduxMiddleware = ipcRenderer => ({
+export const preloadReduxMiddleware: PreloadReduxMiddleware = ipcRenderer => ({
 	handlers: {
 		dispatch: action => ipcRenderer.send('dispatch', action),
 		subscribe: callback => {
@@ -22,5 +22,3 @@ const preloadReduxMiddleware: PreloadReduxMiddleware = ipcRenderer => ({
 		},
 	},
 })
-
-export default preloadReduxMiddleware

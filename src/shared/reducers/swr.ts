@@ -70,7 +70,7 @@ export const KEY_PREFIX_MAP = {
 	'SWR:FETCH_FS': 'fs://',
 }
 
-const swrReducer: Reducer<SWRStore, SWRAction> = (state, { type, payload }) => {
+export const swrReducer: Reducer<SWRStore, SWRAction> = (state, { type, payload }) => {
 	if (!state) return {}
 	if (!type.startsWith('SWR:')) return state
 	const key = payload[0]
@@ -171,5 +171,3 @@ const swrReducer: Reducer<SWRStore, SWRAction> = (state, { type, payload }) => {
 			return state
 	}
 }
-
-export default swrReducer
