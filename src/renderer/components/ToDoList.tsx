@@ -54,26 +54,17 @@ const TODO_EMPTY_STATE_DESCRIPTION_BY_VISIBILITY_FILTER: Record<VisibilityFilter
 const onKeyDown = ({ key, currentTarget: c }: KeyboardEvent<HTMLElement>) => {
 	const prev = c.previousElementSibling as HTMLElement | null
 	const next = c.nextElementSibling as HTMLElement | null
-	if (key === 'ArrowUp' && c.getAttribute('data-first') === 'true') {
-		return focusById('view')
-	}
-	if (key === 'ArrowUp') {
-		if (prev) return focusFirstElement(prev)
-	}
-	if (key === 'ArrowDown' && c.getAttribute('data-last') === 'true') {
-		return focusById('footer')
-	}
-	if (key === 'ArrowDown') {
-		if (next) return focusFirstElement(next)
-	}
-	if (key === 'ArrowLeft') {
-		focusById('sidebar')
-	}
-	if (key === 'Delete' || key === 'Backspace') {
-		const payload = c.getAttribute('data-id')
-		if (!payload) return
+	const isFirst = c.getAttribute('data-first') === 'true'
+	const isLast = c.getAttribute('data-last') === 'true'
+	const id = c.getAttribute('data-id')
+	if (key === 'ArrowUp' && isFirst) return focusById('view')
+	if (key === 'ArrowUp' && prev) return focusFirstElement(prev)
+	if (key === 'ArrowDown' && isLast) return focusById('footer')
+	if (key === 'ArrowDown' && next) return focusFirstElement(next)
+	if (key === 'ArrowLeft') return focusById('sidebar')
+	if (id && (key === 'Delete' || key === 'Backspace')) {
 		focusFirstElement(prev || next)
-		window.electron.dispatch({ type: 'TO_DO:REMOVE', payload })
+		return window.electron.dispatch({ type: 'TO_DO:REMOVE', payload: id })
 	}
 }
 
