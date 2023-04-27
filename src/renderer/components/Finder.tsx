@@ -179,7 +179,7 @@ const Finder = () => {
 					title={depth ? 'empty folder' : 'no folder selected'}
 					description={depth ? 'it’s kinda lonely in here' : 'select a folder to navigate'}
 				>
-					<Button className='mt-3' onClick={depth ? moveUp : onPickFolder}>
+					<Button autoFocus className='mt-3' onClick={depth ? moveUp : onPickFolder}>
 						{depth ? 'go back' : 'pick a folder'}
 					</Button>
 				</EmptyState>
