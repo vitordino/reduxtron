@@ -9,6 +9,7 @@ const TrayDog = (state: Partial<State>, dispatch: Dispatch): MenuItemConstructor
 	// @ts-expect-error response might be a different shape
 	const breeds = Object.keys(breedsSWR?.data?.message || {})
 	const favorite = state?.dog?.favorite
+	if (!breedsSWR) dispatch({ type: 'SWR:FETCH_URL', payload: [ALL_BREEDS_ENDPOINT] })
 	return {
 		label: 'dog',
 		type: 'submenu',
