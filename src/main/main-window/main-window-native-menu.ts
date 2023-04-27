@@ -46,14 +46,14 @@ export class MenuBuilder {
 			label: 'Electron',
 			submenu: [
 				{
-					label: 'About ElectronReact',
+					label: 'About redux-electron',
 					selector: 'orderFrontStandardAboutPanel:',
 				},
 				{ type: 'separator' },
 				{ label: 'Services', submenu: [] },
 				{ type: 'separator' },
 				{
-					label: 'Hide ElectronReact',
+					label: 'Hide redux-electron',
 					accelerator: 'Command+H',
 					selector: 'hide:',
 				},
