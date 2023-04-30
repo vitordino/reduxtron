@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { is } from '@electron-toolkit/utils'
-import { BrowserWindow, BrowserWindowConstructorOptions, ipcMain, shell } from 'electron'
+import { BrowserWindow, BrowserWindowConstructorOptions, app, ipcMain, shell } from 'electron'
 
 import type { Dispatch } from 'shared/reducers'
 import { MenuBuilder } from 'main/window/window-native-menu'
@@ -112,6 +112,11 @@ export class Window {
 		this.instance?.destroy()
 		this.instance = null
 		this?.dispatch?.({ type: 'SETTINGS:REMOVE_VISIBLE', payload: this.id })
+	}
+
+	public focus = () => {
+		app.focus({ steal: true })
+		this.instance?.focus()
 	}
 
 	public setDispatch = (dispatch: Dispatch) => {

@@ -14,6 +14,7 @@ const createWindowSideEffects =
 		console.log('window side effects', { id, visible, shouldBeVisible, isVisible })
 		if (!shouldBeVisible && isVisible) return instance.destroy()
 		if (shouldBeVisible && !isVisible) return instance.create()
+		if (shouldBeVisible && isVisible) return instance.focus()
 	}
 
 const mainWindowSideEffects = createWindowSideEffects('index', mainWindow)
