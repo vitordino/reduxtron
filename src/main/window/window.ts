@@ -37,8 +37,8 @@ const BROWSER_WINDOW_OPTIONS_BY_WINDOW_ID: Record<WindowId, BrowserWindowConstru
 		...DEFAULT_WINDOW_OPTIONS,
 		title: 'add todo',
 		show: false,
-		width: 512,
-		height: 256,
+		width: 256,
+		height: 128,
 		resizable: false,
 	},
 }
