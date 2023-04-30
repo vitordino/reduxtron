@@ -1,5 +1,4 @@
 import type { MenuItemConstructorOptions } from 'electron'
-import nativePrompt from 'native-prompt'
 import type { Dispatch, State } from 'shared/reducers'
 import { ToDo } from 'shared/reducers/toDos'
 
@@ -15,13 +14,8 @@ const Item =
 		click: toggleToDo(dispatch, id),
 	})
 
-const addToDo = (state: Partial<State>, dispatch: Dispatch) => async () => {
-	const defaultText = state.toDos?.draft
-	const payload = await nativePrompt('create to do', 'fill with content', { defaultText })
-	if (!payload) return
-	dispatch({ type: 'TO_DO:CREATE', payload })
-	dispatch({ type: 'TO_DO:SET_DRAFT', payload: '' })
-}
+const addToDo = (_: Partial<State>, dispatch: Dispatch) => () =>
+	dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'todo-add' })
 
 export const TrayToDo = (state: Partial<State>, dispatch: Dispatch): MenuItemConstructorOptions => {
 	const items = state?.toDos?.items || []
