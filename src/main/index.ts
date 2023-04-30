@@ -32,13 +32,13 @@ app
 		app.on('activate', () => {
 			// On macOS it's common to re-create a window in the app when the
 			// dock icon is clicked and there are no other windows open.
-			store.dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'main-window' })
+			store.dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'index' })
 		})
 
 		app.on('quit', unsubscribe)
 
 		await store.dispatch({ type: 'GET_STATE_FROM_PERSISTANCE_MIDDLEWARE' })
-		store.dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'main-window' })
+		store.dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'index' })
 		store.dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'tray' })
 	})
 	.catch(console.log)

@@ -1,10 +1,11 @@
 import type { MenuItemConstructorOptions } from 'electron'
 import type { Dispatch, State } from 'shared/reducers'
+import { VisibleId } from 'shared/reducers/settings'
 
-const toggleVisible = (dispatch: Dispatch, payload: string) => () =>
+const toggleVisible = (dispatch: Dispatch, payload: VisibleId) => () =>
 	dispatch({ type: 'SETTINGS:TOGGLE_VISIBLE', payload })
 
-const UI_CONTROLS = ['main-window', 'tray']
+const UI_CONTROLS: VisibleId[] = ['index', 'todo-add', 'tray']
 
 export const TraySettingsMenu = (
 	state: Partial<State>,

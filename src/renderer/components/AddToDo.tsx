@@ -1,28 +1,12 @@
-import { ChangeEvent, FormEvent, KeyboardEvent, useEffect } from 'react'
+import { ChangeEvent, FormEvent, KeyboardEvent } from 'react'
 import { RxInput, RxPlus } from 'react-icons/rx'
 
 import { focusById } from 'renderer/utils/focusChildElement'
 import { useStore } from 'renderer/hooks/useStore'
 import { useDispatch } from 'renderer/hooks/useDispatch'
-import { usePrompt } from 'renderer/hooks/usePrompt'
 import { Input } from 'renderer/components/Input'
 import { Button } from 'renderer/components/Button'
 import { FOCUSABLE_SELECTOR, getFocusable } from 'renderer/utils/getFocusable'
-
-const useTodoPromptAction = (key = 'to-do') => {
-	const defaultText = useStore(x => x.toDos?.draft)
-	const [state, prompt] = usePrompt(key)
-	const dispatch = useDispatch()
-
-	useEffect(() => {
-		if (!state?.value) return
-		dispatch({ type: 'TO_DO:CREATE', payload: state.value })
-		dispatch({ type: 'TO_DO:SET_DRAFT', payload: '' })
-		dispatch({ type: 'PROMPT:CLEAR', payload: [key] })
-	}, [state?.value])
-
-	return () => prompt({ title: 'create to do', description: 'fill with content', defaultText })
-}
 
 const onInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
 	// @ts-expect-error react didn’t typed selectionStart + end + value
@@ -63,7 +47,8 @@ const onButtonKeyDown = e => {
 export const AddToDo = () => {
 	const draft = useStore(x => x.toDos?.draft) || ''
 	const dispatch = useDispatch()
-	const onTodoPrompt = useTodoPromptAction()
+
+	const onTodoWindow = () => dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'todo-add' })
 
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault()
@@ -102,7 +87,7 @@ export const AddToDo = () => {
 				size='square-md'
 				id='add-to-do-prompt'
 				onKeyDown={onButtonKeyDown}
-				onClick={onTodoPrompt}
+				onClick={onTodoWindow}
 				type='button'
 			>
 				<RxInput />

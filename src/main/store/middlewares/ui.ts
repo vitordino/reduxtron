@@ -1,17 +1,23 @@
 import type { AnyAction } from 'redux'
 import type { State, Middleware } from 'shared/reducers'
-import type { SettingsAction } from 'shared/reducers/settings'
-import { mainWindow } from 'main/window/window'
+import type { SettingsAction, WindowId, VisibleId } from 'shared/reducers/settings'
+import { mainWindow, todoAddWindow, Window } from 'main/window/window'
 import { tray } from 'main/tray/tray'
 
-const mainWindowSideEffects = ({ settings }: Partial<State>) => {
-	if (!settings) return
-	const mainShouldBeVisible = settings?.visible.includes('main-window')
-	const isMainVisible = mainWindow.isVisible
-	console.log('mainWindowSideEffects', { ui: settings, mainShouldBeVisible, isMainVisible })
-	if (!mainShouldBeVisible && isMainVisible) return mainWindow.destroy()
-	if (mainShouldBeVisible && !isMainVisible) return mainWindow.create()
-}
+const createWindowSideEffects =
+	(id: WindowId, instance: Window) =>
+	({ settings }: Partial<State>) => {
+		if (!settings?.visible) return
+		const { visible } = settings
+		const shouldBeVisible = visible.includes(id)
+		const isVisible = instance.isVisible
+		console.log('window side effects', { id, visible, shouldBeVisible, isVisible })
+		if (!shouldBeVisible && isVisible) return instance.destroy()
+		if (shouldBeVisible && !isVisible) return instance.create()
+	}
+
+const mainWindowSideEffects = createWindowSideEffects('index', mainWindow)
+const todoAddWindowSideEffects = createWindowSideEffects('todo-add', todoAddWindow)
 
 const traySideEffects = ({ settings }: Partial<State>) => {
 	if (!settings) return
@@ -22,9 +28,10 @@ const traySideEffects = ({ settings }: Partial<State>) => {
 	if (trayShouldBeVisible && !isTrayVisible) return tray.create()
 }
 
-const UI_SIDE_EFFECT_MAP = {
-	'main-window': mainWindowSideEffects,
+const UI_SIDE_EFFECT_MAP: Record<VisibleId, (state: Partial<State>) => void> = {
+	index: mainWindowSideEffects,
 	tray: traySideEffects,
+	'todo-add': todoAddWindowSideEffects,
 }
 
 const actionsToIntercept = [

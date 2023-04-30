@@ -1,18 +1,21 @@
 import { Reducer } from 'redux'
 
-export type settingsState = { visible: string[] }
+export type TrayId = 'tray'
+export type WindowId = 'index' | 'todo-add'
+export type VisibleId = TrayId | WindowId
+export type settingsState = { visible: VisibleId[] }
 
-const addVisible = (state: settingsState, payload: string) => {
+const addVisible = (state: settingsState, payload: VisibleId) => {
 	if (state.visible.includes(payload)) return state
 	return { ...state, visible: [...state.visible, payload] }
 }
 
-const removeVisible = (state: settingsState, payload: string) => ({
+const removeVisible = (state: settingsState, payload: VisibleId) => ({
 	...state,
 	visible: state.visible.filter(x => x !== payload),
 })
 
-const toggleVisible = (state: settingsState, payload: string) => {
+const toggleVisible = (state: settingsState, payload: VisibleId) => {
 	if (state.visible.includes(payload)) return removeVisible(state, payload)
 	return addVisible(state, payload)
 }
@@ -24,9 +27,9 @@ const settingsActions = {
 } as const
 
 export type SettingsAction =
-	| { type: 'SETTINGS:ADD_VISIBLE'; payload: string }
-	| { type: 'SETTINGS:REMOVE_VISIBLE'; payload: string }
-	| { type: 'SETTINGS:TOGGLE_VISIBLE'; payload: string }
+	| { type: 'SETTINGS:ADD_VISIBLE'; payload: VisibleId }
+	| { type: 'SETTINGS:REMOVE_VISIBLE'; payload: VisibleId }
+	| { type: 'SETTINGS:TOGGLE_VISIBLE'; payload: VisibleId }
 
 export const settingsReducer: Reducer<settingsState, SettingsAction> = (
 	state = { visible: [] },
