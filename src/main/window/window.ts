@@ -93,6 +93,17 @@ export class Window {
 			return { action: 'deny' }
 		})
 
+		this.instance.webContents.on('before-input-event', (event, { control, meta, key }) => {
+			if (process.platform === 'darwin' && meta && key === 'w') {
+				event.preventDefault()
+				return this.destroy()
+			}
+			if (control && key === 'w') {
+				event.preventDefault()
+				return this.destroy()
+			}
+		})
+
 		// register dev-tools + source-maps
 		windowDebug()
 	}
