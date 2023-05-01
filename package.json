@@ -12,13 +12,14 @@
 		"typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
 		"typecheck": "npm run typecheck:node && npm run typecheck:web",
 		"start": "electron-vite preview",
-		"dev": "electron-vite dev",
+		"dev": "npm run dev:redux & npm run dev:electron",
+		"dev:electron": "electron-vite dev",
+		"dev:redux": "redux-devtools --hostname=localhost --port=3001 --open",
 		"build": "npm run typecheck && electron-vite build",
 		"postinstall": "electron-builder install-app-deps",
 		"build:win": "npm run build && electron-builder --win --config",
 		"build:mac": "electron-vite build && electron-builder --mac --config",
-		"build:linux": "electron-vite build && electron-builder --linux --config",
-		"devtools": "redux-devtools --hostname=localhost --port=3001 --open"
+		"build:linux": "electron-vite build && electron-builder --linux --config"
 	},
 	"dependencies": {
 		"@electron-toolkit/utils": "^1.0.2",
