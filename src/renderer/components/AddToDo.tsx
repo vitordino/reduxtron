@@ -48,13 +48,14 @@ export const AddToDo = () => {
 	const draft = useStore(x => x.toDos?.draft) || ''
 	const dispatch = useDispatch()
 
-	const onTodoWindow = () => dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'add-to-do' })
+	const onTodoWindow = () =>
+		dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'add-to-do/vanilla' })
 
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault()
 		if (!draft) return
 		await dispatch({ type: 'TO_DO:COMMIT_DRAFT' })
-		focusById('add-to-do')
+		focusById('add-to-do/vanilla')
 	}
 
 	const onDraftChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -64,10 +65,10 @@ export const AddToDo = () => {
 		<form
 			onSubmit={onSubmit}
 			className='p-4 border-b border-slate-4 bg-slate-2 flex space-x-2 sticky top-9 z-20'
-			id='add-to-do'
+			id='add-to-do/vanilla'
 		>
 			<Input
-				id='add-to-do-input'
+				id='add-to-do/vanilla-input'
 				onKeyDown={onInputKeyDown}
 				value={draft}
 				onChange={onDraftChange}
@@ -76,7 +77,7 @@ export const AddToDo = () => {
 			/>
 			<Button
 				size='square-md'
-				id='add-to-do-button'
+				id='add-to-do/vanilla-button'
 				onKeyDown={onButtonKeyDown}
 				disabled={!draft}
 				type='submit'
@@ -85,7 +86,7 @@ export const AddToDo = () => {
 			</Button>
 			<Button
 				size='square-md'
-				id='add-to-do-prompt'
+				id='add-to-do/vanilla-prompt'
 				onKeyDown={onButtonKeyDown}
 				onClick={onTodoWindow}
 				type='button'

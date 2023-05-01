@@ -6,7 +6,7 @@ const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
 	if (e.key === 'ArrowUp') {
 		const item = getLastFocusable(document.getElementById('to-do-list'), -2)
 		if (item) return item.focus()
-		return getLastFocusable(document.getElementById('add-to-do'))?.focus()
+		return getLastFocusable(document.getElementById('add-to-do/vanilla'))?.focus()
 	}
 	if (e.key === 'ArrowLeft') {
 		getLastFocusable(document.getElementById('footer'), -2)?.focus()

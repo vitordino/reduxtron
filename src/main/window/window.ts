@@ -6,7 +6,7 @@ import type { Dispatch } from 'shared/reducers'
 import { MenuBuilder } from 'main/window/window-native-menu'
 import { windowDebug } from 'main/window/window-debug'
 
-type WindowId = 'index' | 'add-to-do'
+type WindowId = 'index' | 'add-to-do/vanilla'
 
 const icon = join(__dirname, '../../resources', 'images', 'icon.png')
 
@@ -33,7 +33,7 @@ const BROWSER_WINDOW_OPTIONS_BY_WINDOW_ID: Record<WindowId, BrowserWindowConstru
 		titleBarOverlay: true,
 		vibrancy: 'sidebar',
 	},
-	'add-to-do': {
+	'add-to-do/vanilla': {
 		...DEFAULT_WINDOW_OPTIONS,
 		title: 'add todo',
 		show: false,
@@ -127,4 +127,4 @@ export class Window {
 }
 
 export const mainWindow = new Window('index')
-export const todoAddWindow = new Window('add-to-do')
+export const todoAddWindow = new Window('add-to-do/vanilla')

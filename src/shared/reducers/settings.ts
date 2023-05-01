@@ -1,7 +1,7 @@
 import { Reducer } from 'redux'
 
 export type TrayId = 'tray'
-export type WindowId = 'index' | 'add-to-do'
+export type WindowId = 'index' | 'add-to-do/vanilla'
 export type VisibleId = TrayId | WindowId
 export type settingsState = { visible: VisibleId[] }
 

@@ -5,7 +5,7 @@ import { Toolbar } from 'renderer/components/Toolbar'
 import { Checkbox } from 'renderer/components/Checkbox'
 import { VisibleId } from 'shared/reducers/settings'
 
-const UI_ITEMS: VisibleId[] = ['index', 'add-to-do', 'tray']
+const UI_ITEMS: VisibleId[] = ['index', 'add-to-do/vanilla', 'tray']
 
 export const SettingsView = () => {
 	const visible = useStore(x => x.settings?.visible, compare)

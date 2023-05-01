@@ -12,7 +12,7 @@ const k = preventKeyboardNavigation('vertical', e => {
 	if (e.key === 'ArrowUp') {
 		const item = getLastFocusable(document.getElementById('to-do-list'), -2)
 		if (item) return item.focus()
-		return getFocusable(document.getElementById('add-to-do'))?.focus()
+		return getFocusable(document.getElementById('add-to-do/vanilla'))?.focus()
 	}
 	if (e.currentTarget.matches(':first-child') && e.key === 'ArrowLeft') {
 		e.preventDefault()

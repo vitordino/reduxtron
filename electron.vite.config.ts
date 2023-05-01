@@ -16,7 +16,7 @@ export default defineConfig({
 			rollupOptions: {
 				input: {
 					index: join(__dirname, 'src', 'renderer', 'index.html'),
-					'add-to-do': join(__dirname, 'src', 'renderer', 'add-to-do.html'),
+					'add-to-do/vanilla': join(__dirname, 'src', 'renderer', 'add-to-do/vanilla.html'),
 				},
 			},
 		},
