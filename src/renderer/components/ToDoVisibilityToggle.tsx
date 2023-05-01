@@ -1,7 +1,7 @@
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import { useStore } from 'renderer/hooks/useStore'
 import { useDispatch } from 'renderer/hooks/useDispatch'
-import { VisibilityFilter } from 'shared/reducers/toDos'
+import type { VisibilityFilter } from 'shared/reducers/toDos'
 import { preventKeyboardNavigation } from 'renderer/utils/keyboardNavigation'
 import { getFocusable, getLastFocusable } from 'renderer/utils/getFocusable'
 
@@ -12,7 +12,7 @@ const k = preventKeyboardNavigation('vertical', e => {
 	if (e.key === 'ArrowUp') {
 		const item = getLastFocusable(document.getElementById('to-do-list'), -2)
 		if (item) return item.focus()
-		return getFocusable(document.getElementById('add-to-do/vanilla'))?.focus()
+		return getFocusable(document.getElementById('add-to-do'))?.focus()
 	}
 	if (e.currentTarget.matches(':first-child') && e.key === 'ArrowLeft') {
 		e.preventDefault()

@@ -49,6 +49,8 @@
 		"@electron/notarize": "^1.2.3",
 		"@redux-devtools/cli": "^2.0.0",
 		"@redux-devtools/extension": "^3.2.5",
+		"@sveltejs/vite-plugin-svelte": "^2.1.1",
+		"@tsconfig/svelte": "^4.0.1",
 		"@types/node": "16.18.21",
 		"@types/react": "18.0.30",
 		"@types/react-dom": "18.0.11",

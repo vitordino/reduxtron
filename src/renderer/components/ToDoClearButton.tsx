@@ -1,4 +1,4 @@
-import { KeyboardEvent } from 'react'
+import type { KeyboardEvent } from 'react'
 import { useDispatch } from 'renderer/hooks/useDispatch'
 import { getLastFocusable } from 'renderer/utils/getFocusable'
 
@@ -6,7 +6,7 @@ const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
 	if (e.key === 'ArrowUp') {
 		const item = getLastFocusable(document.getElementById('to-do-list'), -2)
 		if (item) return item.focus()
-		return getLastFocusable(document.getElementById('add-to-do/vanilla'))?.focus()
+		return getLastFocusable(document.getElementById('add-to-do'))?.focus()
 	}
 	if (e.key === 'ArrowLeft') {
 		getLastFocusable(document.getElementById('footer'), -2)?.focus()

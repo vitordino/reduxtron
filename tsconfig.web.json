@@ -1,5 +1,5 @@
 {
-  "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
+  "extends": ["@electron-toolkit/tsconfig/tsconfig.web.json"],
   "include": [
     "src/shared/**/*",
     "src/renderer/env.d.ts",

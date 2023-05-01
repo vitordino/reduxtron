@@ -6,7 +6,7 @@ import type { Dispatch } from 'shared/reducers'
 import { MenuBuilder } from 'main/window/window-native-menu'
 import { windowDebug } from 'main/window/window-debug'
 
-type WindowId = 'index' | 'add-to-do/vanilla'
+type WindowId = 'index' | 'add-to-do/vanilla' | 'add-to-do/svelte'
 
 const icon = join(__dirname, '../../resources', 'images', 'icon.png')
 
@@ -23,6 +23,15 @@ const DEFAULT_WINDOW_OPTIONS: BrowserWindowConstructorOptions = {
 	},
 }
 
+const ADD_TO_DO_OPTIONS = {
+	...DEFAULT_WINDOW_OPTIONS,
+	title: 'add todo',
+	show: false,
+	width: 256,
+	height: 128,
+	resizable: false,
+}
+
 const BROWSER_WINDOW_OPTIONS_BY_WINDOW_ID: Record<WindowId, BrowserWindowConstructorOptions> = {
 	index: {
 		...DEFAULT_WINDOW_OPTIONS,
@@ -33,14 +42,8 @@ const BROWSER_WINDOW_OPTIONS_BY_WINDOW_ID: Record<WindowId, BrowserWindowConstru
 		titleBarOverlay: true,
 		vibrancy: 'sidebar',
 	},
-	'add-to-do/vanilla': {
-		...DEFAULT_WINDOW_OPTIONS,
-		title: 'add todo',
-		show: false,
-		width: 256,
-		height: 128,
-		resizable: false,
-	},
+	'add-to-do/vanilla': ADD_TO_DO_OPTIONS,
+	'add-to-do/svelte': ADD_TO_DO_OPTIONS,
 }
 
 export class Window {
@@ -127,4 +130,5 @@ export class Window {
 }
 
 export const mainWindow = new Window('index')
-export const todoAddWindow = new Window('add-to-do/vanilla')
+export const addTodoVanillaWindow = new Window('add-to-do/vanilla')
+export const addTodoSvelteWindow = new Window('add-to-do/svelte')

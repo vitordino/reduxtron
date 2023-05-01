@@ -1,9 +1,11 @@
-import { Reducer } from 'redux'
+import type { Reducer } from 'redux'
 
 export type TrayId = 'tray'
-export type WindowId = 'index' | 'add-to-do/vanilla'
+export type WindowId = 'index' | 'add-to-do/vanilla' | 'add-to-do/svelte'
 export type VisibleId = TrayId | WindowId
 export type settingsState = { visible: VisibleId[] }
+
+export const WINDOW_IDS: WindowId[] = ['index', 'add-to-do/vanilla', 'add-to-do/svelte']
 
 const addVisible = (state: settingsState, payload: VisibleId) => {
 	if (state.visible.includes(payload)) return state

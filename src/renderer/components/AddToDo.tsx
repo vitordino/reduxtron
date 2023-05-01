@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, KeyboardEvent } from 'react'
+import type { ChangeEvent, FormEvent, KeyboardEvent } from 'react'
 import { RxInput, RxPlus } from 'react-icons/rx'
 
 import { focusById } from 'renderer/utils/focusChildElement'
@@ -7,6 +7,22 @@ import { useDispatch } from 'renderer/hooks/useDispatch'
 import { Input } from 'renderer/components/Input'
 import { Button } from 'renderer/components/Button'
 import { FOCUSABLE_SELECTOR, getFocusable } from 'renderer/utils/getFocusable'
+
+const PromptButton = () => {
+	const dispatch = useDispatch()
+	const onTodoWindow = () => dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'add-to-do/svelte' })
+	return (
+		<Button
+			size='square-md'
+			id='add-to-do-prompt'
+			onKeyDown={onButtonKeyDown}
+			onClick={onTodoWindow}
+			type='button'
+		>
+			<RxInput />
+		</Button>
+	)
+}
 
 const onInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
 	// @ts-expect-error react didn’t typed selectionStart + end + value
@@ -48,14 +64,11 @@ export const AddToDo = () => {
 	const draft = useStore(x => x.toDos?.draft) || ''
 	const dispatch = useDispatch()
 
-	const onTodoWindow = () =>
-		dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'add-to-do/vanilla' })
-
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault()
 		if (!draft) return
 		await dispatch({ type: 'TO_DO:COMMIT_DRAFT' })
-		focusById('add-to-do/vanilla')
+		focusById('add-to-do')
 	}
 
 	const onDraftChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -65,10 +78,10 @@ export const AddToDo = () => {
 		<form
 			onSubmit={onSubmit}
 			className='p-4 border-b border-slate-4 bg-slate-2 flex space-x-2 sticky top-9 z-20'
-			id='add-to-do/vanilla'
+			id='add-to-do'
 		>
 			<Input
-				id='add-to-do/vanilla-input'
+				id='add-to-do-input'
 				onKeyDown={onInputKeyDown}
 				value={draft}
 				onChange={onDraftChange}
@@ -77,22 +90,14 @@ export const AddToDo = () => {
 			/>
 			<Button
 				size='square-md'
-				id='add-to-do/vanilla-button'
+				id='add-to-do-button'
 				onKeyDown={onButtonKeyDown}
 				disabled={!draft}
 				type='submit'
 			>
 				<RxPlus />
 			</Button>
-			<Button
-				size='square-md'
-				id='add-to-do/vanilla-prompt'
-				onKeyDown={onButtonKeyDown}
-				onClick={onTodoWindow}
-				type='button'
-			>
-				<RxInput />
-			</Button>
+			<PromptButton />
 		</form>
 	)
 }

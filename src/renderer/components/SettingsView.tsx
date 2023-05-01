@@ -3,9 +3,9 @@ import { useStore } from 'renderer/hooks/useStore'
 import { useDispatch } from 'renderer/hooks/useDispatch'
 import { Toolbar } from 'renderer/components/Toolbar'
 import { Checkbox } from 'renderer/components/Checkbox'
-import { VisibleId } from 'shared/reducers/settings'
+import { VisibleId, WINDOW_IDS } from 'shared/reducers/settings'
 
-const UI_ITEMS: VisibleId[] = ['index', 'add-to-do/vanilla', 'tray']
+const UI_ITEMS: VisibleId[] = [...WINDOW_IDS, 'tray']
 
 export const SettingsView = () => {
 	const visible = useStore(x => x.settings?.visible, compare)
