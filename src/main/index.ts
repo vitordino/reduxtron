@@ -1,4 +1,4 @@
-/* eslint global-require: off, no-console: off */
+/* eslint global-require: off */
 
 /**
  * This module executes inside of electron's main process. You can start
@@ -41,4 +41,5 @@ app
 		store.dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'index' })
 		store.dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'tray' })
 	})
-	.catch(console.log)
+	// eslint-disable-next-line no-console
+	.catch(console.error)

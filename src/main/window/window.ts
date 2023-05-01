@@ -59,9 +59,7 @@ export class Window {
 	private dispatch?: Dispatch
 
 	public create = async () => {
-		console.log({ __dirname, icon })
 		if (this.instance) return
-
 		this.instance = new BrowserWindow(BROWSER_WINDOW_OPTIONS_BY_WINDOW_ID[this.id])
 
 		// HMR for renderer base on electron-vite cli.

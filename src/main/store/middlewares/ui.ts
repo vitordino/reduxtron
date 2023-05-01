@@ -11,7 +11,6 @@ const createWindowSideEffects =
 		const { visible } = settings
 		const shouldBeVisible = visible.includes(id)
 		const isVisible = instance.isVisible
-		console.log('window side effects', { id, visible, shouldBeVisible, isVisible })
 		if (!shouldBeVisible && isVisible) return instance.destroy()
 		if (shouldBeVisible && !isVisible) return instance.create()
 		if (shouldBeVisible && isVisible) return instance.focus()
@@ -24,7 +23,6 @@ const traySideEffects = ({ settings }: Partial<State>) => {
 	if (!settings) return
 	const trayShouldBeVisible = settings?.visible.includes('tray')
 	const isTrayVisible = tray.isVisible
-	console.log('traySideEffects', { ui: settings, trayShouldBeVisible, isTrayVisible })
 	if (!trayShouldBeVisible && isTrayVisible) return tray.destroy()
 	if (trayShouldBeVisible && !isTrayVisible) return tray.create()
 }

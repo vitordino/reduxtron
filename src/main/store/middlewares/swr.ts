@@ -13,13 +13,11 @@ const actionsToIntercept = [
 type InterceptedAction = Extract<Action, { type: (typeof actionsToIntercept)[number] }>
 
 const fsFetcher: Middleware<InterceptedAction> = store => next => async action => {
-	console.log('FS_FETCHER')
 	const result = next(action)
 	const [key] = action.payload
 	const rawKey = key.replace(KEY_PREFIX_MAP['SWR:FETCH_FS'], '')
 
 	const item = store.getState()?.swr[key]
-	console.log('FS_FETCHER', { key, rawKey, item })
 	if (item?.state === 'idle') return result
 	try {
 		const raw = await readdir(rawKey, { encoding: 'utf-8', withFileTypes: true })

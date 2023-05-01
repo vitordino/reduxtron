@@ -26,9 +26,7 @@ class SystemTray {
 	private isListening: boolean
 
 	private update = () => {
-		console.log('tray update')
 		if (!this.isListening) return
-		console.log('tray update happening')
 		if (!this.instance) this.instance = new Tray(trayIcon)
 		if (!this.state || !this.dispatch) return
 		const contextMenu = Menu.buildFromTemplate([
@@ -46,7 +44,6 @@ class SystemTray {
 	}
 
 	public create = () => {
-		console.log('tray create')
 		this.isListening = true
 		this.update()
 	}
@@ -62,7 +59,6 @@ class SystemTray {
 	}
 
 	public destroy = () => {
-		console.log('tray destroy')
 		this.isListening = false
 		this.instance?.destroy()
 		this.instance = null

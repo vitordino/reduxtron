@@ -10,13 +10,13 @@ const fallbackState = {}
 
 export const getPreloadedState = async () => {
 	try {
-		console.log(`[persistance middleware] getting preloaded state from ${path}`)
 		const data = await readFile(path, options)
 		const result = JSON.parse(data)
-		console.log(`[persistance middleware] got preloaded state`)
 		return result
 	} catch (e) {
+		// eslint-disable-next-line no-console
 		console.error(`[persistance middleware] couldn’t get state from ${path}`)
+		// eslint-disable-next-line no-console
 		console.error(e)
 		return fallbackState
 	}
@@ -25,12 +25,11 @@ export const getPreloadedState = async () => {
 const saveData = async (data: Record<string, unknown>) => {
 	try {
 		await mkdir(folder, { recursive: true })
-		console.log(`[persistance middleware] saving data on ${path}`)
 		const stringified = JSON.stringify(data, null, 2)
 		await writeFile(path, stringified, options)
-		console.log(`[persistance middleware] data saved on ${path}`)
 	} catch (e) {
-		console.log(e)
+		// eslint-disable-next-line no-console
+		console.error(e)
 	}
 }
 
