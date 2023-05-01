@@ -17,7 +17,7 @@ const createWindowSideEffects =
 	}
 
 const mainWindowSideEffects = createWindowSideEffects('index', mainWindow)
-const todoAddWindowSideEffects = createWindowSideEffects('todo-add', todoAddWindow)
+const todoAddWindowSideEffects = createWindowSideEffects('add-to-do', todoAddWindow)
 
 const traySideEffects = ({ settings }: Partial<State>) => {
 	if (!settings) return
@@ -30,7 +30,7 @@ const traySideEffects = ({ settings }: Partial<State>) => {
 const UI_SIDE_EFFECT_MAP: Record<VisibleId, (state: Partial<State>) => void> = {
 	index: mainWindowSideEffects,
 	tray: traySideEffects,
-	'todo-add': todoAddWindowSideEffects,
+	'add-to-do': todoAddWindowSideEffects,
 }
 
 const actionsToIntercept = [

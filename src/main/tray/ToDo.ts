@@ -15,7 +15,7 @@ const Item =
 	})
 
 const addToDo = (_: Partial<State>, dispatch: Dispatch) => () =>
-	dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'todo-add' })
+	dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'add-to-do' })
 
 export const TrayToDo = (state: Partial<State>, dispatch: Dispatch): MenuItemConstructorOptions => {
 	const items = state?.toDos?.items || []

@@ -5,7 +5,7 @@ import { VisibleId } from 'shared/reducers/settings'
 const toggleVisible = (dispatch: Dispatch, payload: VisibleId) => () =>
 	dispatch({ type: 'SETTINGS:TOGGLE_VISIBLE', payload })
 
-const UI_CONTROLS: VisibleId[] = ['index', 'todo-add', 'tray']
+const UI_CONTROLS: VisibleId[] = ['index', 'add-to-do', 'tray']
 
 export const TraySettingsMenu = (
 	state: Partial<State>,

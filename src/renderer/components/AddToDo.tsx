@@ -48,7 +48,7 @@ export const AddToDo = () => {
 	const draft = useStore(x => x.toDos?.draft) || ''
 	const dispatch = useDispatch()
 
-	const onTodoWindow = () => dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'todo-add' })
+	const onTodoWindow = () => dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'add-to-do' })
 
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault()
