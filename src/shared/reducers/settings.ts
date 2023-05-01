@@ -29,6 +29,7 @@ const settingsActions = {
 } as const
 
 export type SettingsAction =
+	| { type: 'SETTINGS:INIT'; payload?: undefined }
 	| { type: 'SETTINGS:ADD_VISIBLE'; payload: VisibleId }
 	| { type: 'SETTINGS:REMOVE_VISIBLE'; payload: VisibleId }
 	| { type: 'SETTINGS:TOGGLE_VISIBLE'; payload: VisibleId }
@@ -38,7 +39,7 @@ export const settingsReducer: Reducer<settingsState, SettingsAction> = (
 	// @ts-expect-error empty action type
 	action = { type: '' },
 ) => {
-	if (!action?.type) return state
+	if (!action?.type || action.type === 'SETTINGS:INIT') return state
 	if (!(action.type in settingsActions)) return state
 	return settingsActions[action.type](state, action.payload)
 }

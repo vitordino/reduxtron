@@ -38,8 +38,9 @@ app
 		app.on('quit', unsubscribe)
 
 		await store.dispatch({ type: 'GET_STATE_FROM_PERSISTANCE_MIDDLEWARE' })
-		store.dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'index' })
-		store.dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'tray' })
+		await store.dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'index' })
+		await store.dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'tray' })
+		await store.dispatch({ type: 'SETTINGS:INIT' })
 	})
 	// eslint-disable-next-line no-console
 	.catch(console.error)

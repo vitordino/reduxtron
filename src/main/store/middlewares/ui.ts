@@ -34,14 +34,23 @@ const traySideEffects = ({ settings }: Partial<State>) => {
 	if (trayShouldBeVisible && !isTrayVisible) return tray.create()
 }
 
-const UI_SIDE_EFFECT_MAP: Record<VisibleId, (state: Partial<State>) => void> = {
+const combinedSideEffects = (state: Partial<State>): void => {
+	mainWindowSideEffects(state)
+	traySideEffects(state)
+	addTodoVanillaWindowSideEffects(state)
+	addTodoSvelteWindowSideEffects(state)
+}
+
+const UI_SIDE_EFFECT_MAP: Record<VisibleId | 'init', (state: Partial<State>) => void> = {
 	index: mainWindowSideEffects,
 	tray: traySideEffects,
 	'add-to-do/vanilla': addTodoVanillaWindowSideEffects,
 	'add-to-do/svelte': addTodoSvelteWindowSideEffects,
+	init: combinedSideEffects,
 }
 
 const actionsToIntercept = [
+	'SETTINGS:INIT',
 	'SETTINGS:ADD_VISIBLE',
 	'SETTINGS:REMOVE_VISIBLE',
 	'SETTINGS:TOGGLE_VISIBLE',
@@ -50,15 +59,10 @@ const actionsToIntercept = [
 const isUIAction = (action: AnyAction): action is SettingsAction =>
 	actionsToIntercept.includes(action.type)
 
-const shouldIntercept = (payload?: string): payload is keyof typeof UI_SIDE_EFFECT_MAP => {
-	if (!payload) return false
-	return payload in UI_SIDE_EFFECT_MAP
-}
-
 export const uiMiddleware: Middleware = store => next => async action => {
-	if (!isUIAction(action) || !shouldIntercept(action.payload)) return next(action)
+	if (!isUIAction(action)) return next(action)
 	// get state after action is dispatched
 	const result = next(action)
-	UI_SIDE_EFFECT_MAP[action.payload](store.getState())
+	UI_SIDE_EFFECT_MAP[action.payload || 'init'](store.getState())
 	return result
 }
