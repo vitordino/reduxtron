@@ -6,7 +6,7 @@
 		<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
 		<meta
 			http-equiv="Content-Security-Policy"
-			content="script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'"
+			content="script-src 'self'; style-src 'self' 'unsafe-inline'"
 		/>
 	</head>
 
@@ -20,22 +20,5 @@
 			</form>
 		</div>
 	</body>
-	<script>
-		const form = document.getElementById('form')
-		const input = document.getElementById('input')
-
-		const commitDraft = () => window.electron.dispatch({ type: 'TO_DO:COMMIT_DRAFT' })
-		const setDraft = payload => window.electron.dispatch({ type: 'TO_DO:SET_DRAFT', payload })
-
-		form.addEventListener('submit', e => {
-			e.preventDefault()
-			commitDraft()
-		})
-
-		input.addEventListener('input', e => setDraft(e.target.value))
-
-		window.electron.subscribe(newState => {
-			input.value = newState.toDos.draft
-		})
-	</script>
+	<script type="module" src="/todo-add.ts"></script>
 </html>
