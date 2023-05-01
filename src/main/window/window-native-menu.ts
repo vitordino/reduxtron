@@ -43,7 +43,7 @@ export class MenuBuilder {
 
 	buildDarwinTemplate(): MenuItemConstructorOptions[] {
 		const subMenuAbout: DarwinMenuItemConstructorOptions = {
-			label: 'Electron',
+			label: 'redux-electron',
 			submenu: [
 				{
 					label: 'About redux-electron',
