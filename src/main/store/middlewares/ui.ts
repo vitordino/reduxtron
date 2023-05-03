@@ -1,7 +1,13 @@
 import type { AnyAction } from 'redux'
 import type { State, Middleware } from 'shared/reducers'
 import type { SettingsAction, WindowId, VisibleId } from 'shared/reducers/settings'
-import { mainWindow, addTodoVanillaWindow, addTodoSvelteWindow, Window } from 'main/window/window'
+import {
+	mainWindow,
+	addTodoVanillaWindow,
+	addTodoSvelteWindow,
+	Window,
+	addTodoVueWindow,
+} from 'main/window/window'
 import { tray } from 'main/tray/tray'
 
 const createWindowSideEffects =
@@ -25,6 +31,7 @@ const addTodoSvelteWindowSideEffects = createWindowSideEffects(
 	'add-to-do/svelte',
 	addTodoSvelteWindow,
 )
+const addTodoVueWindowSideEffects = createWindowSideEffects('add-to-do/vue', addTodoVueWindow)
 
 const traySideEffects = ({ settings }: Partial<State>) => {
 	if (!settings) return
@@ -46,6 +53,7 @@ const UI_SIDE_EFFECT_MAP: Record<VisibleId | 'init', (state: Partial<State>) => 
 	tray: traySideEffects,
 	'add-to-do/vanilla': addTodoVanillaWindowSideEffects,
 	'add-to-do/svelte': addTodoSvelteWindowSideEffects,
+	'add-to-do/vue': addTodoVueWindowSideEffects,
 	init: combinedSideEffects,
 }
 

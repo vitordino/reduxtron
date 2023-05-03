@@ -3,10 +3,9 @@ import { is } from '@electron-toolkit/utils'
 import { BrowserWindow, BrowserWindowConstructorOptions, app, ipcMain, shell } from 'electron'
 
 import type { Dispatch } from 'shared/reducers'
+import { WindowId } from 'shared/reducers/settings'
 import { MenuBuilder } from 'main/window/window-native-menu'
 import { windowDebug } from 'main/window/window-debug'
-
-type WindowId = 'index' | 'add-to-do/vanilla' | 'add-to-do/svelte'
 
 const icon = join(__dirname, '../../resources', 'images', 'icon.png')
 
@@ -44,6 +43,7 @@ const BROWSER_WINDOW_OPTIONS_BY_WINDOW_ID: Record<WindowId, BrowserWindowConstru
 	},
 	'add-to-do/vanilla': ADD_TO_DO_OPTIONS,
 	'add-to-do/svelte': ADD_TO_DO_OPTIONS,
+	'add-to-do/vue': ADD_TO_DO_OPTIONS,
 }
 
 export class Window {
@@ -132,3 +132,4 @@ export class Window {
 export const mainWindow = new Window('index')
 export const addTodoVanillaWindow = new Window('add-to-do/vanilla')
 export const addTodoSvelteWindow = new Window('add-to-do/svelte')
+export const addTodoVueWindow = new Window('add-to-do/vue')

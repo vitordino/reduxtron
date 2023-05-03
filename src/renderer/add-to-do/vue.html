@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>add todo vue</title>
+		<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="script-src 'self'; style-src 'self' 'unsafe-inline'"
+		/>
+	</head>
+	<body />
+	<script type="module">
+		import { createApp, h } from 'vue'
+		import MainComponent from './vue.vue'
+		const app = createApp({ render: () => h(MainComponent) })
+		app.mount('body')
+	</script>
+</html>
