@@ -45,6 +45,11 @@ const listItemHandler = preventKeyboardNavigation('horizontal', ({ key, currentT
 	}
 })
 
+const emptyStateHandler = preventKeyboardNavigation('horizontal', ({ key, currentTarget }) => {
+	if (key === 'ArrowLeft') return focusById('sidebar')
+	if (key === 'ArrowUp') return focusById('toolbar')
+})
+
 export const Finder = () => {
 	const path = useStore(x => x?.folder?.present?.path)
 	const pathState = useStore(x => x?.folder?.present.state)
@@ -172,18 +177,23 @@ export const Finder = () => {
 							</NavigationMenu.Item>
 						))}
 				</NavigationMenu.List>
+				{isEmpty && (
+					<EmptyState
+						icon={depth ? RxGroup : RxValueNone}
+						title={depth ? 'empty folder' : 'no folder selected'}
+						description={depth ? 'it’s kinda lonely in here' : 'select a folder to navigate'}
+					>
+						<Button
+							autoFocus
+							className='mt-3'
+							onClick={depth ? moveUp : onPickFolder}
+							{...emptyStateHandler}
+						>
+							{depth ? 'go back' : 'pick a folder'}
+						</Button>
+					</EmptyState>
+				)}
 			</NavigationMenu.Root>
-			{isEmpty && (
-				<EmptyState
-					icon={depth ? RxGroup : RxValueNone}
-					title={depth ? 'empty folder' : 'no folder selected'}
-					description={depth ? 'it’s kinda lonely in here' : 'select a folder to navigate'}
-				>
-					<Button autoFocus className='mt-3' onClick={depth ? moveUp : onPickFolder}>
-						{depth ? 'go back' : 'pick a folder'}
-					</Button>
-				</EmptyState>
-			)}
 			<Footer>
 				<FinderStatusItem>items: {itemsCount}</FinderStatusItem>
 				<FinderStatusItem>folders: {folderCount}</FinderStatusItem>
