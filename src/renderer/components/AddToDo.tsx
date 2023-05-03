@@ -1,5 +1,5 @@
-import type { ChangeEvent, FormEvent, KeyboardEvent } from 'react'
-import { RxInput, RxPlus } from 'react-icons/rx'
+import { ChangeEvent, FormEvent, KeyboardEvent } from 'react'
+import { RxPlus } from 'react-icons/rx'
 
 import { focusById } from 'renderer/utils/focusChildElement'
 import { useStore } from 'renderer/hooks/useStore'
@@ -7,23 +7,9 @@ import { useDispatch } from 'renderer/hooks/useDispatch'
 import { Input } from 'renderer/components/Input'
 import { Button } from 'renderer/components/Button'
 import { FOCUSABLE_SELECTOR, getFocusable } from 'renderer/utils/getFocusable'
+import { AddToDoPromptButton } from './AddToDoPromptButton'
 
-const PromptButton = () => {
-	const dispatch = useDispatch()
-	const onTodoWindow = () => dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'add-to-do/svelte' })
-	return (
-		<Button
-			size='square-md'
-			id='add-to-do-prompt'
-			onKeyDown={onButtonKeyDown}
-			onClick={onTodoWindow}
-			type='button'
-		>
-			<RxInput />
-		</Button>
-	)
-}
-
+// keyboard handlers
 const onInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
 	// @ts-expect-error react didn’t typed selectionStart + end + value
 	if (e.key === 'ArrowLeft' && !e.target.selectionStart && !e.target.selectionEnd)
@@ -97,7 +83,7 @@ export const AddToDo = () => {
 			>
 				<RxPlus />
 			</Button>
-			<PromptButton />
+			<AddToDoPromptButton />
 		</form>
 	)
 }

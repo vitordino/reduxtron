@@ -1,27 +1,9 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react'
-import { Link, LinkProps } from 'react-router-dom'
+import { ButtonHTMLAttributes, forwardRef } from 'react'
 import type { VariantProps } from 'class-variance-authority'
 import { cva } from 'class-variance-authority'
 import cn from 'clsx'
 
-type ButtonBaseProps = VariantProps<typeof buttonClasses> & {
-	children: React.ReactNode
-}
-
-interface ButtonAsAnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-	href: string
-}
-
-interface ButtonAsLinkProps extends LinkProps {
-	to: string
-}
-
-interface ButtonAsButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	href?: never
-	to?: never
-}
-
-type ButtonProps = ButtonBaseProps & (ButtonAsAnchorProps | ButtonAsButtonProps | ButtonAsLinkProps)
+type ButtonProps = VariantProps<typeof buttonClasses> & ButtonHTMLAttributes<HTMLButtonElement>
 
 const buttonClasses = cva('relative inline-flex items-center justify-center flex-shrink-0', {
 	variants: {
@@ -53,28 +35,15 @@ export const Highlight = ({
 	className?: string
 }) => <span className={cn('highlight', className)}>{children}</span>
 
-export const Button = ({ children, intent, size, className, ...props }: ButtonProps) => {
-	const classes = buttonClasses({ intent, size, className })
-
-	if ('to' in props && props.to !== undefined) {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+	({ children, intent, size, className, ...props }, ref) => {
+		const classes = buttonClasses({ intent, size, className })
 		return (
-			<Link {...props} className={classes}>
+			<button ref={ref} {...props} className={classes}>
 				{children}
-			</Link>
+			</button>
 		)
-	}
+	},
+)
 
-	if ('href' in props && props.href !== undefined) {
-		return (
-			<a {...props} className={classes}>
-				{children}
-			</a>
-		)
-	}
-
-	return (
-		<button {...props} className={classes}>
-			{children}
-		</button>
-	)
-}
+Button.displayName = 'Button'
