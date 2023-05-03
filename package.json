@@ -24,7 +24,9 @@
 	"dependencies": {
 		"@electron-toolkit/utils": "^1.0.2",
 		"@radix-ui/colors": "^0.1.8",
+		"@radix-ui/react-dropdown-menu": "^2.0.4",
 		"@radix-ui/react-navigation-menu": "^1.1.2",
+		"@radix-ui/react-slot": "^1.0.1",
 		"@radix-ui/react-toggle-group": "^1.0.3",
 		"@radix-ui/react-toolbar": "^1.0.3",
 		"@redux-devtools/remote": "^0.8.0",
