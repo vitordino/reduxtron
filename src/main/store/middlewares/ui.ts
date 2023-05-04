@@ -8,7 +8,7 @@ const difference = <T>(a: T[], b: T[]): T[] => a.filter(x => !b.includes(x))
 const traySideEffects: Middleware = store => next => async action => {
 	const result = next(action)
 	const settings = store.getState()?.settings
-	if (!settings) return
+	if (!settings) return result
 	const trayShouldBeVisible = settings.tray.visible
 	const isTrayVisible = tray.isVisible
 	// eslint-disable-next-line no-console
@@ -17,6 +17,9 @@ const traySideEffects: Middleware = store => next => async action => {
 	if (trayShouldBeVisible && !isTrayVisible) tray.create()
 	return result
 }
+
+const getWindowIdByPath = (windows: Record<string, WindowState>, path: WindowPath) =>
+	Object.entries(windows).find(([_k, v]) => v.path === path)?.[0]
 
 const getWindowIdByIdProp = (
 	windows: Record<string, WindowState>,
@@ -41,7 +44,11 @@ const windowSideEffects: Middleware = store => next => async action => {
 	shouldCreateIds.forEach(createWindow)
 	shouldRemoveIds.forEach(windowManager.removeWindow)
 	if (action.type === 'SETTINGS:UPSERT_WINDOW_BY_ID_PROP') {
-		const windowId = getWindowIdByIdProp(windows, action.payload.path, action.payload.props.id)
+		const windowId = getWindowIdByIdProp(windows, action.payload.path, action.payload?.props?.id)
+		if (windowId) windowManager.focusWindow(windowId)
+	}
+	if (action.type === 'SETTINGS:UPSERT_WINDOW_BY_PATH') {
+		const windowId = getWindowIdByPath(windows, action.payload.path)
 		if (windowId) windowManager.focusWindow(windowId)
 	}
 	return result
