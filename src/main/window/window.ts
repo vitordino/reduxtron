@@ -98,26 +98,14 @@ export class Window {
 			return { action: 'deny' }
 		})
 
-		this.instance.webContents.on('before-input-event', (event, { control, meta, key }) => {
+		this.instance.webContents.on('before-input-event', (_, { control, meta, key }) => {
 			if (!this.instance) return
-			if (process.platform === 'darwin' && meta && key === 'w') {
-				event.preventDefault()
-				return this.destroy()
-			}
-			if (control && key === 'w') {
-				event.preventDefault()
-				return this.destroy()
-			}
+			if (process.platform === 'darwin' && meta && key === 'w') return this.destroy()
+			if (control && key === 'w') return this.destroy()
 		})
 
-		this.instance.on('close', e => {
-			e.preventDefault()
-			return this.destroy()
-		})
-		this.instance.on('closed', e => {
-			e.preventDefault()
-			return this.destroy()
-		})
+		this.instance.on('close', this.destroy)
+		this.instance.on('closed', this.destroy)
 		// register dev-tools + source-maps
 		windowDebug()
 	}
