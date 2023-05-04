@@ -17,7 +17,7 @@ onMounted(() => window.electron.subscribe(x => { input.value = x.toDos.draft }))
   <h1 style="margin: 0">vuey add todo</h1>
   <h2 style="font-size: 1.25rem; margin: 0; color: #42b883">powered by vue™</h2>
   <form @submit="onSubmit">
-    <input @input="onInput" :value="input" />
+    <input autofocus @input="onInput" :value="input" />
     <button type="submit">add to do</button>
   </form>
 </template>
