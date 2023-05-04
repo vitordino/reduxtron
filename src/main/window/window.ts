@@ -44,6 +44,7 @@ const BROWSER_WINDOW_OPTIONS_BY_WINDOW_PATH: Record<WindowPath, BrowserWindowCon
 	'add-to-do/vanilla': ADD_TO_DO_OPTIONS,
 	'add-to-do/svelte': ADD_TO_DO_OPTIONS,
 	'add-to-do/vue': ADD_TO_DO_OPTIONS,
+	'edit-to-do/index': DEFAULT_WINDOW_OPTIONS,
 }
 
 export class Window {
@@ -66,7 +67,6 @@ export class Window {
 	public create = async () => {
 		if (this.instance) return
 		this.instance = new BrowserWindow(BROWSER_WINDOW_OPTIONS_BY_WINDOW_PATH[this.path])
-		this.instance.webContents.executeJavaScript(`window.windowId = '${this.id}'`)
 
 		// HMR for renderer base on electron-vite cli.
 		// Load the remote URL for development or the local html file for production.
@@ -76,10 +76,11 @@ export class Window {
 			this.instance.loadFile(join(__dirname, '../renderer', this.path + '.html'))
 		}
 
-		this.instance.on('ready-to-show', () => {
+		this.instance.on('ready-to-show', async () => {
 			if (!this.instance) {
 				throw new Error('"this.instance" is not defined')
 			}
+			await this.instance.webContents.executeJavaScript(`globalThis.windowId = '${this.id}'`)
 			if (process.env.START_MINIMIZED) {
 				this.instance.minimize()
 			} else {
@@ -117,7 +118,6 @@ export class Window {
 			e.preventDefault()
 			return this.destroy()
 		})
-
 		// register dev-tools + source-maps
 		windowDebug()
 	}
@@ -141,8 +141,3 @@ export class Window {
 		return !!this.instance
 	}
 }
-
-export const mainWindow = new Window('x', 'index')
-export const addTodoVanillaWindow = new Window('x', 'add-to-do/vanilla')
-export const addTodoSvelteWindow = new Window('x', 'add-to-do/svelte')
-export const addTodoVueWindow = new Window('x', 'add-to-do/vue')

@@ -13,7 +13,17 @@ export const ToDo = ({ id, title, completed }: ToDoProps) => {
 	return (
 		<div className='group flex items-center w-full px-3 py-2 space-x-3'>
 			<Checkbox className='block' id={id} checked={completed} onChange={toggle} />
-			<div className='flex-1'>{title}</div>
+			<div
+				onClick={() =>
+					dispatch({
+						type: 'SETTINGS:CREATE_WINDOW',
+						payload: { path: 'edit-to-do/index', props: { id } },
+					})
+				}
+				className='flex-1'
+			>
+				{title}
+			</div>
 			<Button className='block' intent='ghost' size='square-xs' type='button' onClick={remove}>
 				<RxCross2 className='icon-size' />
 			</Button>

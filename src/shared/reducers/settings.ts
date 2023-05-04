@@ -1,7 +1,12 @@
 import type { Reducer } from 'redux'
 import { uid } from 'uid'
 
-export type WindowPath = 'index' | 'add-to-do/vanilla' | 'add-to-do/svelte' | 'add-to-do/vue'
+export type WindowPath =
+	| 'index'
+	| 'add-to-do/vanilla'
+	| 'add-to-do/svelte'
+	| 'add-to-do/vue'
+	| 'edit-to-do/index'
 
 export type WindowState = { path: WindowPath; props?: Record<string, unknown> }
 
