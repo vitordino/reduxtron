@@ -6,11 +6,11 @@ import { useStore } from 'renderer/hooks/useStore'
 import { useDispatch } from 'renderer/hooks/useDispatch'
 import { Button } from 'renderer/components/Button'
 import { FOCUSABLE_SELECTOR, getFocusable } from 'renderer/utils/getFocusable'
-import { WINDOW_PATHS } from 'shared/reducers/settings'
+import { WINDOW_PATHS, WindowPath } from 'shared/reducers/settings'
 import { compare } from 'renderer/utils/compare'
 
 const ADD_TO_DO_PREFIX = 'add-to-do/'
-const ADD_TO_DO_IDS = WINDOW_PATHS.filter(x => x.startsWith(ADD_TO_DO_PREFIX))
+const ADD_TO_DO_PATHS = WINDOW_PATHS.filter(x => x.startsWith(ADD_TO_DO_PREFIX))
 
 // keyboard handlers
 const onButtonKeyDown = e => {
@@ -34,7 +34,8 @@ const onButtonKeyDown = e => {
 }
 
 export const AddToDoPromptButton = () => {
-	const visibleWindows = useStore(x => x.settings?.visible, compare)
+	const windows = useStore(x => x.settings?.windows || {}, compare)
+	const getIsVisible = (path: WindowPath) => Object.values(windows).some(x => x.path === path)
 	const dispatch = useDispatch()
 	return (
 		<DropdownMenu.Root>
@@ -56,20 +57,20 @@ export const AddToDoPromptButton = () => {
 					className='z-100 min-w-[220px] bg-slate-1 rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade'
 					sideOffset={4}
 				>
-					{ADD_TO_DO_IDS.map(id => (
+					{ADD_TO_DO_PATHS.map(path => (
 						<DropdownMenu.CheckboxItem
-							key={id}
+							key={path}
 							className='group leading-none text-indigo-11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[highlighted]:outline-none data-[disabled]:text-mauve-8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo-9 data-[highlighted]:text-indigo-1 dark:data-[highlighted]:text-indigo-12'
-							checked={visibleWindows?.includes(id)}
+							checked={getIsVisible(path)}
 							onClick={e => {
 								e.preventDefault()
-								dispatch({ type: 'SETTINGS:UPSERT_WINDOW_BY_ID_PROP', payload: { path: id } })
+								dispatch({ type: 'SETTINGS:UPSERT_WINDOW_BY_PATH', payload: { path } })
 							}}
 						>
 							<DropdownMenu.ItemIndicator className='absolute left-0 w-[25px] inline-flex items-center justify-center'>
 								<RxCheck />
 							</DropdownMenu.ItemIndicator>
-							{id.replace(ADD_TO_DO_PREFIX, '')}
+							{path.replace(ADD_TO_DO_PREFIX, '')}
 						</DropdownMenu.CheckboxItem>
 					))}
 					<DropdownMenu.Arrow className='fill-slate-1' />
