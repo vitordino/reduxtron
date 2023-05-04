@@ -1,20 +1,15 @@
 import { IpcRenderer } from 'electron'
-import { State, Action } from 'shared/reducers'
+import { AnyAction } from 'redux'
 
-export type PreloadReduxMiddlewareHandlers = {
-	dispatch: (action: Action) => void
-	subscribe: (callback: (newState: State) => void) => () => void
-}
+type AnyState = Record<string, unknown>
 
-export type PreloadReduxMiddleware = (ipcRenderer: IpcRenderer) => {
-	handlers: PreloadReduxMiddlewareHandlers
-}
-
-export const preloadReduxMiddleware: PreloadReduxMiddleware = ipcRenderer => ({
+export const preloadReduxMiddleware = <S extends AnyState, A extends AnyAction>(
+	ipcRenderer: IpcRenderer,
+) => ({
 	handlers: {
-		dispatch: action => ipcRenderer.send('dispatch', action),
-		subscribe: callback => {
-			const subscription = (_: unknown, state: State) => callback(state)
+		dispatch: (action: A) => ipcRenderer.send('dispatch', action),
+		subscribe: (callback: (newState: S) => void) => {
+			const subscription = (_: unknown, state: S) => callback(state)
 			ipcRenderer.on('subscribe', subscription)
 			return () => {
 				ipcRenderer.off('subscribe', subscription)
@@ -22,3 +17,5 @@ export const preloadReduxMiddleware: PreloadReduxMiddleware = ipcRenderer => ({
 		},
 	},
 })
+
+export type PreloadReduxMiddleware = typeof preloadReduxMiddleware
