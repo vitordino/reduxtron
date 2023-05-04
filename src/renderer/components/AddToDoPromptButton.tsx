@@ -63,7 +63,7 @@ export const AddToDoPromptButton = () => {
 							checked={visibleWindows?.includes(id)}
 							onClick={e => {
 								e.preventDefault()
-								dispatch({ type: 'SETTINGS:CREATE_WINDOW', payload: { path: id } })
+								dispatch({ type: 'SETTINGS:UPSERT_WINDOW_BY_ID_PROP', payload: { path: id } })
 							}}
 						>
 							<DropdownMenu.ItemIndicator className='absolute left-0 w-[25px] inline-flex items-center justify-center'>

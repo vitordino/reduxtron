@@ -16,7 +16,7 @@ export const ToDo = ({ id, title, completed }: ToDoProps) => {
 			<div
 				onClick={() =>
 					dispatch({
-						type: 'SETTINGS:CREATE_WINDOW',
+						type: 'SETTINGS:UPSERT_WINDOW_BY_ID_PROP',
 						payload: { path: 'edit-to-do/index', props: { id } },
 					})
 				}

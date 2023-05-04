@@ -75,6 +75,17 @@ const upsertWindowByPath = (state: settingsState, payload: WindowState): setting
 	return createWindow(state, payload)
 }
 
+const upsertWindowByIdProp = (state: settingsState, payload: WindowState): settingsState => {
+	const path = payload.path
+	const id = payload.props?.id
+	if (typeof id !== 'string') return createWindow(state, payload)
+	const currentWindow = Object.entries(state.windows).find(
+		([_k, v]) => v.path === path && v.props?.id === id,
+	)
+	if (!currentWindow) return createWindow(state, payload)
+	return setWindowProps(state, [currentWindow[0], payload.props])
+}
+
 const destroyWindowsByPath = (state: settingsState, payload: WindowPath): settingsState => {
 	const windows = Object.fromEntries(
 		Object.entries(state.windows).filter(x => x[1].path !== payload),
@@ -98,6 +109,7 @@ export type SettingsAction =
 	| { type: 'SETTINGS:DESTROY_WINDOW_INTERNAL'; payload: string }
 	| { type: 'SETTINGS:DESTROY_WINDOWS_BY_PATH'; payload: WindowPath }
 	| { type: 'SETTINGS:UPSERT_WINDOW_BY_PATH'; payload: WindowState }
+	| { type: 'SETTINGS:UPSERT_WINDOW_BY_ID_PROP'; payload: WindowState }
 	| { type: 'SETTINGS:SET_WINDOW_PROPS'; payload: [key: string, props: WindowState['props']] }
 	| { type: 'SETTINGS:TOGGLE_WINDOWS_BY_PATH'; payload: WindowState }
 
@@ -115,6 +127,8 @@ export const settingsReducer: Reducer<settingsState, SettingsAction> = (
 			return destroyWindowsByPath(state, action.payload)
 		case 'SETTINGS:UPSERT_WINDOW_BY_PATH':
 			return upsertWindowByPath(state, action.payload)
+		case 'SETTINGS:UPSERT_WINDOW_BY_ID_PROP':
+			return upsertWindowByIdProp(state, action.payload)
 		case 'SETTINGS:SET_WINDOW_PROPS':
 			return setWindowProps(state, action.payload)
 		case 'SETTINGS:TOGGLE_WINDOWS_BY_PATH':

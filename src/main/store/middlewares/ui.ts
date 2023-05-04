@@ -48,6 +48,7 @@ export const uiMiddleware: Middleware = store => next => async action => {
 		case 'SETTINGS:SET_WINDOW_PROPS':
 		case 'SETTINGS:TOGGLE_WINDOWS_BY_PATH':
 		case 'SETTINGS:DESTROY_WINDOWS_BY_PATH':
+		case 'SETTINGS:UPSERT_WINDOW_BY_ID_PROP':
 		case 'SETTINGS:DESTROY_WINDOW': {
 			windowSideEffects(store.getState())
 			return result

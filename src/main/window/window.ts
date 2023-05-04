@@ -41,10 +41,10 @@ const BROWSER_WINDOW_OPTIONS_BY_WINDOW_PATH: Record<WindowPath, BrowserWindowCon
 		titleBarOverlay: true,
 		vibrancy: 'sidebar',
 	},
+	'edit-to-do/index': { ...DEFAULT_WINDOW_OPTIONS, width: 256, height: 128 },
 	'add-to-do/vanilla': ADD_TO_DO_OPTIONS,
 	'add-to-do/svelte': ADD_TO_DO_OPTIONS,
 	'add-to-do/vue': ADD_TO_DO_OPTIONS,
-	'edit-to-do/index': DEFAULT_WINDOW_OPTIONS,
 }
 
 export class Window {
