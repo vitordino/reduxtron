@@ -1,8 +1,9 @@
-import { StrictMode, useState } from 'react'
+import { StrictMode, useState, ChangeEvent, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import { useStore } from 'renderer/hooks/useStore'
 import { useInterval } from 'renderer/hooks/useInterval'
+import { useDispatch } from 'renderer/hooks/useDispatch'
 
 const useWindowId = () => {
 	const [state, setState] = useState<string | null>(null)
@@ -24,8 +25,39 @@ const useSelectedToDo = () => {
 }
 
 const App = () => {
+	const windowId = useWindowId()
+	const [hasData, setHasData] = useState(false)
 	const selectedTodo = useSelectedToDo()
-	return <pre>{JSON.stringify({ selectedTodo }, null, 2)}</pre>
+	const dispatch = useDispatch()
+
+	const hasSelected = !!selectedTodo
+
+	useEffect(() => {
+		if (hasSelected && !hasData) setHasData(true)
+		if (!hasSelected && hasData && windowId)
+			dispatch({ type: 'SETTINGS:DESTROY_WINDOW', payload: windowId })
+	}, [windowId, hasData, setHasData, hasSelected, dispatch])
+
+	if (!selectedTodo) return null
+	return (
+		<div style={{ display: 'flex', alignItems: 'center' }}>
+			<input
+				type='checkbox'
+				checked={selectedTodo.completed}
+				onChange={() => dispatch({ type: 'TO_DO:TOGGLE', payload: selectedTodo.id })}
+			/>
+			<input
+				type='text'
+				value={selectedTodo.title}
+				onChange={(e: ChangeEvent<HTMLInputElement>) =>
+					dispatch({ type: 'TO_DO:CHANGE_TITLE', payload: [selectedTodo.id, e.target.value] })
+				}
+			/>
+			<button onClick={() => dispatch({ type: 'TO_DO:REMOVE', payload: selectedTodo.id })}>
+				x
+			</button>
+		</div>
+	)
 }
 
 const container = document.getElementById('root')!

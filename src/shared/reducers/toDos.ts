@@ -35,6 +35,20 @@ const toggleToDo = (state: ToDosState, id: string): ToDosState => {
 	}
 }
 
+const changeTitle = (state: ToDosState, payload: [id: string, title: string]): ToDosState => {
+	const [id, title] = payload
+	const indexToChange = state.items.findIndex(x => x.id === id)
+	const selected = state.items[indexToChange]
+	return {
+		...state,
+		items: [
+			...state.items.slice(0, indexToChange),
+			{ ...selected, title },
+			...state.items.slice(indexToChange + 1),
+		],
+	}
+}
+
 const setToDos = (state: ToDosState, items: ToDo[]): ToDosState => ({ ...state, items })
 
 const changeVisibilityFilter = (
@@ -48,6 +62,7 @@ export type ToDosAction =
 	| { type: 'TO_DO:CREATE'; payload: string }
 	| { type: 'TO_DO:REMOVE'; payload: string }
 	| { type: 'TO_DO:TOGGLE'; payload: string }
+	| { type: 'TO_DO:CHANGE_TITLE'; payload: [id: string, title: string] }
 	| { type: 'TO_DO:SET'; payload: ToDo[] }
 	| { type: 'TO_DO:CHANGE_VISIBILITY_FILTER'; payload: VisibilityFilter }
 
@@ -57,6 +72,7 @@ const toDoActions: Record<ToDosAction['type'], (state: ToDosState, payload) => T
 	'TO_DO:CREATE': createToDo,
 	'TO_DO:REMOVE': removeToDo,
 	'TO_DO:TOGGLE': toggleToDo,
+	'TO_DO:CHANGE_TITLE': changeTitle,
 	'TO_DO:SET': setToDos,
 	'TO_DO:CHANGE_VISIBILITY_FILTER': changeVisibilityFilter,
 }
