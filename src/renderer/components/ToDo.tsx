@@ -12,7 +12,20 @@ export const ToDo = ({ id, title, completed }: ToDoProps) => {
 	const remove = () => dispatch({ type: 'TO_DO:REMOVE', payload: id })
 	return (
 		<div className='group flex items-center w-full px-3 py-2 space-x-3'>
-			<Checkbox className='block' id={id} checked={completed} onChange={toggle} />
+			<Checkbox
+				onKeyDown={e => {
+					if (e.key !== 'Enter') return
+					e.preventDefault()
+					dispatch({
+						type: 'SETTINGS:UPSERT_WINDOW_BY_ID_PROP',
+						payload: { path: 'edit-to-do/index', props: { id } },
+					})
+				}}
+				className='block'
+				id={id}
+				checked={completed}
+				onChange={toggle}
+			/>
 			<div
 				onClick={() =>
 					dispatch({
