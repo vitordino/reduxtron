@@ -1,18 +1,18 @@
 import type { MenuItemConstructorOptions } from 'electron'
 import type { Dispatch, State } from 'shared/reducers'
-import { WINDOW_IDS, WindowId } from 'shared/reducers/settings'
+import { WINDOW_PATHS, WindowPath } from 'shared/reducers/settings'
 import { ToDo } from 'shared/reducers/toDos'
 
 const ADD_TO_DO_PREFIX = 'add-to-do/'
-const ADD_TO_DO_IDS = WINDOW_IDS.filter(x => x.startsWith(ADD_TO_DO_PREFIX))
+const ADD_TO_DO_IDS = WINDOW_PATHS.filter(x => x.startsWith(ADD_TO_DO_PREFIX))
 
-const openWindow = (dispatch: Dispatch, id: WindowId) => () =>
-	dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: id })
+const openWindow = (dispatch: Dispatch, id: WindowPath) => () =>
+	dispatch({ type: 'SETTINGS:CREATE_WINDOW', payload: { path: id } })
 
 const toggleToDo = (dispatch: Dispatch, id: string) => () =>
 	dispatch({ type: 'TO_DO:TOGGLE', payload: id })
 
-const AddToDoWindowItem = (dispatch: Dispatch) => (id: WindowId, open: boolean) =>
+const AddToDoWindowItem = (dispatch: Dispatch) => (id: WindowPath, open: boolean) =>
 	({
 		label: id.replace(ADD_TO_DO_PREFIX, ''),
 		type: 'checkbox',
@@ -41,7 +41,10 @@ export const TrayToDo = (state: Partial<State>, dispatch: Dispatch): MenuItemCon
 				type: 'submenu',
 				submenu: [
 					...ADD_TO_DO_IDS.map(x =>
-						AddToDoWindowItem(dispatch)(x, !!state.settings?.visible.includes(x)),
+						AddToDoWindowItem(dispatch)(
+							x,
+							Object.values(state.settings?.windows || {}).some(y => y.path === x),
+						),
 					),
 				],
 			},

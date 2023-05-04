@@ -10,6 +10,6 @@ export const middleware: Middleware[] = [
 	thunk,
 	swrMiddleware,
 	folderMiddleware,
-	persistanceMiddleware,
+	// persistanceMiddleware,
 	uiMiddleware,
 ]

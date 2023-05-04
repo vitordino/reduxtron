@@ -3,29 +3,40 @@ import { useStore } from 'renderer/hooks/useStore'
 import { useDispatch } from 'renderer/hooks/useDispatch'
 import { Toolbar } from 'renderer/components/Toolbar'
 import { Checkbox } from 'renderer/components/Checkbox'
-import { VisibleId, WINDOW_IDS } from 'shared/reducers/settings'
-
-const UI_ITEMS: VisibleId[] = [...WINDOW_IDS, 'tray']
+import { WINDOW_PATHS, WindowPath } from 'shared/reducers/settings'
 
 export const SettingsView = () => {
-	const visible = useStore(x => x.settings?.visible, compare)
+	const trayVisible = useStore(x => x.settings?.tray.visible)
+	const windows = useStore(x => x.settings?.windows, compare)
 	const dispatch = useDispatch()
+	const windowValues = Object.values(windows || {})
+	const getChecked = (path: WindowPath) => windowValues.some(x => x.path === path)
+	const onWindowClick = (path: WindowPath) => () =>
+		dispatch({ type: 'SETTINGS:TOGGLE_WINDOWS_BY_PATH', payload: { path } })
 
 	return (
 		<>
 			<Toolbar>settings</Toolbar>
 			<ul>
-				{UI_ITEMS.map((x, i) => (
-					<li key={x}>
+				{WINDOW_PATHS.map((path, i) => (
+					<li key={path}>
 						<Checkbox
 							autoFocus={!i}
-							id={`ui-visible-${x}`}
-							checked={!!visible?.includes(x)}
-							onChange={() => dispatch({ type: 'SETTINGS:TOGGLE_VISIBLE', payload: x })}
+							id={`ui-visible-${path}`}
+							checked={getChecked(path)}
+							onChange={onWindowClick(path)}
 						/>
-						<label htmlFor={`ui-visible-${x}`}>{x}</label>
+						<label htmlFor={`ui-visible-${path}`}>{path}</label>
 					</li>
 				))}
+				<li>
+					<Checkbox
+						checked={!!trayVisible}
+						id='ui-visible-tray'
+						onChange={() => dispatch({ type: 'SETTINGS:TOGGLE_TRAY_VISIBLE' })}
+					/>
+					<label htmlFor='ui-visible-tray'>tray</label>
+				</li>
 			</ul>
 		</>
 	)

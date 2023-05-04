@@ -6,11 +6,11 @@ import { useStore } from 'renderer/hooks/useStore'
 import { useDispatch } from 'renderer/hooks/useDispatch'
 import { Button } from 'renderer/components/Button'
 import { FOCUSABLE_SELECTOR, getFocusable } from 'renderer/utils/getFocusable'
-import { WINDOW_IDS } from 'shared/reducers/settings'
+import { WINDOW_PATHS } from 'shared/reducers/settings'
 import { compare } from 'renderer/utils/compare'
 
 const ADD_TO_DO_PREFIX = 'add-to-do/'
-const ADD_TO_DO_IDS = WINDOW_IDS.filter(x => x.startsWith(ADD_TO_DO_PREFIX))
+const ADD_TO_DO_IDS = WINDOW_PATHS.filter(x => x.startsWith(ADD_TO_DO_PREFIX))
 
 // keyboard handlers
 const onButtonKeyDown = e => {
@@ -63,7 +63,7 @@ export const AddToDoPromptButton = () => {
 							checked={visibleWindows?.includes(id)}
 							onClick={e => {
 								e.preventDefault()
-								dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: id })
+								dispatch({ type: 'SETTINGS:CREATE_WINDOW', payload: { path: id } })
 							}}
 						>
 							<DropdownMenu.ItemIndicator className='absolute left-0 w-[25px] inline-flex items-center justify-center'>

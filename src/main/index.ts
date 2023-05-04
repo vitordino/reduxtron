@@ -11,13 +11,15 @@
 import { app, ipcMain } from 'electron'
 import { store } from 'main/store'
 import { mainReduxMiddleware } from 'main/main-redux-middleware'
+import { windowManager } from './window/window-manager'
 
 const { unsubscribe } = mainReduxMiddleware(ipcMain, store)
+
+windowManager.setDispatch(store.dispatch)
 
 /**
  * Add event listeners...
  */
-
 app.on('window-all-closed', () => {
 	// Respect the OSX convention of having the application in memory even
 	// after all windows have been closed
@@ -32,14 +34,14 @@ app
 		app.on('activate', () => {
 			// On macOS it's common to re-create a window in the app when the
 			// dock icon is clicked and there are no other windows open.
-			store.dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'index' })
+			store.dispatch({ type: 'SETTINGS:UPSERT_WINDOW_BY_PATH', payload: { path: 'index' } })
 		})
 
 		app.on('quit', unsubscribe)
 
 		await store.dispatch({ type: 'GET_STATE_FROM_PERSISTANCE_MIDDLEWARE' })
-		await store.dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'index' })
-		await store.dispatch({ type: 'SETTINGS:ADD_VISIBLE', payload: 'tray' })
+		await store.dispatch({ type: 'SETTINGS:UPSERT_WINDOW_BY_PATH', payload: { path: 'index' } })
+		await store.dispatch({ type: 'SETTINGS:SET_TRAY_VISIBLE', payload: true })
 		await store.dispatch({ type: 'SETTINGS:INIT' })
 	})
 	// eslint-disable-next-line no-console

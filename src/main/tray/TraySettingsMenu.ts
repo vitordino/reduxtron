@@ -1,11 +1,6 @@
 import type { MenuItemConstructorOptions } from 'electron'
 import type { Dispatch, State } from 'shared/reducers'
-import { VisibleId, WINDOW_IDS } from 'shared/reducers/settings'
-
-const toggleVisible = (dispatch: Dispatch, payload: VisibleId) => () =>
-	dispatch({ type: 'SETTINGS:TOGGLE_VISIBLE', payload })
-
-const UI_CONTROLS: VisibleId[] = [...WINDOW_IDS, 'tray']
+import { WINDOW_PATHS } from 'shared/reducers/settings'
 
 export const TraySettingsMenu = (
 	state: Partial<State>,
@@ -13,10 +8,22 @@ export const TraySettingsMenu = (
 ): MenuItemConstructorOptions => ({
 	label: 'settings',
 	type: 'submenu',
-	submenu: UI_CONTROLS.map(id => ({
-		label: id,
-		type: 'checkbox',
-		checked: !!state.settings?.visible?.includes(id),
-		click: toggleVisible(dispatch, id),
-	})),
+	submenu: [
+		...WINDOW_PATHS.map(
+			path =>
+				({
+					label: path,
+					type: 'checkbox',
+					checked: Object.values(state.settings?.windows || {}).some(x => x.path === path),
+					click: () => dispatch({ type: 'SETTINGS:TOGGLE_WINDOWS_BY_PATH', payload: { path } }),
+				} as const),
+		),
+		{ type: 'separator' },
+		{
+			type: 'checkbox',
+			label: 'tray',
+			checked: state.settings?.tray.visible,
+			click: () => dispatch({ type: 'SETTINGS:TOGGLE_TRAY_VISIBLE' }),
+		},
+	],
 })

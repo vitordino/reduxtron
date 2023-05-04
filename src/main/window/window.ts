@@ -3,7 +3,7 @@ import { is } from '@electron-toolkit/utils'
 import { BrowserWindow, BrowserWindowConstructorOptions, app, ipcMain, shell } from 'electron'
 
 import type { Dispatch } from 'shared/reducers'
-import { WindowId } from 'shared/reducers/settings'
+import { WindowPath } from 'shared/reducers/settings'
 import { MenuBuilder } from 'main/window/window-native-menu'
 import { windowDebug } from 'main/window/window-debug'
 
@@ -31,7 +31,7 @@ const ADD_TO_DO_OPTIONS = {
 	resizable: false,
 }
 
-const BROWSER_WINDOW_OPTIONS_BY_WINDOW_ID: Record<WindowId, BrowserWindowConstructorOptions> = {
+const BROWSER_WINDOW_OPTIONS_BY_WINDOW_PATH: Record<WindowPath, BrowserWindowConstructorOptions> = {
 	index: {
 		...DEFAULT_WINDOW_OPTIONS,
 		title: 'redux-electron',
@@ -47,8 +47,9 @@ const BROWSER_WINDOW_OPTIONS_BY_WINDOW_ID: Record<WindowId, BrowserWindowConstru
 }
 
 export class Window {
-	constructor(id: WindowId) {
+	constructor(id: string, path: WindowPath) {
 		this.id = id
+		this.path = path
 		this.instance = null
 		ipcMain.on('subscribe', async (state: unknown) => {
 			if (this.instance?.isDestroyed()) return
@@ -56,21 +57,23 @@ export class Window {
 		})
 	}
 
-	public id: WindowId
+	public id: string
+	public path: WindowPath
 	private instance: BrowserWindow | null
 
 	private dispatch?: Dispatch
 
 	public create = async () => {
 		if (this.instance) return
-		this.instance = new BrowserWindow(BROWSER_WINDOW_OPTIONS_BY_WINDOW_ID[this.id])
+		this.instance = new BrowserWindow(BROWSER_WINDOW_OPTIONS_BY_WINDOW_PATH[this.path])
+		this.instance.webContents.executeJavaScript(`window.windowId = '${this.id}'`)
 
 		// HMR for renderer base on electron-vite cli.
 		// Load the remote URL for development or the local html file for production.
 		if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-			this.instance.loadURL(process.env['ELECTRON_RENDERER_URL'] + '/' + this.id + '.html')
+			this.instance.loadURL(process.env['ELECTRON_RENDERER_URL'] + '/' + this.path + '.html')
 		} else {
-			this.instance.loadFile(join(__dirname, '../renderer', this.id + '.html'))
+			this.instance.loadFile(join(__dirname, '../renderer', this.path + '.html'))
 		}
 
 		this.instance.on('ready-to-show', () => {
@@ -95,6 +98,7 @@ export class Window {
 		})
 
 		this.instance.webContents.on('before-input-event', (event, { control, meta, key }) => {
+			if (!this.instance) return
 			if (process.platform === 'darwin' && meta && key === 'w') {
 				event.preventDefault()
 				return this.destroy()
@@ -105,14 +109,23 @@ export class Window {
 			}
 		})
 
+		this.instance.on('close', e => {
+			e.preventDefault()
+			return this.destroy()
+		})
+		this.instance.on('closed', e => {
+			e.preventDefault()
+			return this.destroy()
+		})
+
 		// register dev-tools + source-maps
 		windowDebug()
 	}
 
 	public destroy = () => {
+		this.dispatch?.({ type: 'SETTINGS:DESTROY_WINDOW_INTERNAL', payload: this.id })
 		this.instance?.destroy()
 		this.instance = null
-		this?.dispatch?.({ type: 'SETTINGS:REMOVE_VISIBLE', payload: this.id })
 	}
 
 	public focus = () => {
@@ -129,7 +142,7 @@ export class Window {
 	}
 }
 
-export const mainWindow = new Window('index')
-export const addTodoVanillaWindow = new Window('add-to-do/vanilla')
-export const addTodoSvelteWindow = new Window('add-to-do/svelte')
-export const addTodoVueWindow = new Window('add-to-do/vue')
+export const mainWindow = new Window('x', 'index')
+export const addTodoVanillaWindow = new Window('x', 'add-to-do/vanilla')
+export const addTodoSvelteWindow = new Window('x', 'add-to-do/svelte')
+export const addTodoVueWindow = new Window('x', 'add-to-do/vue')

@@ -3,12 +3,6 @@
 // this adds the subscribe and dispatch messages
 import { IpcMain } from 'electron'
 import type { Store } from 'redux'
-import {
-	mainWindow,
-	addTodoVanillaWindow,
-	addTodoSvelteWindow,
-	addTodoVueWindow,
-} from 'main/window/window'
 import { tray } from 'main/tray/tray'
 
 type MainReduxMiddleware = {
@@ -16,10 +10,6 @@ type MainReduxMiddleware = {
 }
 
 export const mainReduxMiddleware: MainReduxMiddleware = (ipcMain, store) => {
-	mainWindow.setDispatch(store.dispatch)
-	addTodoVanillaWindow.setDispatch(store.dispatch)
-	addTodoSvelteWindow.setDispatch(store.dispatch)
-	addTodoVueWindow.setDispatch(store.dispatch)
 	tray.setDispatch(store.dispatch)
 	tray.setState(store.getState())
 
