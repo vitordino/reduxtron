@@ -27,7 +27,7 @@ const getWindowIdByIdProp = (
 	id?: unknown,
 ) => {
 	if (!id || typeof id !== 'string') return null
-	return Object.entries(windows).find(([_k, v]) => v.path === path && v.props.id === id)?.[0]
+	return Object.entries(windows).find(([_k, v]) => v.path === path && v.props?.id === id)?.[0]
 }
 
 const windowSideEffects: Middleware = store => next => async action => {

@@ -45,7 +45,7 @@ const listItemHandler = preventKeyboardNavigation('horizontal', ({ key, currentT
 	}
 })
 
-const emptyStateHandler = preventKeyboardNavigation('horizontal', ({ key, currentTarget }) => {
+const emptyStateHandler = preventKeyboardNavigation('horizontal', ({ key }) => {
 	if (key === 'ArrowLeft') return focusById('sidebar')
 	if (key === 'ArrowUp') return focusById('toolbar')
 })

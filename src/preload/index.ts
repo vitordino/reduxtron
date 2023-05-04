@@ -1,7 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { preloadReduxMiddleware } from './preload-redux-middleware'
-import { Action, Store } from 'shared/reducers'
+import { State, Action } from 'shared/reducers'
 
-const { handlers } = preloadReduxMiddleware<Store, Action>(ipcRenderer)
+export const { handlers } = preloadReduxMiddleware<Partial<State>, Action>(ipcRenderer)
 
 contextBridge.exposeInMainWorld('electron', handlers)
