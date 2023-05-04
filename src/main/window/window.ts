@@ -80,7 +80,7 @@ export class Window {
 			if (!this.instance) {
 				throw new Error('"this.instance" is not defined')
 			}
-			await this.instance.webContents.executeJavaScript(`globalThis.windowId = '${this.id}'`)
+			this.instance.webContents.executeJavaScript(`globalThis.windowId = '${this.id}'`)
 			if (process.env.START_MINIMIZED) {
 				this.instance.minimize()
 			} else {

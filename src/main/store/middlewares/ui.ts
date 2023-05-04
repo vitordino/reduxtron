@@ -1,59 +1,68 @@
-import type { State, Middleware } from 'shared/reducers'
+import type { Middleware } from 'shared/reducers'
 import { tray } from 'main/tray/tray'
 import { windowManager } from 'main/window/window-manager'
+import { WindowPath, WindowState } from 'shared/reducers/settings'
 
-const traySideEffects = ({ settings }: Partial<State>) => {
+const difference = <T>(a: T[], b: T[]): T[] => a.filter(x => !b.includes(x))
+
+const traySideEffects: Middleware = store => next => async action => {
+	const result = next(action)
+	const settings = store.getState()?.settings
 	if (!settings) return
 	const trayShouldBeVisible = settings.tray.visible
 	const isTrayVisible = tray.isVisible
+	// eslint-disable-next-line no-console
 	console.log({ trayShouldBeVisible, isTrayVisible })
-	if (!trayShouldBeVisible && isTrayVisible) return tray.destroy()
-	if (trayShouldBeVisible && !isTrayVisible) return tray.create()
+	if (!trayShouldBeVisible && isTrayVisible) tray.destroy()
+	if (trayShouldBeVisible && !isTrayVisible) tray.create()
+	return result
 }
 
-const windowSideEffects = ({ settings }: Partial<State>) => {
-	const windows = settings?.windows
-	if (!windows) return
+const getWindowIdByIdProp = (
+	windows: Record<string, WindowState>,
+	path: WindowPath,
+	id?: unknown,
+) => {
+	if (!id || typeof id !== 'string') return null
+	return Object.entries(windows).find(([_k, v]) => v.path === path && v.props.id === id)?.[0]
+}
+
+const windowSideEffects: Middleware = store => next => async action => {
+	const result = next(action)
+	const windows = store.getState()?.settings?.windows
+	if (!windows) return next(action)
 	const windowIds = Object.keys(windows)
 	const visibleWindowIds = windowManager.visibleWindows
 	const shouldCreateIds = difference(windowIds, visibleWindowIds)
 	const shouldRemoveIds = difference(visibleWindowIds, windowIds)
+	// eslint-disable-next-line no-console
 	console.log({ windowIds, visibleWindowIds, shouldCreateIds, shouldRemoveIds })
-
 	const createWindow = (id: string) => windowManager.updateWindow(id, windows[id].path)
 	shouldCreateIds.forEach(createWindow)
 	shouldRemoveIds.forEach(windowManager.removeWindow)
+	if (action.type === 'SETTINGS:UPSERT_WINDOW_BY_ID_PROP') {
+		const windowId = getWindowIdByIdProp(windows, action.payload.path, action.payload.props.id)
+		if (windowId) windowManager.focusWindow(windowId)
+	}
+	return result
 }
-
-const combinedSideEffects = (state: Partial<State>): void => {
-	windowSideEffects(state)
-	traySideEffects(state)
-}
-
-const difference = <T>(a: T[], b: T[]): T[] => a.filter(x => !b.includes(x))
 
 export const uiMiddleware: Middleware = store => next => async action => {
-	// get state after action is dispatched
-	const result = next(action)
 	switch (action.type) {
-		case 'SETTINGS:INIT':
-			combinedSideEffects(store.getState())
-			return result
 		case 'SETTINGS:SET_TRAY_VISIBLE':
 		case 'SETTINGS:TOGGLE_TRAY_VISIBLE':
-			traySideEffects(store.getState())
-			return result
+			return traySideEffects(store)(next)(action)
+
 		case 'SETTINGS:CREATE_WINDOW':
 		case 'SETTINGS:UPSERT_WINDOW_BY_PATH':
 		case 'SETTINGS:SET_WINDOW_PROPS':
 		case 'SETTINGS:TOGGLE_WINDOWS_BY_PATH':
 		case 'SETTINGS:DESTROY_WINDOWS_BY_PATH':
 		case 'SETTINGS:UPSERT_WINDOW_BY_ID_PROP':
-		case 'SETTINGS:DESTROY_WINDOW': {
-			windowSideEffects(store.getState())
-			return result
-		}
+		case 'SETTINGS:DESTROY_WINDOW':
+			return windowSideEffects(store)(next)(action)
+
 		default:
-			return result
+			return next(action)
 	}
 }

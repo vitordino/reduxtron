@@ -100,7 +100,6 @@ const toggleWindowsByPath = (state: settingsState, payload: WindowState): settin
 }
 
 export type SettingsAction =
-	| { type: 'SETTINGS:INIT'; payload?: undefined }
 	| { type: 'SETTINGS:SET_TRAY_VISIBLE'; payload: boolean }
 	| { type: 'SETTINGS:TOGGLE_TRAY_VISIBLE'; payload?: never }
 	| { type: 'SETTINGS:CREATE_WINDOW'; payload: WindowState }

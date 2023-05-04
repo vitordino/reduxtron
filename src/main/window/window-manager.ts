@@ -27,6 +27,11 @@ class WindowManager {
 		this.setState({ ...this.windows, [id]: newWindow })
 	}
 
+	public focusWindow = (id: string) => {
+		const currentWindow = this.windows[id]
+		if (currentWindow) return currentWindow.focus()
+	}
+
 	public removeWindow = (id: string) => {
 		if (!this.windows[id]) return
 		const { [id]: windowToRemove, ...rest } = this.windows

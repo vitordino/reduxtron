@@ -42,7 +42,6 @@ app
 		await store.dispatch({ type: 'GET_STATE_FROM_PERSISTANCE_MIDDLEWARE' })
 		await store.dispatch({ type: 'SETTINGS:UPSERT_WINDOW_BY_PATH', payload: { path: 'index' } })
 		await store.dispatch({ type: 'SETTINGS:SET_TRAY_VISIBLE', payload: true })
-		await store.dispatch({ type: 'SETTINGS:INIT' })
 	})
 	// eslint-disable-next-line no-console
 	.catch(console.error)
