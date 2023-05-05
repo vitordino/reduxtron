@@ -19,6 +19,7 @@
 	<h1 style="margin: 0">svelty add todo</h1>
 	<h2 style="font-size: 1.25rem; margin: 0; color: #ff3e00">powered by svelte™</h2>
 	<form on:submit={onSubmit}>
+		<!-- svelte-ignore a11y-autofocus -->
 		<input autofocus bind:value={inputValue} on:input={onInput} />
 		<button type="submit">add to do</button>
 	</form>
