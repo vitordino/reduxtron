@@ -1,0 +1,15 @@
+{
+	"$schema": "https://turbo.build/schema.json",
+	"pipeline": {
+		"build:mac": {
+			"outputs": ["dist/**"]
+		},
+		"build:linux": {
+			"outputs": ["dist/**"]
+		},
+		"build:win": {
+			"outputs": ["dist/**"]
+		},
+		"lint": {}
+	}
+}
