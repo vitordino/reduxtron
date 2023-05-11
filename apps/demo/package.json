@@ -22,7 +22,6 @@
 		"build:linux": "electron-vite build && electron-builder --linux --config"
 	},
 	"dependencies": {
-		"eslint-config-custom": "*",
 		"@electron-toolkit/utils": "^1.0.2",
 		"@radix-ui/colors": "^0.1.8",
 		"@radix-ui/react-dropdown-menu": "^2.0.4",
@@ -49,6 +48,8 @@
 		"zustand": "^4.3.7"
 	},
 	"devDependencies": {
+		"eslint-config-custom": "*",
+		"prettier-config-custom": "*",
 		"@electron-toolkit/preload": "^1.0.3",
 		"@electron-toolkit/tsconfig": "^1.0.1",
 		"@electron/notarize": "^1.2.3",
@@ -66,12 +67,12 @@
 		"electron-devtools-assembler": "^1.2.0",
 		"electron-vite": "^1.0.21",
 		"postcss": "^8.4.21",
-		"prettier": "^2.8.7",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"tailwindcss": "^3.3.1",
 		"typescript": "^4.9.5",
 		"vite": "^4.2.1",
 		"vite-tsconfig-paths": "^4.2.0"
-	}
+	},
+	"prettier": "prettier-config-custom"
 }
