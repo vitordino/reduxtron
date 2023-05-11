@@ -9,8 +9,8 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import { app, ipcMain } from 'electron'
+import { mainReduxBridge } from 'reduxtron/main'
 import { store } from 'main/store'
-import { mainReduxBridge } from 'main/main-redux-bridge'
 import { windowManager } from './window/window-manager'
 import { tray } from './tray/tray'
 

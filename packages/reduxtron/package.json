@@ -1,0 +1,7 @@
+{
+  "name": "reduxtron",
+  "dependencies": {
+    "electron": "24.1.1",
+    "redux": "^4.2.1"
+  }
+}
