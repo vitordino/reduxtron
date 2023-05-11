@@ -3,11 +3,11 @@
 import { IpcMain } from 'electron'
 import type { Store } from 'redux'
 
-type MainReduxMiddleware = {
+type MainReduxBridge = {
 	<S extends Store>(ipcMain: IpcMain, store: S): { unsubscribe: () => void }
 }
 
-export const mainReduxMiddleware: MainReduxMiddleware = (ipcMain, store) => {
+export const mainReduxBridge: MainReduxBridge = (ipcMain, store) => {
 	ipcMain.on('dispatch', (_, action: Parameters<typeof store.dispatch>[0]) =>
 		store.dispatch(action),
 	)

@@ -10,11 +10,11 @@
  */
 import { app, ipcMain } from 'electron'
 import { store } from 'main/store'
-import { mainReduxMiddleware } from 'main/main-redux-middleware'
+import { mainReduxBridge } from 'main/main-redux-bridge'
 import { windowManager } from './window/window-manager'
 import { tray } from './tray/tray'
 
-const { unsubscribe } = mainReduxMiddleware(ipcMain, store)
+const { unsubscribe } = mainReduxBridge(ipcMain, store)
 
 tray.setDispatch(store.dispatch)
 tray.setState(store.getState())

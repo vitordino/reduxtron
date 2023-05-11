@@ -1,9 +1,9 @@
-import type { PreloadReduxMiddlewareReturn } from '../preload/preload-redux-middleware'
+import type { PreloadReduxBridgeReturn } from '../preload/preload-redux-bridge'
 import type { State, Action } from '../shared/reducers'
 
 declare global {
 	interface Window {
-		electron: PreloadReduxMiddlewareReturn<State, Action>['handlers']
+		electron: PreloadReduxBridgeReturn<State, Action>['handlers']
 		windowId?: string
 		__PLATFORM__: 'darwin' | 'linux' | 'windows'
 	}

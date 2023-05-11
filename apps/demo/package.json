@@ -13,6 +13,7 @@
 		"typecheck": "npm run typecheck:node && npm run typecheck:web",
 		"start": "electron-vite preview",
 		"dev": "npm run dev:redux & npm run dev:electron",
+		"demo": "npm run dev:redux & npm run dev:electron",
 		"dev:electron": "electron-vite dev",
 		"dev:redux": "redux-devtools --hostname=localhost --port=3001 --open",
 		"build": "npm run typecheck && electron-vite build",

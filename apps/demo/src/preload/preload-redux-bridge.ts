@@ -3,16 +3,16 @@ import { AnyAction } from 'redux'
 
 type AnyState = Record<string, unknown>
 
-export type PreloadReduxMiddlewareReturn<S extends AnyState, A extends AnyAction> = {
+export type PreloadReduxBridgeReturn<S extends AnyState, A extends AnyAction> = {
 	handlers: {
 		dispatch: (action: A) => void
 		subscribe: (callback: (newState: S) => void) => () => void
 	}
 }
 
-export const preloadReduxMiddleware = <S extends AnyState, A extends AnyAction>(
+export const preloadReduxBridge = <S extends AnyState, A extends AnyAction>(
 	ipcRenderer: IpcRenderer,
-): PreloadReduxMiddlewareReturn<S, A> => ({
+): PreloadReduxBridgeReturn<S, A> => ({
 	handlers: {
 		dispatch: action => ipcRenderer.send('dispatch', action),
 		subscribe: callback => {
@@ -25,4 +25,4 @@ export const preloadReduxMiddleware = <S extends AnyState, A extends AnyAction>(
 	},
 })
 
-export type PreloadReduxMiddleware = typeof preloadReduxMiddleware
+export type PreloadReduxBridge = typeof preloadReduxBridge
