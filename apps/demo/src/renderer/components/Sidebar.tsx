@@ -63,7 +63,7 @@ const LogoLink = () => {
 							<img src='images/logo.svg' />
 						</div>
 						<div className='group-hover:text-slate-12 text-sm font-medium hidden lg:block ml-2'>
-							redux-electron
+							reduxtron
 						</div>
 					</div>
 				</Link>

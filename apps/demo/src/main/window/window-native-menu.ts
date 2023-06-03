@@ -43,17 +43,17 @@ export class MenuBuilder {
 
 	buildDarwinTemplate(): MenuItemConstructorOptions[] {
 		const subMenuAbout: DarwinMenuItemConstructorOptions = {
-			label: 'redux-electron',
+			label: 'reduxtron',
 			submenu: [
 				{
-					label: 'About redux-electron',
+					label: 'About reduxtron',
 					selector: 'orderFrontStandardAboutPanel:',
 				},
 				{ type: 'separator' },
 				{ label: 'Services', submenu: [] },
 				{ type: 'separator' },
 				{
-					label: 'Hide redux-electron',
+					label: 'Hide reduxtron',
 					accelerator: 'Command+H',
 					selector: 'hide:',
 				},

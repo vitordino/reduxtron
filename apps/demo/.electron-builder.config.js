@@ -12,7 +12,7 @@ const { join } = require('path')
  */
 module.exports = () => ({
 	appId: 'com.electron.app',
-	productName: 'redux-electron',
+	productName: 'reduxtron',
 	asar: false,
 	// asarUnpack: ['resources/**'],
 	icon: join(__dirname, 'resources', 'images', 'icon.png'),
@@ -30,7 +30,7 @@ module.exports = () => ({
 	],
 	afterSign: 'build/notarize.js',
 	win: {
-		executableName: 'redux-electron',
+		executableName: 'reduxtron',
 	},
 	nsis: {
 		artifactName: '${name}-${version}-setup.${ext}',

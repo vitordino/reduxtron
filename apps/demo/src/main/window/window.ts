@@ -34,7 +34,7 @@ const ADD_TO_DO_OPTIONS = {
 const BROWSER_WINDOW_OPTIONS_BY_WINDOW_PATH: Record<WindowPath, BrowserWindowConstructorOptions> = {
 	index: {
 		...DEFAULT_WINDOW_OPTIONS,
-		title: 'redux-electron',
+		title: 'reduxtron',
 		width: 1024,
 		height: 728,
 		titleBarStyle: 'hiddenInset',
