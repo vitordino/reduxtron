@@ -1,4 +1,4 @@
-import type { PreloadReduxBridgeReturn } from '../preload/preload-redux-bridge'
+import type { PreloadReduxBridgeReturn } from 'reduxtron/preload'
 import type { State, Action } from '../shared/reducers'
 
 declare global {

@@ -1,4 +1,11 @@
-import { combineReducers, Dispatch as BaseDispatch, Reducer, Observable, AnyAction } from 'redux'
+import {
+	combineReducers,
+	Dispatch as BaseDispatch,
+	Reducer,
+	Observable,
+	AnyAction,
+	EmptyObject,
+} from 'redux'
 
 import { toDosReducer, ToDosAction } from './toDos'
 import { settingsReducer, SettingsAction } from './settings'
@@ -27,7 +34,7 @@ type ActionOrAnyAction =
 
 export type Action = Exclude<ActionOrAnyAction, { type: '' }>
 
-export type State = ReturnType<typeof reducer>
+export type State = Omit<ReturnType<typeof reducer>, keyof EmptyObject>
 export type Dispatch = BaseDispatch<Action>
 export type Subscribe = (listener: () => void) => () => void
 

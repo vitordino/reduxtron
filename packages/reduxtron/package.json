@@ -1,10 +1,16 @@
 {
   "name": "reduxtron",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json --composite false"
+  },
   "dependencies": {
     "electron": "24.1.1",
     "redux": "^4.2.1"
   },
   "peerDependencies": {
     "zustand": "^4.3.7"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
   }
 }
