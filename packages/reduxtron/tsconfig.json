@@ -1,5 +1,6 @@
 {
   "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
+  "exclude": ["node_modules/**/*"],
   "compilerOptions": {
     "composite": true,
     "types": ["electron-vite/node"],

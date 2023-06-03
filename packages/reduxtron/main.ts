@@ -8,6 +8,7 @@ type MainReduxBridge = {
 };
 
 export const mainReduxBridge: MainReduxBridge = (ipcMain, store) => {
+  ipcMain.handle("getState", () => store.getState());
   ipcMain.on("dispatch", (_, action: Parameters<typeof store.dispatch>[0]) =>
     store.dispatch(action)
   );
