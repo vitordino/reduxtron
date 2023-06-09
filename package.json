@@ -1,7 +1,4 @@
 {
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "packageManager": "npm@9.5.0"
+	"workspaces": ["packages/*"],
+	"packageManager": "npm@9.5.0"
 }

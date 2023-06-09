@@ -52,8 +52,6 @@
 		"zustand": "^4.3.7"
 	},
 	"devDependencies": {
-		"eslint-config-custom": "*",
-		"prettier-config-custom": "*",
 		"@electron-toolkit/preload": "^1.0.3",
 		"@electron-toolkit/tsconfig": "^1.0.1",
 		"@electron/notarize": "^1.2.3",
