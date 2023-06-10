@@ -1,4 +1,8 @@
-# electron architecture
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/readme-hero-dark.png"/>
+  <source media="(prefers-color-scheme: light)" srcset="./assets/readme-hero-light.png"/>
+  <img alt="reduxtron hero image" src="./assets/readme-hero-light.png"/>
+</picture>
 
 > what if: redux on electron main process
 
