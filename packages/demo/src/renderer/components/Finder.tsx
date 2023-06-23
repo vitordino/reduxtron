@@ -154,7 +154,7 @@ export const Finder = () => {
 				</ToolbarButton>
 			</Toolbar>
 
-			<NavigationMenu.Root id='view'>
+			<NavigationMenu.Root className='flex flex-1 flex-col' id='view'>
 				<NavigationMenu.List className='group divide-y divide-slate-4'>
 					{data
 						?.sort((a, b) => +b.folder - +a.folder)
