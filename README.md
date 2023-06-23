@@ -25,9 +25,10 @@ this is a monorepo containing all of the related code for:
 1. the [reduxtron library](./packages/reduxtron)
 1. the [reduxtorn demo app](./packages/demo)
 1. the reduxtron boilerplates:
-  - [boilerplate-react](./packages/boilerplate-react)
-  - [boilerplate-svelte](./packages/boilerplate-svelte)
-  - [boilerplate-vue](./packages/boilerplate-vue)
+
+- [boilerplate-react](./packages/boilerplate-react)
+- [boilerplate-svelte](./packages/boilerplate-svelte)
+- [boilerplate-vue](./packages/boilerplate-vue)
 
 ### the `reduxtron` library
 
@@ -86,20 +87,35 @@ global.reduxtron.subscribe(callback: ((newState: State) => void) => () => void)
 
 ps: the `reduxtron` key here is just an example, you can use any object key you prefer
 
-### demo
+### demo app
 
-> [`wip` app](./packages/demo) to show off some of the features/patterns this approach enables
+> a [ever `wip` demo app](./packages/demo) to show off some of the features/patterns this approach enables
+
+![demo app screenshot](./assets/readme-demo-screenshot.png)
 
 ```
+git clone git@github.com:vitordino/reduxtron.git # clone this repo
+cd reduxtron # change directory to inside the repo
 npm i # install dependencies
 turbo demo # start demo app on development mode
 ```
+
+the demo contains some nice (wip) features:
+
+1. naïve persistance (writing to a json file on every state change + reading it on initialization)
+1. [_zustand_](https://github.com/pmndrs/zustand)-based store and selectors (to prevent unnecessary rerenders)
+1. _[swr](https://swr.vercel.app/)-like_ reducer to store data from different sources (currently http + file-system)
+1. *micro-apps* inside the demo:
+  - a simple to do list with small additions (eg.: external windows to add items backed by different frontend frameworks)
+  - a dog breed picker (to show off integration with http APIs)
+  - a finder-like file explorer
+1. all the above *micro-apps* also have a native tray interface, always up-to-date, reads from the same state and dispatches the same actions
 
 ### boilerplates
 
 as aforementioned, this repo contains some (non-exhaustive, really simple) starters.
 
-currently they are all based on [electron-vite](https://evite.netlify.app/), only implements a counter, with a single renderer and tray to interact with.
+currently they are all based on [electron-vite](https://evite.netlify.app/), only implements a counter, with a single renderer window and tray to interact with.
 
 ### why redux?
 
@@ -107,16 +123,16 @@ currently they are all based on [electron-vite](https://evite.netlify.app/), onl
 
 redux definitely helped a bunch of the early-mid 2010’s web applications. back then, we didn’t had that much nicer APIs to handle a bunch of state for us.
 
-nowadays we do have way more tooling for the most common (and maybe worse) use-cases for redux:
+we now have way more tooling for the most common (and maybe worse) use-cases for redux:
 
 - data-fetching (and caching):
   - client-only: [_swr_](https://swr.vercel.app/), [_react-query_](https://tanstack.com/query/v3/), [_react-router_ loaders](https://reactrouter.com/en/main/route/loader)
   - or even integrated server-side solutions (like [_react_ server components](https://react.dev/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-server-components), [_remix_](https://remix.run/)
 
 - global app state:
-  - react context (sometimes bad, but built-in)
-  - [_zustand_](https://github.com/pmndrs/zustand) and hundreds of other state-management libraries.
-  - local databases (like using a [sqlite](https://sqlite.org/) alongside the electron app)
+  - react context (sometimes bad, but built-in and stable)
+  - [_zustand_](https://github.com/pmndrs/zustand) and hundreds of other "lighter" state-management libraries.
+  - local databases (eg.: using a [sqlite](https://sqlite.org/) alongside the electron app)
 
 ---
 
