@@ -142,6 +142,7 @@ so why redux was chosen?
 1. single store (compared to [_mobx_](https://github.com/mobxjs/mobx), [_xstate_](https://github.com/statelyai/xstate) and others)
 1. single "update" function, with a single signature (so it’s trivial to register on the `preload` and have end-to-end type-safety)
 1. single "subscribe" function to all the state — same as above reasons
+1. can use [POJO](https://masteringjs.io/tutorials/fundamentals/pojo)s as data primitive (easy to serialize/deserialize on inter-process communication)
 
 ### related projects and inspiration
 
