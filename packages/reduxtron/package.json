@@ -1,16 +1,51 @@
 {
   "name": "reduxtron",
+  "version": "0.0.4",
+  "author": "vitordino",
+  "license": "MIT",
   "scripts": {
-    "typecheck": "tsc --noEmit -p tsconfig.json --composite false"
+    "typecheck": "tsc",
+    "clean": "rm -rf ./dist",
+    "build": "rollup --config rollup.config.mjs"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "main": {
+      "types": "./dist/main.d.ts",
+      "module": "./dist/main.js",
+      "import": "./dist/main.js",
+      "require": "./dist/main.cjs",
+      "default": "./dist/main.js"
+    },
+    "preload": {
+      "types": "./dist/preload.d.ts",
+      "module": "./dist/preload.js",
+      "import": "./dist/preload.js",
+      "require": "./dist/preload.cjs",
+      "default": "./dist/preload.js"
+    },
+    "zustand-store": {
+      "types": "./dist/zustand-store.d.ts",
+      "module": "./dist/zustand-store.js",
+      "import": "./dist/zustand-store.js",
+      "require": "./dist/zustand-store.cjs",
+      "default": "./dist/zustand-store.js"
+    }
   },
   "dependencies": {
-    "electron": "24.1.1",
-    "redux": "^4.2.1"
+    "electron": ">=24.0.0",
+    "redux": ">=4.0.0"
   },
   "peerDependencies": {
-    "zustand": "^4.3.7"
+    "zustand": ">=4.0.0"
   },
   "devDependencies": {
-    "typescript": "^4.9.5"
+    "rollup": "^3.25.1",
+    "rollup-plugin-ts": "^3.2.0",
+    "typescript": ">=4.9.5"
   }
 }

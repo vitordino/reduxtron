@@ -3,7 +3,7 @@
 import type { IpcMain } from "electron";
 import type { Store } from "redux";
 
-type MainReduxBridge = {
+export type MainReduxBridge = {
   <S extends Store>(ipcMain: IpcMain, store: S): { unsubscribe: () => void };
 };
 
