@@ -1,0 +1,9 @@
+{
+  "exclude": ["node_modules/**/*", "dist"],
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "outDir": "../dist",
+    "rootDir": "."
+  }
+}

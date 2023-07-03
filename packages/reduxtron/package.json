@@ -6,12 +6,12 @@
   "scripts": {
     "typecheck": "tsc",
     "clean": "rm -rf ./dist",
-    "build": "rollup --config rollup.config.mjs"
+    "build": "tsc -b -v && cpy --flat 'src/*.ts' 'dist'"
   },
   "sideEffects": false,
   "type": "module",
   "files": [
-    "dist"
+    "dist/**"
   ],
   "exports": {
     "main": {
@@ -44,8 +44,7 @@
     "zustand": ">=4.0.0"
   },
   "devDependencies": {
-    "rollup": "^3.25.1",
-    "rollup-plugin-ts": "^3.2.0",
+    "cpy-cli": "^5.0.0",
     "typescript": ">=4.9.5"
   }
 }
