@@ -99,7 +99,7 @@ module.exports = {
 		},
 	},
 	plugins: [
-		require('windy-radix-palette/packages/palette'),
+		require('windy-radix-palette'),
 		require('@tailwindcss/forms')({ strategy: 'class' }),
 	],
 }
