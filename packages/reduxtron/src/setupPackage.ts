@@ -1,5 +1,10 @@
-import { join } from "path";
+import { join, dirname } from "path";
+// @ts-expect-error only included on node
 import { readFile, writeFile, copyFile } from "fs/promises";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const options = { encoding: "utf-8" } as const;
 

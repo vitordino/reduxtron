@@ -4,6 +4,11 @@
     "composite": true,
     "declaration": true,
     "outDir": "../dist",
-    "rootDir": "."
-  }
+    "rootDir": ".",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "module": "ESNext",
+    "target": "ESNext"
+  },
+  "buildOptions": { "incremental": false }
 }

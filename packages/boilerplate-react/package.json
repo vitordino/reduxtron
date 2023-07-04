@@ -22,7 +22,7 @@
     "build:linux": "electron-vite build && electron-builder --linux --config"
   },
   "dependencies": {
-    "reduxtron": "https://registry.npmjs.org/reduxtron/-/reduxtron-0.0.6.tgz",
+    "reduxtron": "https://registry.npmjs.org/reduxtron/-/reduxtron-0.0.7.tgz",
     "@electron-toolkit/utils": "^1.0.2",
     "@redux-devtools/remote": "^0.8.0",
     "@reduxjs/toolkit": "^1.9.3",
