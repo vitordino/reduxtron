@@ -27,7 +27,7 @@
     "@redux-devtools/remote": "^0.8.0",
     "@reduxjs/toolkit": "^1.9.3",
     "redux": "^4.2.1",
-    "reduxtron": "https://registry.npmjs.org/reduxtron/-/reduxtron-0.0.7.tgz",
+    "reduxtron": "npm:latest",
     "svelte": "^3.59.1"
   },
   "devDependencies": {
