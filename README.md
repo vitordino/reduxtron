@@ -105,10 +105,9 @@ the demo contains some nice (wip) features:
 1. [_zustand_](https://github.com/pmndrs/zustand)-based store and selectors (to prevent unnecessary rerenders)
 1. _[swr](https://swr.vercel.app/)-like_ reducer to store data from different sources (currently http + file-system)
 1. _micro-apps_ inside the demo:
-
-- a simple to do list with small additions (eg.: external windows to add items backed by different frontend frameworks)
-- a dog breed picker (to show off integration with http APIs)
-- a finder-like file explorer
+    - a simple to do list with small additions (eg.: external windows to add items backed by different frontend frameworks)
+    - a dog breed picker (to show off integration with http APIs)
+    - a finder-like file explorer
 
 1. all the above _micro-apps_ also have a native tray interface, always up-to-date, reads from the same state and dispatches the same actions
 
@@ -127,7 +126,6 @@ redux definitely helped a bunch of the early-mid 2010’s web applications. back
 we now have way more tooling for the most common (and maybe worse) use-cases for redux:
 
 - data-fetching (and caching):
-
   - client-only: [_swr_](https://swr.vercel.app/), [_react-query_](https://tanstack.com/query/v3/), [_react-router_ loaders](https://reactrouter.com/en/main/route/loader)
   - or even integrated server-side solutions (like [_react_ server components](https://react.dev/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-server-components), [_remix_](https://remix.run/)
 
@@ -151,10 +149,9 @@ so why redux was chosen?
 while developing this repo, i also searched for what was out there™ in this regard, and was happy to see i wasn’t the only thinking on these crazy thoughts.
 
 - [klarna/electron-redux](https://github.com/klarna/electron-redux)
-
   - belongs to a major company, high visibility
   - started around 2016, but stopped being maintained around mid-2020
-  - had another redux store on the frontend, and sync between them a bit more complex than i like.
+  - had another redux store on the frontend, and sync between them: a bit more complex than i’d like.
   - incompatible with [electron versions >= 14](https://github.com/klarna/electron-redux/issues/317)
 
 - [zoubingwu/electron-shared-state](https://github.com/zoubingwu/electron-shared-state)
