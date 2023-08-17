@@ -1,6 +1,6 @@
 {
   "name": "reduxtron",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": "vitordino",
   "license": "MIT",
   "type": "module",
@@ -11,12 +11,21 @@
     "release": "npm run build && cd dist && npm publish"
   },
   "sideEffects": false,
-  "dependencies": {
-    "electron": ">=24.0.0",
-    "redux": ">=4.0.0"
-  },
   "peerDependencies": {
+    "electron": ">=24 || >=25 || >=26",
+    "redux": ">=4 || ^5.0.0-beta.0",
     "zustand": ">=4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "electron": {
+      "optional": false
+    },
+    "redux": {
+      "optional": false
+    },
+    "zustand": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "cpy-cli": "^5.0.0",
