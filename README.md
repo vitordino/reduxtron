@@ -18,6 +18,36 @@
 1. ipc performance, no api layer, without any manual ipc messaging/handling to write
 1. follows latest electron safety recommendations ([`sandbox: true`](https://www.electronjs.org/docs/latest/tutorial/sandbox) + [`nodeIntegration: false`](https://www.electronjs.org/docs/latest/tutorial/security#isolation-for-untrusted-content) + [`contextIsolation: true`](https://www.electronjs.org/docs/latest/tutorial/context-isolation))
 
+### why reduxtron
+
+the average redux setup on web applications (and plenty of tutorials for redux on electron) follows the simpler rule: keeping redux constrained to frontend.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/readme-diagram-frontend-dark.png"/>
+  <source media="(prefers-color-scheme: light)" srcset="./assets/readme-diagram-frontend-light.png"/>
+  <img alt="diagram containing a typical react + redux setup" src="./assets/readme-diagram-frontend-light.png"/>
+</picture>
+
+this ends up being pretty limiting because once you want to go past anything broader than a single window/tab of a default web application. there’s no clear or definitive way to share state or communicate between electron layers.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/readme-diagram-question-dark.png"/>
+  <source media="(prefers-color-scheme: light)" srcset="./assets/readme-diagram-question-light.png"/>
+  <img alt="diagram containing a typical react + redux setup on the left, several electron and node.js specific api on the right, and a vertical line on the middle written 'inter-process'" src="./assets/readme-diagram-question-light.png"/>
+</picture>
+
+that’s why reduxtron exist, it moves your state "one level up" on the three, to outside your frontend boundary into the broader electron [`main` process](https://www.electronjs.org/docs/latest/tutorial/process-model#the-main-process).
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/readme-diagram-full-dark.png"/>
+  <source media="(prefers-color-scheme: light)" srcset="./assets/readme-diagram-full-light.png"/>
+  <img alt="reduxtron setup: with redux, business logic and node/electron api running on the main process and the web frontend on the renderer. all pieces connect to the redux piece using actions and subscriptions" src="./assets/readme-diagram-full-light.png"/>
+</picture>
+
+with this setup you can both have a single state across all your electron app, without relying on a single browser view and also leverage the full potential of the electron and node APIs, without explicitly writing a single [`inter-process communication`](https://www.electronjs.org/docs/latest/tutorial/ipc) message.
+
+the premise is simple: every piece of your app can communicate using the same redux™ way (using _actions_, _subscriptions_, and _getState_ calls) to a single store.
+
 ### repo organization
 
 this is a monorepo containing the code for:
@@ -105,9 +135,10 @@ the demo contains some nice (wip) features:
 1. [_zustand_](https://github.com/pmndrs/zustand)-based store and selectors (to prevent unnecessary rerenders)
 1. _[swr](https://swr.vercel.app/)-like_ reducer to store data from different sources (currently http + file-system)
 1. _micro-apps_ inside the demo:
-    - a simple to do list with small additions (eg.: external windows to add items backed by different frontend frameworks)
-    - a dog breed picker (to show off integration with http APIs)
-    - a finder-like file explorer
+
+   - a simple to do list with small additions (eg.: external windows to add items backed by different frontend frameworks)
+   - a dog breed picker (to show off integration with http APIs)
+   - a finder-like file explorer
 
 1. all the above _micro-apps_ also have a native tray interface, always up-to-date, reads from the same state and dispatches the same actions
 
@@ -126,6 +157,7 @@ redux definitely helped a bunch of the early-mid 2010’s web applications. back
 we now have way more tooling for the most common (and maybe worse) use-cases for redux:
 
 - data-fetching (and caching):
+
   - client-only: [_swr_](https://swr.vercel.app/), [_react-query_](https://tanstack.com/query/v3/), [_react-router_ loaders](https://reactrouter.com/en/main/route/loader)
   - or even integrated server-side solutions (like [_react_ server components](https://react.dev/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-server-components), [_remix_](https://remix.run/)
 
@@ -149,6 +181,7 @@ so why redux was chosen?
 while developing this repo, i also searched for what was out there™ in this regard, and was happy to see i wasn’t the only thinking on these crazy thoughts.
 
 - [klarna/electron-redux](https://github.com/klarna/electron-redux)
+
   - belongs to a major company, high visibility
   - started around 2016, but stopped being maintained around mid-2020
   - had another redux store on the frontend, and sync between them: a bit more complex than i’d like.
