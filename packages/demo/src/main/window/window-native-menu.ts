@@ -103,7 +103,7 @@ export class MenuBuilder {
 					label: 'Toggle Developer Tools',
 					accelerator: 'Alt+Command+I',
 					click: () => {
-						this.window.webContents.toggleDevTools()
+						this.window.webContents.openDevTools({ mode: 'detach' })
 					},
 				},
 			],
@@ -151,7 +151,7 @@ export class MenuBuilder {
 									label: 'Toggle &Developer Tools',
 									accelerator: 'Alt+Ctrl+I',
 									click: () => {
-										this.window.webContents.toggleDevTools()
+										this.window.webContents.openDevTools({ mode: 'detach' })
 									},
 								},
 						  ]
