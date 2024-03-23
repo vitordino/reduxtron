@@ -1,6 +1,6 @@
 {
   "name": "reduxtron",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "author": "vitordino",
   "license": "MIT",
   "files": [
@@ -37,8 +37,7 @@
     }
   },
   "scripts": {
-    "prebuild": "rm -rf ./dist",
-    "build": "rollup --config rollup.config.mjs",
+    "build": "rm -rf ./dist && rollup --config rollup.config.mjs && cpy src/*.ts dist --flat",
     "release": "npm run build && npm publish"
   },
   "sideEffects": false,

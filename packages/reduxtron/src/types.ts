@@ -30,3 +30,5 @@ export type CreateUseStore = {
     bridge: PreloadReduxBridgeReturn<S, A>["handlers"]
   ): typeof useStore<StoreApi<Partial<S>>>;
 };
+
+export default {};
