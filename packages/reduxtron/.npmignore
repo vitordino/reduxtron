@@ -3,5 +3,3 @@ node_modules
 *.log*
 .turbo
 *.tsbuildinfo
-src
-setupPackage.*

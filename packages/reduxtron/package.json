@@ -1,14 +1,45 @@
 {
   "name": "reduxtron",
-  "version": "0.0.10",
+  "version": "0.0.12",
   "author": "vitordino",
   "license": "MIT",
-  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "module": "./dist/types.js",
+      "import": "./dist/types.js",
+      "require": "./dist/types.cjs",
+      "default": "./dist/types.js"
+    },
+    "./main": {
+      "types": "./dist/main.d.ts",
+      "module": "./dist/main.js",
+      "import": "./dist/main.js",
+      "require": "./dist/main.cjs",
+      "default": "./dist/main.js"
+    },
+    "./preload": {
+      "types": "./dist/preload.d.ts",
+      "module": "./dist/preload.js",
+      "import": "./dist/preload.js",
+      "require": "./dist/preload.cjs",
+      "default": "./dist/preload.js"
+    },
+    "./zustand-store": {
+      "types": "./dist/zustand-store.d.ts",
+      "module": "./dist/zustand-store.js",
+      "import": "./dist/zustand-store.js",
+      "require": "./dist/zustand-store.cjs",
+      "default": "./dist/zustand-store.js"
+    }
+  },
   "scripts": {
     "prebuild": "rm -rf ./dist",
-    "build": "tsc -b -v && cpy --flat 'src/*.ts' 'dist'",
-    "postbuild": "ts-node-esm src/setupPackage.ts",
-    "release": "npm run build && cd dist && npm publish"
+    "build": "rollup --config rollup.config.mjs",
+    "release": "npm run build && npm publish"
   },
   "sideEffects": false,
   "peerDependencies": {
@@ -28,7 +59,10 @@
     }
   },
   "devDependencies": {
+    "@rollup/plugin-json": "^6.1.0",
     "cpy-cli": "^5.0.0",
+    "rollup": "^4.13.0",
+    "rollup-plugin-ts": "^3.4.5",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   }

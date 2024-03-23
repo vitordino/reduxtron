@@ -1,4 +1,10 @@
 {
   "files": [],
-  "references": [{ "path": "./src/tsconfig.json" }]
+  "references": [{ "path": "./src/tsconfig.json" }],
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "declarationDir": "./dist",
+    "declaration": true,
+    "composite": true
+  }
 }
