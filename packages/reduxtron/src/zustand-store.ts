@@ -1,10 +1,15 @@
 import { create } from "zustand";
-import { PreloadReduxBridgeReturn } from "./preload";
-import { AnyAction } from "redux";
+import type { AnyAction } from "redux";
+import type {
+  PreloadReduxBridgeReturn,
+  AnyState,
+  CreateUseStore,
+} from "./types";
 
-type AnyState = Record<string, unknown>;
-
-export const createUseStore = <S extends AnyState, A extends AnyAction>(
+export const createUseStore: CreateUseStore = <
+  S extends AnyState,
+  A extends AnyAction
+>(
   bridge: PreloadReduxBridgeReturn<S, A>["handlers"]
 ) =>
   create<Partial<S>>((setState) => {

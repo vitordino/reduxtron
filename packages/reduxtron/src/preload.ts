@@ -1,21 +1,16 @@
 import type { IpcRenderer } from "electron";
 import type { AnyAction } from "redux";
+import {
+  AnyState,
+  PreloadReduxBridge,
+  PreloadReduxBridgeReturn,
+} from "./types";
 
-type AnyState = Record<string, unknown>;
-
-export type PreloadReduxBridgeReturn<
+export const preloadReduxBridge: PreloadReduxBridge = <
   S extends AnyState,
-  A extends AnyAction
-> = {
-  handlers: {
-    dispatch: (action: A) => void;
-    getState: () => Promise<Partial<S>>;
-    subscribe: (callback: (newState: S) => void) => () => void;
-  };
-};
-
-export const preloadReduxBridge = <S extends AnyState, A extends AnyAction>(
-  ipcRenderer: IpcRenderer
+  A extends AnyAction,
+>(
+  ipcRenderer: IpcRenderer,
 ): PreloadReduxBridgeReturn<S, A> => ({
   handlers: {
     dispatch: (action) => ipcRenderer.send("dispatch", action),
@@ -29,5 +24,3 @@ export const preloadReduxBridge = <S extends AnyState, A extends AnyAction>(
     },
   },
 });
-
-export type PreloadReduxBridge = typeof preloadReduxBridge;

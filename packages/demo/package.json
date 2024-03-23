@@ -25,7 +25,7 @@
 	"prettier": "prettier-config-custom",
 	"eslintConfig": { "extends": "custom" },
 	"dependencies": {
-		"reduxtron": "npm:latest",
+		"reduxtron": "*",
 		"@electron-toolkit/utils": "^1.0.2",
 		"@radix-ui/colors": "^0.1.8",
 		"@radix-ui/react-dropdown-menu": "^2.0.4",
