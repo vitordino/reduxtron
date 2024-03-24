@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { StoreApi, UseBoundStore, create } from "zustand";
 import type { AnyAction } from "redux";
 import type {
   PreloadReduxBridgeReturn,
@@ -11,7 +11,7 @@ export const createUseStore: CreateUseStore = <
   A extends AnyAction
 >(
   bridge: PreloadReduxBridgeReturn<S, A>["handlers"]
-) =>
+): UseBoundStore<StoreApi<Partial<S>>> =>
   create<Partial<S>>((setState) => {
     // subscribe to changes
     bridge.subscribe(setState);

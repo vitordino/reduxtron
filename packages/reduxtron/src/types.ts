@@ -1,6 +1,6 @@
 import type { IpcMain, IpcRenderer } from "electron";
 import type { Store, AnyAction } from "redux";
-import type { StoreApi, useStore } from "zustand";
+import type { StoreApi, UseBoundStore } from "zustand";
 
 export type MainReduxBridge = {
   <S extends Store>(ipcMain: IpcMain, store: S): { unsubscribe: () => void };
@@ -28,7 +28,7 @@ export type PreloadReduxBridge = {
 export type CreateUseStore = {
   <S extends AnyState, A extends AnyAction>(
     bridge: PreloadReduxBridgeReturn<S, A>["handlers"]
-  ): typeof useStore<StoreApi<Partial<S>>>;
+  ): UseBoundStore<StoreApi<Partial<S>>>;
 };
 
 export default {};
