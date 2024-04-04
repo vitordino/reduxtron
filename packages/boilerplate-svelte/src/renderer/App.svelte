@@ -3,7 +3,8 @@
 
 	let counter = undefined
 
-	const dispatch = window.reduxtron.dispatch
+	const reduxtron = window.reduxtron
+	const dispatch = reduxtron.dispatch
 	const onDecrement = () => dispatch({ type: 'COUNTER:DECREMENT' })
 	const onIncrement = () => dispatch({ type: 'COUNTER:INCREMENT' })
 
@@ -11,8 +12,8 @@
 		const setCounter = state => {
 			counter = state.counter
 		}
-		const unsubscribe = window.reduxtron.subscribe(setCounter)
-		window.reduxtron.getState().then(setCounter)
+		const unsubscribe = reduxtron.subscribe(setCounter)
+		reduxtron.getState().then(setCounter)
 		return unsubscribe
 	})
 </script>

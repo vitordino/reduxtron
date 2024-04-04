@@ -1,5 +1,5 @@
 import type { PreloadReduxBridgeReturn } from 'reduxtron/types'
-import type { State, Action } from '../shared/reducers'
+import type { State, Action } from 'src/shared/reducers'
 
 declare global {
 	interface Window {

@@ -2,20 +2,20 @@
 	"extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
 	"include": [
 		"src/shared/**/*",
+		"src/preload/*.d.ts",
 		"src/renderer/env.d.ts",
 		"src/renderer/**/*",
+		"src/renderer/**/*.ts",
 		"src/renderer/**/*.vue",
-		"src/renderer/**/*.tsx",
-		"src/preload/**/*.ts",
-		"src/renderer/_preload.d.ts"
+		"src/renderer/*.vue"
 	],
 	"compilerOptions": {
 		"composite": true,
 		"baseUrl": "./",
 		"skipLibCheck": true,
+		"moduleResolution": "Bundler",
 		"paths": {
-			"renderer/*": ["src/renderer/*"],
-			"shared/*": ["src/shared/*"]
+			"src/*": ["src/*"]
 		}
 	}
 }

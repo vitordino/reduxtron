@@ -1,4 +1,4 @@
-# y
+# reduxtron vanilla boilerplate
 
 An Electron application with React and TypeScript
 

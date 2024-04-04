@@ -1,12 +1,12 @@
 import { Menu, Tray, app, nativeImage } from 'electron'
 
-import type { Dispatch, State } from 'shared/reducers'
-import image from 'main/tray/tray.png'
-import { TrayCounter } from 'main/tray/Counter'
+import type { Dispatch, State } from 'src/shared/reducers'
+import image from 'src/main/tray/tray.png'
+import { TrayCounter } from 'src/main/tray/Counter'
 
 const trayIcon = nativeImage.createFromDataURL(image).resize({
 	width: 18,
-	height: 18,
+	height: 18
 })
 
 class SystemTray {
@@ -30,7 +30,7 @@ class SystemTray {
 		const contextMenu = Menu.buildFromTemplate([
 			...TrayCounter(this.state, this.dispatch),
 			{ type: 'separator' },
-			{ label: 'quit', click: app.quit },
+			{ label: 'quit', click: app.quit }
 		])
 
 		this.instance.setToolTip('This text comes from tray module.')

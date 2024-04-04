@@ -1,6 +1,6 @@
 # reduxtron vanilla boilerplate
 
-An Electron application with React and TypeScript
+An Electron application with Electron and TypeScript
 
 ## Recommended IDE Setup
 
