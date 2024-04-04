@@ -1,10 +1,12 @@
-import { StoreApi, UseBoundStore, create } from "zustand";
+import { type StoreApi, type UseBoundStore, create } from "zustand";
 import type { AnyAction } from "redux";
-import type {
-  PreloadReduxBridgeReturn,
-  AnyState,
-  CreateUseStore,
-} from "./types";
+import type { PreloadReduxBridgeReturn, AnyState } from "./types";
+
+export type CreateUseStore = {
+  <S extends AnyState, A extends AnyAction>(
+    bridge: PreloadReduxBridgeReturn<S, A>["handlers"]
+  ): UseBoundStore<StoreApi<Partial<S>>>;
+};
 
 export const createUseStore: CreateUseStore = <
   S extends AnyState,
