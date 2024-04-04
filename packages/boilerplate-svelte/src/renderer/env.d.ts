@@ -1,18 +1,16 @@
+import type { PreloadReduxBridgeReturn } from 'reduxtron/types'
+import type { State, Action } from '../shared/reducers'
+
 declare module '*.svelte' {
 	import type { ComponentType } from 'svelte'
 	const component: ComponentType
 	export default component
 }
 
-declare module '*.png' {
-	const src: string
-	export default src
+declare global {
+	interface Window {
+		reduxtron: PreloadReduxBridgeReturn<State, Action>['handlers']
+	}
 }
-declare module '*.jpg' {
-	const src: string
-	export default src
-}
-declare module '*.svg' {
-	const src: string
-	export default src
-}
+
+export type Reduxtron = PreloadReduxBridgeReturn<State, Action>['handlers']

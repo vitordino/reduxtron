@@ -1,0 +1,11 @@
+{
+	"extends": [
+		"eslint:recommended",
+		"@electron-toolkit/eslint-config-ts/recommended",
+		"@electron-toolkit/eslint-config-prettier"
+	],
+	"rules": {
+		"prettier/prettier": 0,
+		"@typescript-eslint/explicit-function-return-type": 0
+	}
+}

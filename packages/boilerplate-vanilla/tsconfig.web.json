@@ -1,0 +1,16 @@
+{
+	"extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
+	"include": [
+		"src/shared/**/*",
+		"src/renderer/env.d.ts",
+		"src/renderer/**/*",
+		"src/renderer/**/*.ts",
+		"src/preload/*.d.ts"
+	],
+	"compilerOptions": {
+		"composite": true,
+		"skipLibCheck": true,
+		"baseUrl": ".",
+		"moduleResolution": "Bundler"
+	}
+}

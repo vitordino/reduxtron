@@ -2,20 +2,19 @@
 	"extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
 	"include": [
 		"src/shared/**/*",
-		"src/renderer/env.d.ts",
+		"src/renderer/*.d.ts",
 		"src/renderer/**/*",
 		"src/renderer/**/*.svelte",
-		"src/renderer/**/*.tsx",
-		"src/preload/**/*.ts",
-		"src/renderer/_preload.d.ts"
+		"src/renderer/*",
+		"src/renderer/*.svelte"
 	],
 	"compilerOptions": {
 		"composite": true,
 		"baseUrl": "./",
 		"skipLibCheck": true,
+		"moduleResolution": "Bundler",
 		"paths": {
-			"renderer/*": ["src/renderer/*"],
-			"shared/*": ["src/shared/*"]
+			"src/*": ["src/*"]
 		}
 	}
 }

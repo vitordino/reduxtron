@@ -1,23 +1,15 @@
-import { join } from 'path'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
-import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-	main: { plugins: [tsconfigPaths(), externalizeDepsPlugin()] },
-	preload: { plugins: [tsconfigPaths(), externalizeDepsPlugin()] },
-	renderer: {
-		plugins: [tsconfigPaths(), react()],
-		publicDir: '../../resources',
-		define: {
-			__PLATFORM__: JSON.stringify(process.platform),
-		},
-		build: {
-			rollupOptions: {
-				input: {
-					index: join(__dirname, 'src', 'renderer', 'index.html'),
-				},
-			},
-		},
+	main: {
+		plugins: [tsconfigPaths(), externalizeDepsPlugin()]
 	},
+	preload: {
+		plugins: [tsconfigPaths(), externalizeDepsPlugin({ exclude: ['reduxtron'] })]
+	},
+	renderer: {
+		plugins: [tsconfigPaths(), react()]
+	}
 })

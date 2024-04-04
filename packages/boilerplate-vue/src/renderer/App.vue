@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { State } from 'shared/reducers'
+import { State } from 'src/shared/reducers'
 import { ref, onBeforeMount } from 'vue'
 
 const counter = ref<number | undefined>()
 
-const dispatch = window.electron.dispatch
+const dispatch = window.reduxtron.dispatch
 const onDecrement = () => dispatch({ type: 'COUNTER:DECREMENT' })
 const onIncrement = () => dispatch({ type: 'COUNTER:INCREMENT' })
 
@@ -12,8 +12,8 @@ onBeforeMount(() => {
 	const setCounter = (state: Partial<State>) => {
 		counter.value = state.counter
 	}
-	window.electron.getState().then(setCounter)
-	window.electron.subscribe(setCounter)
+	window.reduxtron.getState().then(setCounter)
+	window.reduxtron.subscribe(setCounter)
 })
 </script>
 

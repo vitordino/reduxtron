@@ -1,6 +1,6 @@
 import { combineReducers, Dispatch as BaseDispatch, Reducer, Observable, AnyAction } from 'redux'
 
-import { counterReducer, CounterAction } from 'shared/reducers/counter'
+import { counterReducer, CounterAction } from './counter'
 
 export const reducer = combineReducers({ counter: counterReducer })
 
@@ -23,5 +23,5 @@ export type Store = {
 type MiddlewareStore = Pick<Store, 'getState' | 'dispatch'>
 
 export type Middleware<A extends AnyAction = Action> = (
-	store: MiddlewareStore,
+	store: MiddlewareStore
 ) => (next: Dispatch) => (action: A) => Promise<Action>
