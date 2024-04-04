@@ -4,8 +4,6 @@
 		"electron.vite.config.*",
 		"src/shared/**/*",
 		"src/main/**/*",
-		"src/preload/*.ts",
-		"src/preload/**/*"
 	],
 	"compilerOptions": {
 		"composite": true,
