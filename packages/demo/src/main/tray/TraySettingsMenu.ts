@@ -1,6 +1,6 @@
 import type { MenuItemConstructorOptions } from 'electron'
-import type { Dispatch, State } from 'shared/reducers'
-import { WINDOW_PATHS } from 'shared/reducers/settings'
+import type { Dispatch, State } from 'src/shared/reducers'
+import { WINDOW_PATHS } from 'src/shared/reducers/settings'
 
 export const TraySettingsMenu = (
 	state: Partial<State>,
@@ -16,7 +16,7 @@ export const TraySettingsMenu = (
 					type: 'checkbox',
 					checked: Object.values(state.settings?.windows || {}).some(x => x.path === path),
 					click: () => dispatch({ type: 'SETTINGS:TOGGLE_WINDOWS_BY_PATH', payload: { path } }),
-				} as const),
+				}) as const,
 		),
 		{ type: 'separator' },
 		{

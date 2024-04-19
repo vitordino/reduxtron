@@ -1,9 +1,9 @@
-import { compare } from 'renderer/utils/compare'
-import { useStore } from 'renderer/hooks/useStore'
-import { useDispatch } from 'renderer/hooks/useDispatch'
-import { Toolbar } from 'renderer/components/Toolbar'
-import { Checkbox } from 'renderer/components/Checkbox'
-import { WINDOW_PATHS, WindowPath } from 'shared/reducers/settings'
+import { compare } from 'src/renderer/utils/compare'
+import { useStore } from 'src/renderer/hooks/useStore'
+import { useDispatch } from 'src/renderer/hooks/useDispatch'
+import { Toolbar } from 'src/renderer/components/Toolbar'
+import { Checkbox } from 'src/renderer/components/Checkbox'
+import { WINDOW_PATHS, WindowPath } from 'src/shared/reducers/settings'
 
 export const SettingsView = () => {
 	const trayVisible = useStore(x => x.settings?.tray.visible)

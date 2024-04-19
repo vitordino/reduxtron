@@ -1,12 +1,12 @@
 import { ChangeEvent, FormEvent, KeyboardEvent } from 'react'
 import { RxPlus } from 'react-icons/rx'
 
-import { focusById } from 'renderer/utils/focusChildElement'
-import { useStore } from 'renderer/hooks/useStore'
-import { useDispatch } from 'renderer/hooks/useDispatch'
-import { Input } from 'renderer/components/Input'
-import { Button } from 'renderer/components/Button'
-import { FOCUSABLE_SELECTOR, getFocusable } from 'renderer/utils/getFocusable'
+import { focusById } from 'src/renderer/utils/focusChildElement'
+import { useStore } from 'src/renderer/hooks/useStore'
+import { useDispatch } from 'src/renderer/hooks/useDispatch'
+import { Input } from 'src/renderer/components/Input'
+import { Button } from 'src/renderer/components/Button'
+import { FOCUSABLE_SELECTOR, getFocusable } from 'src/renderer/utils/getFocusable'
 import { AddToDoPromptButton } from './AddToDoPromptButton'
 
 // keyboard handlers

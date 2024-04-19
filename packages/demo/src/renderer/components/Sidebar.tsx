@@ -3,9 +3,9 @@ import { Link, useLocation } from 'react-router-dom'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import type { IconType } from 'react-icons'
 import { RxPencil2, RxGear, RxFile, RxCamera } from 'react-icons/rx'
-import { preventKeyboardNavigation } from 'renderer/utils/keyboardNavigation'
-import { focusById } from 'renderer/utils/focusChildElement'
-import { getFocusable } from 'renderer/utils/getFocusable'
+import { preventKeyboardNavigation } from 'src/renderer/utils/keyboardNavigation'
+import { focusById } from 'src/renderer/utils/focusChildElement'
+import { getFocusable } from 'src/renderer/utils/getFocusable'
 
 const topLinks = [
 	{ to: '/to-do', text: 'to do', icon: RxPencil2 },

@@ -1,9 +1,9 @@
 import { createHashRouter, RouterProvider, RouterProviderProps } from 'react-router-dom'
-import { AppLayout } from 'renderer/components/AppLayout'
-import { SettingsView } from 'renderer/components/SettingsView'
-import { Dog } from 'renderer/components/Dog'
-import { ToDoView } from 'renderer/components/ToDoView'
-import { Finder } from 'renderer/components/Finder'
+import { AppLayout } from 'src/renderer/components/AppLayout'
+import { SettingsView } from 'src/renderer/components/SettingsView'
+import { Dog } from 'src/renderer/components/Dog'
+import { ToDoView } from 'src/renderer/components/ToDoView'
+import { Finder } from 'src/renderer/components/Finder'
 
 const router = createHashRouter([
 	{

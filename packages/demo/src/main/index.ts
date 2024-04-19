@@ -10,9 +10,9 @@
  */
 import { app, ipcMain } from 'electron'
 import { mainReduxBridge } from 'reduxtron/main'
-import { store } from 'main/store'
-import { windowManager } from './window/window-manager'
-import { tray } from './tray/tray'
+import { store } from 'src/main/store'
+import { windowManager } from 'src/main/window/window-manager'
+import { tray } from 'src/main/tray/tray'
 
 const { unsubscribe } = mainReduxBridge(ipcMain, store)
 

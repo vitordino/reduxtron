@@ -1,11 +1,11 @@
 import { ChangeEvent } from 'react'
 
-import { focusById } from 'renderer/utils/focusChildElement'
-import { handleKeyboardNavigation } from 'renderer/utils/keyboardNavigation'
-import { useStore } from 'renderer/hooks/useStore'
-import { useDispatch } from 'renderer/hooks/useDispatch'
-import { useSWR } from 'renderer/hooks/useSWR'
-import { Toolbar } from 'renderer/components/Toolbar'
+import { focusById } from 'src/renderer/utils/focusChildElement'
+import { handleKeyboardNavigation } from 'src/renderer/utils/keyboardNavigation'
+import { useStore } from 'src/renderer/hooks/useStore'
+import { useDispatch } from 'src/renderer/hooks/useDispatch'
+import { useSWR } from 'src/renderer/hooks/useSWR'
+import { Toolbar } from 'src/renderer/components/Toolbar'
 
 const ALL_BREEDS_ENDPOINT = 'https://dog.ceo/api/breeds/list/all'
 const swrOptions = { revalidateOn: [] }

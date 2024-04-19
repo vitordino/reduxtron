@@ -1,4 +1,4 @@
-import { getFocusable } from 'renderer/utils/getFocusable'
+import { getFocusable } from 'src/renderer/utils/getFocusable'
 
 export const focusFirstElement = (parent?: HTMLElement | null) => getFocusable(parent)?.focus?.()
 

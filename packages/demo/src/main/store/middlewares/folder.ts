@@ -1,5 +1,5 @@
 import { dialog, OpenDialogOptions } from 'electron'
-import { Middleware } from 'shared/reducers'
+import { Middleware } from 'src/shared/reducers'
 
 const properties: OpenDialogOptions['properties'] = [
 	'openDirectory',

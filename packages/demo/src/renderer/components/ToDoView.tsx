@@ -1,9 +1,9 @@
-import { AddToDo } from 'renderer/components/AddToDo'
-import { ToDoList } from 'renderer/components/ToDoList'
-import { Toolbar } from 'renderer/components/Toolbar'
-import { ToDoVisibilityToggle } from 'renderer/components/ToDoVisibilityToggle'
-import { ToDoClearButton } from 'renderer/components/ToDoClearButton'
-import { Footer } from 'renderer/components/Footer'
+import { AddToDo } from 'src/renderer/components/AddToDo'
+import { ToDoList } from 'src/renderer/components/ToDoList'
+import { Toolbar } from 'src/renderer/components/Toolbar'
+import { ToDoVisibilityToggle } from 'src/renderer/components/ToDoVisibilityToggle'
+import { ToDoClearButton } from 'src/renderer/components/ToDoClearButton'
+import { Footer } from 'src/renderer/components/Footer'
 
 export const ToDoView = () => (
 	<>

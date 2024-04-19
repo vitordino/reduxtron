@@ -1,7 +1,7 @@
 import type { MenuItemConstructorOptions } from 'electron'
-import type { Dispatch, State } from 'shared/reducers'
-import { WINDOW_PATHS, WindowPath } from 'shared/reducers/settings'
-import { ToDo } from 'shared/reducers/toDos'
+import type { Dispatch, State } from 'src/shared/reducers'
+import { WINDOW_PATHS, WindowPath } from 'src/shared/reducers/settings'
+import { ToDo } from 'src/shared/reducers/toDos'
 
 const ADD_TO_DO_PREFIX = 'add-to-do/'
 const ADD_TO_DO_IDS = WINDOW_PATHS.filter(x => x.startsWith(ADD_TO_DO_PREFIX))
@@ -18,7 +18,7 @@ const AddToDoWindowItem = (dispatch: Dispatch) => (id: WindowPath, open: boolean
 		type: 'checkbox',
 		checked: open,
 		click: openWindow(dispatch, id),
-	} as const)
+	}) as const
 
 const Item =
 	(dispatch: Dispatch) =>

@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom'
-import { Sidebar } from 'renderer/components/Sidebar'
+import { Sidebar } from 'src/renderer/components/Sidebar'
 
 export const AppLayout = () => (
 	<>

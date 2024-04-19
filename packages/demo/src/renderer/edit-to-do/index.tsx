@@ -1,9 +1,9 @@
 import { StrictMode, useState, ChangeEvent, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { useStore } from 'renderer/hooks/useStore'
-import { useInterval } from 'renderer/hooks/useInterval'
-import { useDispatch } from 'renderer/hooks/useDispatch'
+import { useStore } from 'src/renderer/hooks/useStore'
+import { useInterval } from 'src/renderer/hooks/useInterval'
+import { useDispatch } from 'src/renderer/hooks/useDispatch'
 
 const useWindowId = () => {
 	const [state, setState] = useState<string | null>(null)

@@ -12,16 +12,16 @@ import {
 	RxValueNone,
 } from 'react-icons/rx'
 
-import { preventKeyboardNavigation } from 'renderer/utils/keyboardNavigation'
-import { useStore } from 'renderer/hooks/useStore'
-import { useDispatch } from 'renderer/hooks/useDispatch'
-import { useFileSystemSWR } from 'renderer/hooks/useSWR'
-import { Toolbar, ToolbarButton } from 'renderer/components/Toolbar'
-import { EmptyState } from 'renderer/components/EmptyState'
-import { Button } from 'renderer/components/Button'
-import { Footer } from 'renderer/components/Footer'
-import { focusById } from 'renderer/utils/focusChildElement'
-import { FOCUSABLE_SELECTOR } from 'renderer/utils/getFocusable'
+import { preventKeyboardNavigation } from 'src/renderer/utils/keyboardNavigation'
+import { useStore } from 'src/renderer/hooks/useStore'
+import { useDispatch } from 'src/renderer/hooks/useDispatch'
+import { useFileSystemSWR } from 'src/renderer/hooks/useSWR'
+import { Toolbar, ToolbarButton } from 'src/renderer/components/Toolbar'
+import { EmptyState } from 'src/renderer/components/EmptyState'
+import { Button } from 'src/renderer/components/Button'
+import { Footer } from 'src/renderer/components/Footer'
+import { focusById } from 'src/renderer/utils/focusChildElement'
+import { FOCUSABLE_SELECTOR } from 'src/renderer/utils/getFocusable'
 
 const FinderStatusItem = ({ children }: { children: ReactNode }) => (
 	<p className='text-slate-10 px-4 h-full flex items-center border-r border-slate-4'>{children}</p>

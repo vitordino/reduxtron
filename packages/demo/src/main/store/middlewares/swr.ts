@@ -1,7 +1,7 @@
 import { readdir } from 'node:fs/promises'
 import type { Middleware as BaseMiddleware } from 'redux'
-import type { Middleware, Action } from 'shared/reducers'
-import { KEY_PREFIX_MAP } from 'shared/reducers/swr'
+import type { Middleware, Action } from 'src/shared/reducers'
+import { KEY_PREFIX_MAP } from 'src/shared/reducers/swr'
 
 const actionsToIntercept = [
 	'SWR:FETCH_URL',
