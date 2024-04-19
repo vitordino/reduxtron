@@ -1,34 +1,19 @@
-# reduxtron vanilla boilerplate
+# reduxtron svelte boilerplate
 
-An Electron application with React and TypeScript
+a reduxtron application with svelte and typescript
 
-## Recommended IDE Setup
-
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-
-## Project Setup
-
-### Install
+## project setup
 
 ```bash
-$ npm install
-```
+# clone this folder:
+npx degit vitordino/reduxtron/packages/boilerplate-svelte new-reduxtron-project
 
-### Development
+# cd to it
+cd new-reduxtron-project
 
-```bash
-$ npm run dev
-```
+# install dependencies
+npm i
 
-### Build
-
-```bash
-# For windows
-$ npm run build:win
-
-# For macOS
-$ npm run build:mac
-
-# For Linux
-$ npm run build:linux
+# run dev script
+npm run dev
 ```
