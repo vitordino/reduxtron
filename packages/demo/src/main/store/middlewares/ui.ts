@@ -1,7 +1,7 @@
-import type { Middleware } from 'shared/reducers'
-import { tray } from 'main/tray/tray'
-import { windowManager } from 'main/window/window-manager'
-import { WindowPath, WindowState } from 'shared/reducers/settings'
+import type { Middleware } from 'src/shared/reducers'
+import { tray } from 'src/main/tray/tray'
+import { windowManager } from 'src/main/window/window-manager'
+import { WindowPath, WindowState } from 'src/shared/reducers/settings'
 
 const difference = <T>(a: T[], b: T[]): T[] => a.filter(x => !b.includes(x))
 

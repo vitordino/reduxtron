@@ -2,10 +2,10 @@ import { join } from 'path'
 import { is } from '@electron-toolkit/utils'
 import { BrowserWindow, BrowserWindowConstructorOptions, app, ipcMain, shell } from 'electron'
 
-import type { Dispatch } from 'shared/reducers'
-import { WindowPath } from 'shared/reducers/settings'
-import { MenuBuilder } from 'main/window/window-native-menu'
-import { windowDebug } from 'main/window/window-debug'
+import type { Dispatch } from 'src/shared/reducers'
+import { WindowPath } from 'src/shared/reducers/settings'
+import { MenuBuilder } from 'src/main/window/window-native-menu'
+import { windowDebug } from 'src/main/window/window-debug'
 
 const icon = join(__dirname, '../../resources', 'images', 'icon.png')
 

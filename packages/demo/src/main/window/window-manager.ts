@@ -1,6 +1,6 @@
-import { WindowPath } from 'shared/reducers/settings'
+import { WindowPath } from 'src/shared/reducers/settings'
 import { Window } from './window'
-import { Dispatch } from 'shared/reducers'
+import { Dispatch } from 'src/shared/reducers'
 
 class WindowManager {
 	private dispatch?: Dispatch

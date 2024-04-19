@@ -1,13 +1,13 @@
 import { RxCheck, RxInput } from 'react-icons/rx'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-import { focusById } from 'renderer/utils/focusChildElement'
-import { useStore } from 'renderer/hooks/useStore'
-import { useDispatch } from 'renderer/hooks/useDispatch'
-import { Button } from 'renderer/components/Button'
-import { FOCUSABLE_SELECTOR, getFocusable } from 'renderer/utils/getFocusable'
-import { WINDOW_PATHS, WindowPath } from 'shared/reducers/settings'
-import { compare } from 'renderer/utils/compare'
+import { focusById } from 'src/renderer/utils/focusChildElement'
+import { useStore } from 'src/renderer/hooks/useStore'
+import { useDispatch } from 'src/renderer/hooks/useDispatch'
+import { Button } from 'src/renderer/components/Button'
+import { FOCUSABLE_SELECTOR, getFocusable } from 'src/renderer/utils/getFocusable'
+import { WINDOW_PATHS, WindowPath } from 'src/shared/reducers/settings'
+import { compare } from 'src/renderer/utils/compare'
 
 const ADD_TO_DO_PREFIX = 'add-to-do/'
 const ADD_TO_DO_PATHS = WINDOW_PATHS.filter(x => x.startsWith(ADD_TO_DO_PREFIX))

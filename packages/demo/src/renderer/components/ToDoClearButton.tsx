@@ -1,6 +1,6 @@
 import type { KeyboardEvent } from 'react'
-import { useDispatch } from 'renderer/hooks/useDispatch'
-import { getLastFocusable } from 'renderer/utils/getFocusable'
+import { useDispatch } from 'src/renderer/hooks/useDispatch'
+import { getLastFocusable } from 'src/renderer/utils/getFocusable'
 
 const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
 	if (e.key === 'ArrowUp') {

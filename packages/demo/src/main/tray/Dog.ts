@@ -1,5 +1,5 @@
 import { MenuItemConstructorOptions } from 'electron'
-import type { Dispatch, State } from 'shared/reducers'
+import type { Dispatch, State } from 'src/shared/reducers'
 
 const ALL_BREEDS_ENDPOINT = 'https://dog.ceo/api/breeds/list/all'
 
@@ -35,10 +35,10 @@ export const TrayDog = (state: Partial<State>, dispatch: Dispatch): MenuItemCons
 									payload: label,
 								}),
 						})),
-				  }
+					}
 				: {
 						label: `no breeds: ${status}`,
-				  },
+					},
 		],
 	}
 }

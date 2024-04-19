@@ -1,21 +1,18 @@
 {
-  "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
-  "include": [
-    "src/shared/**/*",
-    "src/renderer/env.d.ts",
-    "src/renderer/**/*",
-    "src/renderer/**/*.tsx",
-    "src/preload/**/*.ts",
-    "src/renderer/_preload.d.ts"
-  ],
-  "compilerOptions": {
-    "composite": true,
-    "jsx": "react-jsx",
-    "baseUrl": "./",
-    "skipLibCheck": true,
-    "paths": {
-      "renderer/*": ["src/renderer/*"],
-      "shared/*": ["src/shared/*"]
-    }
-  }
+	"extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
+	"include": [
+		"src/shared/**/*",
+		"src/renderer/env.d.ts",
+		"src/renderer/**/*",
+		"src/renderer/**/*.svelte",
+		"src/renderer/**/*.tsx",
+		"src/preload/*.d.ts"
+	],
+	"compilerOptions": {
+		"composite": true,
+		"jsx": "react-jsx",
+		"skipLibCheck": true,
+		"baseUrl": ".",
+		"moduleResolution": "NodeNext"
+	}
 }

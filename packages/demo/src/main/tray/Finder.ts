@@ -1,6 +1,6 @@
 import type { MenuItemConstructorOptions } from 'electron'
-import type { Dispatch, State } from 'shared/reducers'
-import { FSData, KEY_PREFIX_MAP, SWRItem } from 'shared/reducers/swr'
+import type { Dispatch, State } from 'src/shared/reducers'
+import { FSData, KEY_PREFIX_MAP, SWRItem } from 'src/shared/reducers/swr'
 
 // on click actions
 const pick = (dispatch: Dispatch) => () => dispatch({ type: 'FOLDER:PICK' })

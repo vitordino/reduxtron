@@ -1,8 +1,8 @@
-import type { ToDo as TodoType } from 'shared/reducers/toDos'
+import type { ToDo as TodoType } from 'src/shared/reducers/toDos'
 import { RxCross2 } from 'react-icons/rx'
-import { useDispatch } from 'renderer/hooks/useDispatch'
-import { Checkbox } from 'renderer/components/Checkbox'
-import { Button } from 'renderer/components/Button'
+import { useDispatch } from 'src/renderer/hooks/useDispatch'
+import { Checkbox } from 'src/renderer/components/Checkbox'
+import { Button } from 'src/renderer/components/Button'
 
 export type ToDoProps = TodoType
 

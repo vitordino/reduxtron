@@ -6,8 +6,8 @@ import vue from '@vitejs/plugin-vue'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
-	main: { plugins: [tsconfigPaths(), externalizeDepsPlugin()] },
-	preload: { plugins: [tsconfigPaths(), externalizeDepsPlugin()] },
+	main: { plugins: [tsconfigPaths(), externalizeDepsPlugin({ exclude: ['reduxtron'] })] },
+	preload: { plugins: [tsconfigPaths(), externalizeDepsPlugin({ exclude: ['reduxtron'] })] },
 	renderer: {
 		plugins: [tsconfigPaths(), react(), svelte(), vue()],
 		publicDir: '../../resources',

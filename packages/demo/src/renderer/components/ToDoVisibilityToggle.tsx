@@ -1,9 +1,9 @@
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
-import { useStore } from 'renderer/hooks/useStore'
-import { useDispatch } from 'renderer/hooks/useDispatch'
-import type { VisibilityFilter } from 'shared/reducers/toDos'
-import { preventKeyboardNavigation } from 'renderer/utils/keyboardNavigation'
-import { getFocusable, getLastFocusable } from 'renderer/utils/getFocusable'
+import { useStore } from 'src/renderer/hooks/useStore'
+import { useDispatch } from 'src/renderer/hooks/useDispatch'
+import type { VisibilityFilter } from 'src/shared/reducers/toDos'
+import { preventKeyboardNavigation } from 'src/renderer/utils/keyboardNavigation'
+import { getFocusable, getLastFocusable } from 'src/renderer/utils/getFocusable'
 
 const itemClasses =
 	'px-2 py-2 text-slate-8 data-[state=on]:text-slate-11 focus-visible:z-10 focus-visible:outline-none focus-visible:bg-slate-4 focus-visible:dark:bg-slate-4'

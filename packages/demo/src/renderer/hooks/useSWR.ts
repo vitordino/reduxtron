@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { compare } from 'renderer/utils/compare'
+import { compare } from 'src/renderer/utils/compare'
 import {
 	SWRItem,
 	SWRItemData,
@@ -7,9 +7,9 @@ import {
 	SWRType,
 	KEY_PREFIX_MAP,
 	SWR_ACTION_TYPE_MAP,
-} from 'shared/reducers/swr'
-import { useStore } from 'renderer/hooks/useStore'
-import { useDispatch } from 'renderer/hooks/useDispatch'
+} from 'src/shared/reducers/swr'
+import { useStore } from 'src/renderer/hooks/useStore'
+import { useDispatch } from 'src/renderer/hooks/useDispatch'
 
 export type Arguments = string | null | undefined | false
 export type Key = Arguments | (() => Arguments)

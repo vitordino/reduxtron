@@ -1,10 +1,10 @@
 import { Menu, Tray, nativeImage } from 'electron'
-import type { Dispatch, State } from 'shared/reducers'
-import { TrayDog } from 'main/tray/Dog'
-import { TrayFinder } from 'main/tray/Finder'
-import { TrayToDo } from 'main/tray/ToDo'
-import { TraySettingsMenu } from 'main/tray/TraySettingsMenu'
-import image from 'main/tray/tray.png'
+import type { Dispatch, State } from 'src/shared/reducers'
+import { TrayDog } from 'src/main/tray/Dog'
+import { TrayFinder } from 'src/main/tray/Finder'
+import { TrayToDo } from 'src/main/tray/ToDo'
+import { TraySettingsMenu } from 'src/main/tray/TraySettingsMenu'
+import image from 'src/main/tray/tray.png'
 
 const trayIcon = nativeImage.createFromDataURL(image).resize({
 	width: 18,

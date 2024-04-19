@@ -1,14 +1,14 @@
 import type { ComponentProps, KeyboardEvent } from 'react'
 import { Reorder, useMotionValue } from 'framer-motion'
 
-import { VisibilityFilter } from 'shared/reducers/toDos'
-import { compare } from 'renderer/utils/compare'
-import { useStore } from 'renderer/hooks/useStore'
-import { useDispatch } from 'renderer/hooks/useDispatch'
-import { useIsAnimating } from 'renderer/hooks/useIsAnimating'
-import { ToDo, ToDoProps } from 'renderer/components/ToDo'
-import { EmptyState } from 'renderer/components/EmptyState'
-import { focusById, focusFirstElement } from 'renderer/utils/focusChildElement'
+import { VisibilityFilter } from 'src/shared/reducers/toDos'
+import { compare } from 'src/renderer/utils/compare'
+import { useStore } from 'src/renderer/hooks/useStore'
+import { useDispatch } from 'src/renderer/hooks/useDispatch'
+import { useIsAnimating } from 'src/renderer/hooks/useIsAnimating'
+import { ToDo, ToDoProps } from 'src/renderer/components/ToDo'
+import { EmptyState } from 'src/renderer/components/EmptyState'
+import { focusById, focusFirstElement } from 'src/renderer/utils/focusChildElement'
 
 type ReorderTodoItemProps = { todo: ToDoProps } & Partial<ComponentProps<typeof Reorder.Item>>
 
